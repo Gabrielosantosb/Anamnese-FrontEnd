@@ -1,0 +1,82 @@
+<div class='grid'>
+  <div class='col-12'>
+    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Categorias">
+      <p-table
+        [value]="categories"
+        [(selection)]="categorySelected"
+        [rows]="10"
+        [paginator]="true"
+        [responsive]="true"
+        [tableStyle]="{'min-width': '75rem' }"
+        [rowHover]='true'
+        [showCurrentPageReport]='true'
+        dataKey="id"
+        currentPageReportTemplate="Motrando {first} de {last} de {totalRecords} produtos"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="name">
+              <div class='flex justify-content-between align-items-center'>
+                <div class="flex justify-content-between align-items-center">
+                  Nome
+                </div>
+                <div class='justify-content-between align-items-center'>
+                  <p-sortIcon field='name'></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field='name'
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]='false'
+                    [showAddButton]="false"
+                    [showOperator]="false"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="flex justify-content-center">
+                <p-button
+                  styleClass="p-button-info"
+                  icon='pi pi-plus'
+                  pTooltip = "Adicionar Categoria"
+                  tooltipPosition="top"
+                  label='Adicionar'
+                  (onClick)="handleCategoryEvent(addCategoryAction)"
+                ></p-button>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category>
+          <tr>
+            <td>{{category?.name}}</td>
+            <td>
+              <div class='flex justify-content-center gap-3 align-content-center align-items-center'>
+                <button
+                  pButton
+                  pRipple
+                  pTooltip = 'Editar Categoria'
+                  tooltipPosition="top"
+                  icon='pi pi-pencil'
+                  class="p-button-rounded p-button-warning"
+                  (click)="handleCategoryEvent(editCategoryAction, category?.id, category?.name)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  pTooltip = 'Excluir Categoria'
+                  tooltipPosition="top"
+                  icon='pi pi-trash'
+                  class="p-button-rounded p-button-danger"
+                  (click)="handleDeleteCategoryEvent(category?.id, category?.name)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+  <p-confirmDialog></p-confirmDialog>
+</div>
