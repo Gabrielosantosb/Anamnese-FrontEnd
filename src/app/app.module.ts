@@ -15,6 +15,7 @@ import {CookieService} from "ngx-cookie-service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {ToastMessage} from "./services/toast-message/toast-message";
+import {SharedModule} from "./shared/shared.module";
 
 
 @NgModule({
@@ -22,21 +23,22 @@ import {ToastMessage} from "./services/toast-message/toast-message";
     AppComponent,
     HomeComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    CardModule,
-    InputTextModule,
-    ButtonModule,
-    ToastModule,
-    RippleModule,
-    FormsModule,
-    ConfirmDialogModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        CardModule,
+        InputTextModule,
+        ButtonModule,
+        ToastModule,
+        RippleModule,
+        FormsModule,
+        ConfirmDialogModule,
+        SharedModule
 
-  ],
+    ],
   providers: [CookieService, MessageService,ConfirmationService, ToastMessage],
   bootstrap: [AppComponent]
 })

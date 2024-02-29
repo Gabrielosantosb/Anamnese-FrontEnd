@@ -11,7 +11,7 @@ import {ProductEvent} from "../../../../models/interfaces/enums/products/Product
 @Component({
   selector: 'app-toolbar-navigation',
   templateUrl: './toolbar-navigation.component.html',
-  styleUrls: [],
+  styleUrls: ['./toolbar.scss'],
   providers: [ConfirmationModal,]
 })
 export class ToolbarNavigationComponent {

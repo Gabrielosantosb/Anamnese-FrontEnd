@@ -1,41 +1,32 @@
-<p-toolbar styleClass="bg-indigo-800 ">
-  <div class="p-toolbar-group-start">
-    <p-button icon="pi pi-home"
-              label="Dashboard"
-              routerLink="/dashboard"
-              styleClass="bg-indigo-800  p-button-secondary"
-              routerLinkActive="exact_route"></p-button>
-  </div>
-  <div class="p-toolbar-group-center">
-    <p-button icon="pi pi-cart-plus"
-              label="Produtos"
-              routerLink="/products"
-              styleClass="bg-indigo-800  p-button-secondary"
-              routerLinkActive="exact_route"
-              class="mr-4"></p-button>
+<div class="layout-topbar">
+  <button #menubutton class="p-link layout-menu-button layout-topbar-button">
+    <i class="pi pi-bars"></i>
+  </button>
 
-    <p-button icon="pi pi-ticket"
-              label="Categorias"
-              routerLink="/categories"
-              styleClass="bg-indigo-800  p-button-secondary"
-              routerLinkActive="exact_route"
-              class="mr-4"></p-button>
+  <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" >
+    <i class="pi pi-ellipsis-v"></i>
+  </button>
 
-    <p-button icon="pi pi-credit-card"
-              label="Efetuar venda"
-              routerLink="/products"
-              styleClass="bg-indigo-800  p-button-secondary"
-              (onClick)="handleSaleProduct()"
-              class="mr-4"></p-button>
-  </div>
-  <div class="p-toolbar-group-end">
-    <p-button
-      label="Sair"
-      icon="pi pi-sign-out"
-      styleClass="p-button-danger"
-      (click)="logout()"
-    >
-    </p-button>
+  <div #topbarmenu class="layout-topbar-menu" >
+    <button class="p-link layout-topbar-button"  routerLink="/dashboard">
+      <i class="pi pi-home"></i>
+      <span>Dashboard</span>
+    </button>
 
+  <div #topbarmenu class="layout-topbar-menu" >
+    <button class="p-link layout-topbar-button"  routerLink="/products">
+      <i class="pi pi-calendar"></i>
+      <span>Prontuarios</span>
+    </button>
+
+    <button class="p-link layout-topbar-button" routerLink="/categories">
+      <i class="pi pi-user"></i>
+      <span>Pacientes</span>
+    </button>
+
+    <button class="p-link layout-topbar-button" (click)="logout()">
+      <i class="pi pi-sign-out"></i>
+      <span>Sair</span>
+    </button>
   </div>
-</p-toolbar>
+</div>

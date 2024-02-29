@@ -14,6 +14,8 @@ import {DropdownModule} from "primeng/dropdown";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ToastMessage} from "../services/toast-message/toast-message";
 import { ShortenPipe } from './pipes/shorten/shorten.pipe';
+import { SidebarNavigationComponent } from './components/sidebar-navigation/sidebar-navigation.component';
+import {SidebarModule} from "primeng/sidebar";
 
 
 
@@ -26,6 +28,7 @@ import { ShortenPipe } from './pipes/shorten/shorten.pipe';
     ToolbarNavigationComponent,
     ProductFormComponent,
     ShortenPipe,
+    SidebarNavigationComponent,
 
   ],
     imports: [
@@ -40,11 +43,13 @@ import { ShortenPipe } from './pipes/shorten/shorten.pipe';
         ConfirmDialogModule,
         InputTextModule,
         DropdownModule,
-        InputTextareaModule
+        InputTextareaModule,
+        SidebarModule
     ],
   exports: [
     ToolbarNavigationComponent,
-    ShortenPipe
+    ShortenPipe,
+    SidebarNavigationComponent
   ],
   // exports:[ToolbarNavigationComponent],
   providers: [DialogService, CurrencyPipe,ToastMessage]
