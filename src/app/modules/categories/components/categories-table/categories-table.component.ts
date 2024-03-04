@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {GetCategoriesResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
 import {EditCategoryAction} from "../../../../../models/interfaces/categories/event/editCategory";
 import {CategoryEvent} from "../../../../../models/interfaces/enums/categories/CategoryEvent";
-import {DeleteCategory} from "../../../../../models/interfaces/categories/event/deleteCategory";
+import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
 
 @Component({
   selector: 'app-categories-table',
@@ -12,14 +12,15 @@ import {DeleteCategory} from "../../../../../models/interfaces/categories/event/
 export class CategoriesTableComponent {
   @Input() public categories: Array<GetCategoriesResponse> = [];
   @Output() public categoryEvent = new EventEmitter<EditCategoryAction>();
-  @Output() public deleteCategoryEvent = new EventEmitter<DeleteCategory>();
+  @Output() public deleteCategoryEvent = new EventEmitter<DeletePacient>();
+
   public categorySelected!: GetCategoriesResponse;
   public addCategoryAction = CategoryEvent.ADD_CATEGORY_ACTION;
   public editCategoryAction = CategoryEvent.EDIT_CATEGORY_ACTION;
 
-  handleDeleteCategoryEvent(category_id: string, categoryName: string): void {
-    if (category_id !== '' && categoryName !== '') {
-      this.deleteCategoryEvent.emit({ category_id, categoryName });
+  handleDeleteCategoryEvent(pacient_id: number, pacientName: string): void {
+    if (pacient_id !== null && pacientName !== '') {
+      this.deleteCategoryEvent.emit({ pacient_id, pacientName });
     }
   }
 

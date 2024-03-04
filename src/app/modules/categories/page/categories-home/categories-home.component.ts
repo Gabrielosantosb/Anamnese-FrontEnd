@@ -6,10 +6,10 @@ import {GetCategoriesResponse} from "../../../../../models/interfaces/categories
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {Router} from "@angular/router";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
-import {DeleteCategory} from "../../../../../models/interfaces/categories/event/deleteCategory";
 import {EventAction} from "../../../../../models/interfaces/products/event/EventAction";
 import {CategoryFormComponent} from "../../components/category-form/category-form/category-form.component";
 import {ProductsDataTransferService} from "../../../../shared/products/products-data-transfer.service";
+import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
 
 @Component({
   selector: 'app-categories-home',
@@ -37,9 +37,28 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
     this.getAllCategories();
   }
 
+  // getAllCategories() {
+  //   this.categoriesService
+  //     .getAllCategories()
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (response) => {
+  //         if (response.length > 0) {
+  //
+  //           this.categoriesData = response;
+  //         }
+  //       },
+  //       error: (err) => {
+  //         console.log(err);
+  //         this.toastMessage.ErrorMessage('Erro ao buscar categorias!')
+  //         this.router.navigate(['/dashboard']);
+  //       },
+  //     });
+  // }
+
   getAllCategories() {
     this.categoriesService
-      .getAllCategories()
+      .getAllPacients()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
@@ -50,44 +69,65 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.log(err);
-          this.toastMessage.ErrorMessage('Erro ao buscar categorias!')
+          this.toastMessage.ErrorMessage('Erro ao buscar Pacientes!')
           this.router.navigate(['/dashboard']);
         },
       });
   }
-
-  handleDeleteCategoryAction(event: DeleteCategory): void {
-    if (event && event.categoryName !== 'Macbooks' && event.categoryName !== 'Notebooks') {
-      if (this.isCategoryUsed(event.category_id)) {
-        this.toastMessage.ErrorMessage(`Não é possível excluir a categoria ${event.categoryName}, pois ela está associada a um produto`);
-      } else {
-        this.confirmationModal.confirmDelete(`Confirma a exclusão da categoria: ${event?.categoryName}`, () => this.deleteCategory(event?.category_id));
-      }
+  handleDeleteCategoryAction(event: DeletePacient): void {
+    if (event && event.pacientName !== 'Macbooks' && event.pacientName !== 'Notebooks') {
+      // if (this.isCategoryUsed(event.category_id)) {
+      //   this.toastMessage.ErrorMessage(`Não é possível excluir a categoria ${event.categoryName}, pois ela está associada a um produto`);
+      // } else {
+        this.confirmationModal.confirmDelete(`Confirma a exclusão da categoria: ${event?.pacientName}`, () => this.deleteCategory(event?.pacient_id));
+      // }
     } else {
-      this.toastMessage.ErrorMessage(`Não é possível excluir a categoria ${event.categoryName}`);
+      this.toastMessage.ErrorMessage(`Não é possível excluir o Paciente ${event.pacientName}`);
     }
   }
 
-  deleteCategory(category_id: string): void {
-    if (category_id) {
+  // deleteCategory(category_id: string): void {
+  //   if (category_id) {
+  //     this.categoriesService
+  //       .deleteCategory({category_id})
+  //       .pipe(takeUntil(this.destroy$))
+  //       .subscribe({
+  //         next: () => {
+  //           this.getAllCategories();
+  //           this.toastMessage.SuccessMessage('Categoria removida com sucesso!')
+  //         },
+  //         error: (err) => {
+  //           console.log(err);
+  //           this.getAllCategories();
+  //           this.toastMessage.ErrorMessage('Erro ao remover categoria!')
+  //         },
+  //       });
+  //
+  //     this.getAllCategories();
+  //   }
+  // }
+
+  deleteCategory(pacient_id: number): void {
+    if (pacient_id) {
       this.categoriesService
-        .deleteCategory({category_id})
+        .deletePacient({pacient_id})
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
             this.getAllCategories();
-            this.toastMessage.SuccessMessage('Categoria removida com sucesso!')
+            this.toastMessage.SuccessMessage('Paciente  removida com sucesso!')
           },
           error: (err) => {
             console.log(err);
             this.getAllCategories();
-            this.toastMessage.ErrorMessage('Erro ao remover categoria!')
+            this.toastMessage.ErrorMessage('Erro ao remover paciente !')
           },
         });
 
       this.getAllCategories();
     }
   }
+
 
   handleCategoryAction(event: EventAction): void {
     if (event) {

@@ -11,7 +11,7 @@
         [rowHover]='true'
         [showCurrentPageReport]='true'
         dataKey="id"
-        currentPageReportTemplate="Motrando {first} de {last} de {totalRecords} produtos"
+        currentPageReportTemplate="Motrando {first} de {last} de {totalRecords} pacientes"
       >
         <ng-template pTemplate="header">
           <tr>
@@ -49,14 +49,16 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-category>
+<!--        <ng-template pTemplate="body" let-category>-->
           <tr>
-            <td>{{category?.name}}</td>
+            <td>{{category?.userName}}</td>
+<!--            <td>{{category?.username}}</td>-->
             <td>
               <div class='flex justify-content-center gap-3 align-content-center align-items-center'>
                 <button
                   pButton
                   pRipple
-                  pTooltip = 'Editar Categoria'
+                  pTooltip = 'Editar Paciente'
                   tooltipPosition="top"
                   icon='pi pi-pencil'
                   class="p-button-rounded p-button-warning"
@@ -65,11 +67,11 @@
                 <button
                   pButton
                   pRipple
-                  pTooltip = 'Excluir Categoria'
+                  pTooltip = 'Excluir Paciente'
                   tooltipPosition="top"
                   icon='pi pi-trash'
                   class="p-button-rounded p-button-danger"
-                  (click)="handleDeleteCategoryEvent(category?.id, category?.name)"
+                  (click)="handleDeleteCategoryEvent(category?.id, category?.userName)"
                 ></button>
               </div>
             </td>

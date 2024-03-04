@@ -27,7 +27,12 @@ export class CategoriesService {
       this.httpOptions
     )
   }
-
+  getAllPacients(): Observable<Array<GetCategoriesResponse>> {
+    return this.http.get<Array<GetCategoriesResponse>>(
+      `${this.API_URL}/api/Pacient/get-pacients`,
+      this.httpOptions
+    )
+  }
   createCategory(requestData: { name: string }): Observable<Array<GetCategoriesResponse>> {
     return this.http.post<Array<GetCategoriesResponse>>(
       `${this.API_URL}/category`,
@@ -45,11 +50,17 @@ export class CategoriesService {
   }
 
 
-  deleteCategory(requestData: { category_id: string }): Observable<void> {
+  deletePacient(requestData: { pacient_id: number }): Observable<void> {
+    const token = this.cookie.get(this.USER_AUTH);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      })
+    };
     return this.http.delete<void>(
-      `${this.API_URL}/category/delete`,
-      {...this.httpOptions, params: {category_id: requestData.category_id}}
+      `${this.API_URL}/api/Pacient/remove-pacient/${requestData.pacient_id}`,
+      httpOptions
     );
   }
-
 }
