@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {FormBuilder, Validators} from "@angular/forms";
-import {CategoriesService} from "../../../../../services/categories/categories.service";
 import {CategoryEvent} from "../../../../../../models/interfaces/enums/categories/CategoryEvent";
 import {EditCategoryAction} from "../../../../../../models/interfaces/categories/event/editCategory";
 import {ToastMessage} from "../../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../../services/confirmation/confirmation-service.service";
+import {PacientService} from "../../../../../services/categories/categories.service";
 
 @Component({
   selector: 'app-category-form',
@@ -17,18 +17,25 @@ import {ConfirmationModal} from "../../../../../services/confirmation/confirmati
 export class CategoryFormComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
 
-  public addCategoryAction = CategoryEvent.ADD_CATEGORY_ACTION;
-  public editCategoryAction = CategoryEvent.EDIT_CATEGORY_ACTION;
+  public addPacientAction = CategoryEvent.ADD_CATEGORY_ACTION;
+  public editPacientAction = CategoryEvent.EDIT_CATEGORY_ACTION;
 
   public categoryAction!: { event: EditCategoryAction };
   public categoryForm = this.formBuilder.group({
-    name: ['', Validators.required],
+    name: ['gabriel', Validators.required],
+    email: ['gabriel@gmail.com', Validators.required],
+    adress: ['QNJ', Validators.required],
+    uf: ['DF', Validators.required],
+    phone: ['123123123123', Validators.required],
+    birth: ['26102002', Validators.required],
+    gender: ['M', Validators.required],
+    profession: ['Vagabumdo', Validators.required],
   });
 
   constructor(
     public ref: DynamicDialogConfig,
     private formBuilder: FormBuilder,
-    private categoriesService: CategoriesService,
+    private pacientService: PacientService,
     private confirmationModal: ConfirmationModal,
     private toastMessage: ToastMessage
   ) {}
@@ -37,37 +44,44 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     this.categoryAction = this.ref.data;
 
     if (
-      (this.categoryAction?.event?.action === this.editCategoryAction && this.categoryAction?.event?.categoryName !== null) || undefined)
-      this.setCategoryName(this.categoryAction?.event?.categoryName as string);
+      (this.categoryAction?.event?.action === this.editPacientAction && this.categoryAction?.event?.categoryName !== null) || undefined)
+      this.setPacientName(this.categoryAction?.event?.categoryName as string);
 
   }
 
-  handleSubmitCategoryAction(): void {
-    if (this.categoryAction?.event?.action === this.addCategoryAction) this.handleSubmitAddCategory();
-    if (this.categoryAction?.event?.action === this.editCategoryAction) this.handleSubmitEditCategory();
+  handleSubmitPacientAction(): void {
+    if (this.categoryAction?.event?.action === this.addPacientAction) this.handleSubmitAddPacient();
+    if (this.categoryAction?.event?.action === this.editPacientAction) this.handleSubmitEditCategory();
     return;
   }
 
-  handleSubmitAddCategory(): void {
+  handleSubmitAddPacient(): void {
     if (this.categoryForm?.value && this.categoryForm?.valid) {
-      const requestCreateCategory: { name: string } = {
-        name: this.categoryForm.value.name as string,
+      const requestCreateCategory: { username: string, email: string, adress: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
+        username: this.categoryForm.value.name as string,
+        email: this.categoryForm.value.email as string,
+        adress: this.categoryForm.value.adress as string,
+        uf: this.categoryForm.value.uf as string,
+        phone: this.categoryForm.value.phone as string,
+        profession: this.categoryForm.value.profession as string,
+        birth: this.categoryForm.value.birth as string,
+        gender: this.categoryForm.value.gender as string,
       };
 
-      this.categoriesService
-        .createCategory(requestCreateCategory)
+      this.pacientService
+        .createPacient(requestCreateCategory)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: (response) => {
+          next: (response:any) => {
             if (response) {
               this.categoryForm.reset();
-              this.toastMessage.SuccessMessage('Categoria criada com sucesso!')
+              this.toastMessage.SuccessMessage('Paciente criado com sucesso!')
             }
           },
-          error: (err) => {
+          error: (err: any) => {
             console.log(err);
             this.categoryForm.reset();
-            this.toastMessage.ErrorMessage('Erro ao criar categoria!')
+            this.toastMessage.ErrorMessage('Erro ao criar Paciente!')
           },
         });
     }
@@ -84,7 +98,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
         category_id: this.categoryAction?.event?.id,
       };
 
-      this.categoriesService
+      this.pacientService
         .editCategory(requestEditCategory)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -92,7 +106,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
             this.categoryForm.reset();
             this.toastMessage.SuccessMessage('Categoria editada com sucesso!')
           },
-          error: (err) => {
+          error: (err: any) => {
             console.log(err);
             this.categoryForm.reset();
             this.toastMessage.ErrorMessage('Erro ao editar categoria!')
@@ -101,11 +115,19 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  setCategoryName(categoryName: string): void {
+  setPacientName(categoryName: string): void {
     if (categoryName) {
-      this.categoryForm.setValue({
-        name: categoryName,
-      });
+      const formValues = {
+        name: this.categoryForm.value.name || '',
+        email: this.categoryForm.value.email || '',
+        adress: this.categoryForm.value.adress || '',
+        uf: this.categoryForm.value.uf || '',
+        phone: this.categoryForm.value.phone|| '',
+        birth: this.categoryForm.value.birth || '',
+        gender: this.categoryForm.value.gender|| '',
+        profession: this.categoryForm.value.profession|| '',
+      };
+      this.categoryForm.setValue(formValues);
     }
   }
 

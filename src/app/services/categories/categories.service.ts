@@ -3,12 +3,12 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
 import {Observable} from "rxjs";
-import {GetCategoriesResponse} from "../../../models/interfaces/categories/get-categories-service.service";
+import {GetPacientsResponse} from "../../../models/interfaces/categories/get-categories-service.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriesService {
+export class PacientService {
   private API_URL = environments.API_URL;
   private readonly USER_AUTH = environments.COOKIES_VALUE.user_auth
   private token = this.cookie.get(this.USER_AUTH)
@@ -21,21 +21,39 @@ export class CategoriesService {
 
   constructor(private http: HttpClient, private cookie: CookieService) {}
 
-  getAllCategories(): Observable<Array<GetCategoriesResponse>> {
-    return this.http.get<Array<GetCategoriesResponse>>(
+  getAllCategories(): Observable<Array<GetPacientsResponse>> {
+    return this.http.get<Array<GetPacientsResponse>>(
       `${this.API_URL}/categories`,
       this.httpOptions
     )
   }
-  getAllPacients(): Observable<Array<GetCategoriesResponse>> {
-    return this.http.get<Array<GetCategoriesResponse>>(
+  getAllPacients(): Observable<Array<GetPacientsResponse>> {
+    return this.http.get<Array<GetPacientsResponse>>(
       `${this.API_URL}/api/Pacient/get-pacients`,
       this.httpOptions
     )
   }
-  createCategory(requestData: { name: string }): Observable<Array<GetCategoriesResponse>> {
-    return this.http.post<Array<GetCategoriesResponse>>(
+  createCategory(requestData: { name: string }): Observable<Array<GetPacientsResponse>> {
+
+    return this.http.post<Array<GetPacientsResponse>>(
       `${this.API_URL}/category`,
+      requestData,
+      this.httpOptions
+    );
+  }
+
+  createPacient(requestData: {
+    username: string;
+    email: string;
+    adress: string;
+    uf: string;
+    phone: string;
+    birth: string;
+    profession: string;
+    gender: string;}): Observable<Array<GetPacientsResponse>> {
+      console.log('Request:', requestData)
+    return this.http.post<Array<GetPacientsResponse>>(
+      `${this.API_URL}/api/Pacient/create-pacient`,
       requestData,
       this.httpOptions
     );
@@ -51,16 +69,9 @@ export class CategoriesService {
 
 
   deletePacient(requestData: { pacient_id: number }): Observable<void> {
-    const token = this.cookie.get(this.USER_AUTH);
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      })
-    };
     return this.http.delete<void>(
       `${this.API_URL}/api/Pacient/remove-pacient/${requestData.pacient_id}`,
-      httpOptions
+      this.httpOptions
     );
   }
 }

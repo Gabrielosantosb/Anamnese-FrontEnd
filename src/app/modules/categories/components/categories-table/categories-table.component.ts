@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {GetCategoriesResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
+import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
 import {EditCategoryAction} from "../../../../../models/interfaces/categories/event/editCategory";
 import {CategoryEvent} from "../../../../../models/interfaces/enums/categories/CategoryEvent";
 import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
@@ -10,11 +10,11 @@ import {DeletePacient} from "../../../../../models/interfaces/categories/event/d
   styleUrls: ['./categories-table.component.scss']
 })
 export class CategoriesTableComponent {
-  @Input() public categories: Array<GetCategoriesResponse> = [];
+  @Input() public categories: Array<GetPacientsResponse> = [];
   @Output() public categoryEvent = new EventEmitter<EditCategoryAction>();
   @Output() public deleteCategoryEvent = new EventEmitter<DeletePacient>();
 
-  public categorySelected!: GetCategoriesResponse;
+  public categorySelected!: GetPacientsResponse;
   public addCategoryAction = CategoryEvent.ADD_CATEGORY_ACTION;
   public editCategoryAction = CategoryEvent.EDIT_CATEGORY_ACTION;
 

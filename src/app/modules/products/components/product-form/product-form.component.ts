@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, take, takeUntil} from "rxjs";
-import {CategoriesService} from "../../../../services/categories/categories.service";
+import {PacientService} from "../../../../services/categories/categories.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
-import {GetCategoriesResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
+import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
 import {CreateProductRequest} from "../../../../../models/interfaces/products/request/CreateProductRequest";
 import {ProductsService} from "../../../../services/products/products.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
@@ -24,7 +24,7 @@ import {SaleProductRequest} from "../../../../../models/interfaces/products/requ
 })
 export class ProductFormComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
-  public categoriesDatas: Array<GetCategoriesResponse> = [];
+  public categoriesDatas: Array<GetPacientsResponse> = [];
   public selectedCategory: Array<{ name: string; code: string }> = [];
   public productAction!: {
     event: EventAction;
@@ -58,7 +58,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   public saleProductSelected !: GetAllProductsResponse
 
   constructor(
-    private categoriesService: CategoriesService,
+    private pacientService: PacientService,
     private productsService: ProductsService,
     private productsDtService: ProductsDataTransferService,
     private formBuilder: FormBuilder,
@@ -77,7 +77,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   }
 
   getAllCategories(): void {
-    this.categoriesService
+    this.pacientService
       .getAllCategories()
       .pipe(takeUntil(this.destroy$))
       .subscribe({

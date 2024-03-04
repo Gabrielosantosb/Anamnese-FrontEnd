@@ -1,4 +1,4 @@
-export interface GetCategoriesResponse
+export interface GetPacientsResponse
 {
   id: string,
   username: string,

@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CategoriesService} from "../../../../services/categories/categories.service";
+import {PacientService} from "../../../../services/categories/categories.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {Subject, takeUntil} from "rxjs";
-import {GetCategoriesResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
+import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {Router} from "@angular/router";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
@@ -20,11 +20,11 @@ import {DeletePacient} from "../../../../../models/interfaces/categories/event/d
 export class CategoriesHomeComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
-  public categoriesData: Array<GetCategoriesResponse> = [];
+  public categoriesData: Array<GetPacientsResponse> = [];
   public productsData = []
 
   constructor(
-    private categoriesService: CategoriesService,
+    private pacientSerivce: PacientService,
     private productsDtService: ProductsDataTransferService,
     private dialogService: DialogService,
     private toastMessage: ToastMessage,
@@ -37,37 +37,19 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
     this.getAllCategories();
   }
 
-  // getAllCategories() {
-  //   this.categoriesService
-  //     .getAllCategories()
-  //     .pipe(takeUntil(this.destroy$))
-  //     .subscribe({
-  //       next: (response) => {
-  //         if (response.length > 0) {
-  //
-  //           this.categoriesData = response;
-  //         }
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //         this.toastMessage.ErrorMessage('Erro ao buscar categorias!')
-  //         this.router.navigate(['/dashboard']);
-  //       },
-  //     });
-  // }
 
   getAllCategories() {
-    this.categoriesService
+    this.pacientSerivce
       .getAllPacients()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (response) => {
+        next: (response : any) => {
           if (response.length > 0) {
 
             this.categoriesData = response;
           }
         },
-        error: (err) => {
+        error: (err : []) => {
           console.log(err);
           this.toastMessage.ErrorMessage('Erro ao buscar Pacientes!')
           this.router.navigate(['/dashboard']);
@@ -76,40 +58,16 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
   }
   handleDeleteCategoryAction(event: DeletePacient): void {
     if (event && event.pacientName !== 'Macbooks' && event.pacientName !== 'Notebooks') {
-      // if (this.isCategoryUsed(event.category_id)) {
-      //   this.toastMessage.ErrorMessage(`Não é possível excluir a categoria ${event.categoryName}, pois ela está associada a um produto`);
-      // } else {
-        this.confirmationModal.confirmDelete(`Confirma a exclusão da categoria: ${event?.pacientName}`, () => this.deleteCategory(event?.pacient_id));
+        this.confirmationModal.confirmDelete(`Confirma a exclusão da categoria: ${event?.pacientName}`, () => this.deletePacient(event?.pacient_id));
       // }
     } else {
       this.toastMessage.ErrorMessage(`Não é possível excluir o Paciente ${event.pacientName}`);
     }
   }
 
-  // deleteCategory(category_id: string): void {
-  //   if (category_id) {
-  //     this.categoriesService
-  //       .deleteCategory({category_id})
-  //       .pipe(takeUntil(this.destroy$))
-  //       .subscribe({
-  //         next: () => {
-  //           this.getAllCategories();
-  //           this.toastMessage.SuccessMessage('Categoria removida com sucesso!')
-  //         },
-  //         error: (err) => {
-  //           console.log(err);
-  //           this.getAllCategories();
-  //           this.toastMessage.ErrorMessage('Erro ao remover categoria!')
-  //         },
-  //       });
-  //
-  //     this.getAllCategories();
-  //   }
-  // }
-
-  deleteCategory(pacient_id: number): void {
+  deletePacient(pacient_id: number): void {
     if (pacient_id) {
-      this.categoriesService
+      this.pacientSerivce
         .deletePacient({pacient_id})
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -117,7 +75,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
             this.getAllCategories();
             this.toastMessage.SuccessMessage('Paciente  removida com sucesso!')
           },
-          error: (err) => {
+          error: (err: string) => {
             console.log(err);
             this.getAllCategories();
             this.toastMessage.ErrorMessage('Erro ao remover paciente !')
