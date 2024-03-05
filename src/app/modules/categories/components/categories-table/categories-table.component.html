@@ -1,6 +1,6 @@
 <div class='grid'>
   <div class='col-12'>
-    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Categorias">
+    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Pacientes">
       <p-table
         [value]="categories"
         [(selection)]="categorySelected"
@@ -35,10 +35,11 @@
               </div>
             </th>
             <th>
-              <div class="flex justify-content-center">
+              <div class="flex justify-content-center" style="margin-bottom: 20px">
                 <p-button
-                  styleClass="p-button-info"
+                  styleClass="p-button-outlined"
                   icon='pi pi-plus'
+                  class="p-button-outlined "
                   pTooltip = "Adicionar Paciente"
                   tooltipPosition="top"
                   label='Adicionar'
@@ -48,20 +49,19 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-category>
+        <ng-template pTemplate="body" let-category >
 <!--        <ng-template pTemplate="body" let-category>-->
-          <tr>
+          <tr >
             <td>{{category?.userName}}</td>
-<!--            <td>{{category?.username}}</td>-->
             <td>
-              <div class='flex justify-content-center gap-3 align-content-center align-items-center'>
+              <div class='flex justify-content-center gap-3 align-content-center align-items-center' style="margin-bottom: 10px">
                 <button
                   pButton
                   pRipple
                   pTooltip = 'Editar Paciente'
                   tooltipPosition="top"
                   icon='pi pi-pencil'
-                  class="p-button-rounded p-button-warning"
+                  class="p-button-outlined p-button-primary"
                   (click)="handleCategoryEvent(editCategoryAction, category?.id, category?.name)"
                 ></button>
                 <button
@@ -70,7 +70,7 @@
                   pTooltip = 'Excluir Paciente'
                   tooltipPosition="top"
                   icon='pi pi-trash'
-                  class="p-button-rounded p-button-danger"
+                  class="p-button-outlined p-button-danger"
                   (click)="handleDeleteCategoryEvent(category?.id, category?.userName)"
                 ></button>
               </div>

@@ -10,6 +10,7 @@ import {EventAction} from "../../../../../models/interfaces/products/event/Event
 import {CategoryFormComponent} from "../../components/category-form/category-form/category-form.component";
 import {ProductsDataTransferService} from "../../../../shared/products/products-data-transfer.service";
 import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
+import {ProgressBarModule} from "primeng/progressbar";
 
 @Component({
   selector: 'app-categories-home',
@@ -20,6 +21,8 @@ import {DeletePacient} from "../../../../../models/interfaces/categories/event/d
 export class CategoriesHomeComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
+  isLoading = false
+  loadingMode: ProgressBarModule = 'indeterminate';
   public categoriesData: Array<GetPacientsResponse> = [];
   public productsData = []
 
@@ -39,18 +42,20 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
 
 
   getAllCategories() {
+    this.isLoading = true
     this.pacientSerivce
       .getAllPacients()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response : any) => {
           if (response.length > 0) {
-
             this.categoriesData = response;
+            this.isLoading = false
           }
         },
         error: (err : []) => {
           console.log(err);
+          this.isLoading = false
           this.toastMessage.ErrorMessage('Erro ao buscar Pacientes!')
           this.router.navigate(['/dashboard']);
         },
