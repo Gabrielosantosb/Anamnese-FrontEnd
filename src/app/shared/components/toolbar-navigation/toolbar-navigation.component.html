@@ -3,30 +3,32 @@
     <i class="pi pi-bars"></i>
   </button>
 
-  <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" >
+  <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button">
     <i class="pi pi-ellipsis-v"></i>
   </button>
 
-  <div #topbarmenu class="layout-topbar-menu" >
-    <button class="p-link layout-topbar-button"  routerLink="/dashboard">
+  <div #topbarmenu class="layout-topbar-menu">
+    <button class="p-link layout-topbar-button" routerLink="/dashboard">
       <i class="pi pi-home"></i>
       <span>Dashboard</span>
     </button>
 
-  <div #topbarmenu class="layout-topbar-menu" >
-    <button class="p-link layout-topbar-button"  routerLink="/products">
-      <i class="pi pi-calendar"></i>
-      <span>Prontuarios</span>
-    </button>
+    <div #topbarmenu class="layout-topbar-menu">
+      <button class="p-link layout-topbar-button" routerLink="/products">
+        <i class="pi pi-calendar"></i>
+        <span>Prontuarios</span>
+      </button>
 
-    <button class="p-link layout-topbar-button" routerLink="/categories">
-      <i class="pi pi-user"></i>
-      <span>Pacientes</span>
-    </button>
+      <button class="p-link layout-topbar-button" routerLink="/pacients">
+        <i class="pi pi-user"></i>
+        <span>Pacientes</span>
+      </button>
 
-    <button class="p-link layout-topbar-button" (click)="logout()">
-      <i class="pi pi-sign-out"></i>
-      <span>Sair</span>
-    </button>
+      <button class="p-link layout-topbar-button" (click)="logout()">
+        <i class="pi pi-sign-out"></i>
+        <span>Sair</span>
+      </button>
+    </div>
   </div>
 </div>
+
