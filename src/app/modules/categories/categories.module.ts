@@ -21,6 +21,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { CategoryFormComponent } from './components/category-form/category-form/category-form.component';
 import {InputTextModule} from "primeng/inputtext";
 import {TooltipModule} from "primeng/tooltip";
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 
@@ -49,7 +50,8 @@ import {TooltipModule} from "primeng/tooltip";
     RippleModule,
     ConfirmDialogModule,
     InputTextModule,
-    TooltipModule
+    TooltipModule,
+    ProgressBarModule
   ],
   providers : [DialogService, ConfirmationService]
 })

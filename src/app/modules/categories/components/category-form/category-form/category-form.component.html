@@ -1,4 +1,5 @@
 <div>
+  <p-progressBar *ngIf="isLoading"  mode="{{loadingMode}}"></p-progressBar>
   <form [formGroup]="categoryForm" (ngSubmit)="handleSubmitPacientAction()">
     <div class="card flex flex-column md:flex-column gap-3">
       <input pInputText placeholder="Nome" formControlName="name" />

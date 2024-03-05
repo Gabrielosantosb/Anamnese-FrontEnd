@@ -7,6 +7,7 @@ import {EditCategoryAction} from "../../../../../../models/interfaces/categories
 import {ToastMessage} from "../../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../../services/confirmation/confirmation-service.service";
 import {PacientService} from "../../../../../services/categories/categories.service";
+import {ProgressBar, ProgressBarModule} from "primeng/progressbar";
 
 @Component({
   selector: 'app-category-form',
@@ -16,6 +17,8 @@ import {PacientService} from "../../../../../services/categories/categories.serv
 })
 export class CategoryFormComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
+  isLoading = false
+  loadingMode: ProgressBarModule = 'indeterminate';
 
   public addPacientAction = CategoryEvent.ADD_CATEGORY_ACTION;
   public editPacientAction = CategoryEvent.EDIT_CATEGORY_ACTION;
@@ -57,6 +60,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
 
   handleSubmitAddPacient(): void {
     if (this.categoryForm?.value && this.categoryForm?.valid) {
+      this.isLoading = true
       const requestCreateCategory: { username: string, email: string, adress: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
         username: this.categoryForm.value.name as string,
         email: this.categoryForm.value.email as string,
@@ -76,6 +80,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
             if (response) {
               this.categoryForm.reset();
               this.toastMessage.SuccessMessage('Paciente criado com sucesso!')
+              this.isLoading = false
             }
           },
           error: (err: any) => {

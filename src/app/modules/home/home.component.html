@@ -22,14 +22,14 @@
               </div>
               <span class="flex justify-content-center align-content-center text-align-center- mt-3 text-red-600 font-semibold pointer" style="cursor:pointer" (click)="loginCard = !loginCard; clearErrorMessage()">Criar Conta</span>
             </div>
+            <p-progressBar *ngIf="isLoading" mode="{{loadingMode}}"></p-progressBar>
           </div>
         </div>
       </div>
     </form>
 
     <!-- CADASTRO -->
-    <form  class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden" (ngSubmit)="onSubmitSignUp()" [formGroup]="signUpForm" *ngIf="!loginCard">
-      <div class="flex flex-column align-items-center justify-content-center" >
+    <form class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden" (ngSubmit)="onSubmitSignUp()" [formGroup]="signUpForm" *ngIf="!loginCard">      <div class="flex flex-column align-items-center justify-content-center" >
         <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
           <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
             <div class="text-center mb-5">
@@ -46,9 +46,10 @@
               <input type="password" placeholder="Sua senha" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" formControlName="password">
               <span class="flex justify-content-center align-content-center text-align-center mt-3 text-red-600">{{errorMessage}}</span>
               <div class="card flex justify-content-center mt-3">
-                <button type="submit" class="w-full p-3 text-xl" pButton pRipple [disabled]="!signUpForm.valid" label="Cadastrar"></button>
+                <button type="submit" class="w-full p-3 text-xl" pButton pRipple [disabled]="isLoading || !signUpForm.valid" label="Cadastrar"></button>
               </div>
               <span class="flex justify-content-center align-content-center text-align-center- mt-3 text-red-600 font-semibold pointer" style="cursor:pointer" (click)="loginCard = !loginCard; clearErrorMessage()">Fazer login</span>
+              <p-progressBar *ngIf="isLoading" mode="{{loadingMode}}"></p-progressBar>
             </div>
           </div>
         </div>

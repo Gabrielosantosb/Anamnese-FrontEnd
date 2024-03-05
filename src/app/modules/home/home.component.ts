@@ -9,6 +9,7 @@ import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {environments} from "../../../environments/environments";
 import {ToastMessage} from "../../services/toast-message/toast-message";
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 
@@ -22,6 +23,8 @@ export class HomeComponent implements OnDestroy {
   loginCard = true;
   errorMessage = "";
   private destroy$ = new Subject<void>();
+  isLoading = false
+  loadingMode: ProgressBarModule = 'indeterminate';
 
   loginForm = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
@@ -49,6 +52,7 @@ export class HomeComponent implements OnDestroy {
 
   onSubmitLogin(): void {
     if (this.loginForm.valid) {
+      this.isLoading =true
       this.userService.authUser(this.loginForm.value as AuthRequest).pipe(
         takeUntil(this.destroy$),
         tap(
@@ -57,6 +61,7 @@ export class HomeComponent implements OnDestroy {
               this.cookieService.set(this.USER_AUTH, response?.token)
               this.errorMessage = "";
               this.loginForm.reset();
+              this.isLoading = false
               this.router.navigate(["/dashboard"])
               this.toastMessage.SuccessMessage(`Seja bem vindo ${response.name}`)
             }
@@ -64,17 +69,20 @@ export class HomeComponent implements OnDestroy {
         )
       ).subscribe({
         error: (err) => {
+          this.isLoading = false
           this.toastMessage.ErrorMessage('Erro ao efetuar login')
           console.log(err);
         }
       });
     } else {
+      this.isLoading = false
       this.errorMessage = "Por favor, corrija os campos destacados.";
     }
   }
 
   onSubmitSignUp(): void {
     if (this.signUpForm.valid) {
+      this.isLoading = true
       this.userService.signupUser(this.signUpForm.value as SignUpUserRequest).pipe(
         takeUntil(this.destroy$),
         tap(
@@ -82,12 +90,14 @@ export class HomeComponent implements OnDestroy {
             if (response) {
               this.signUpForm.reset();
               this.loginCard = true;
+              this.isLoading = false
               this.toastMessage.SuccessMessage(`Usuário criado com sucesso!`)
             }
           }
         )
       ).subscribe({
         error: (err) => {
+          this.isLoading = false
           this.toastMessage.ErrorMessage(`Erro ao efetuar cadastro`)
           console.log(err);
         }
