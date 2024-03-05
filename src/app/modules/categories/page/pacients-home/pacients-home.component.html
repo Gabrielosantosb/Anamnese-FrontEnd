@@ -1,7 +1,7 @@
 <app-toolbar-navigation></app-toolbar-navigation>
 <p-progressBar *ngIf="isLoading" mode="{{loadingMode}}"></p-progressBar>
-<app-categories-table
-  [categories]="categoriesData"
+<app-pacients-table
+  [pacients]="pacientsData"
   (deleteCategoryEvent)="handleDeleteCategoryAction($event)"
-  (categoryEvent)="handleCategoryAction($event)"
-></app-categories-table>
+  (pacientEvent)="handleCategoryAction($event)"
+></app-pacients-table>

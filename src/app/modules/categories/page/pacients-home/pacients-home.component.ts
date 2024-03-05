@@ -7,23 +7,23 @@ import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {Router} from "@angular/router";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {EventAction} from "../../../../../models/interfaces/products/event/EventAction";
-import {CategoryFormComponent} from "../../components/category-form/category-form/category-form.component";
+import {PacientsFormComponent} from "../../components/category-form/pacients-form/pacients-form.component";
 import {ProductsDataTransferService} from "../../../../shared/products/products-data-transfer.service";
 import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
 import {ProgressBarModule} from "primeng/progressbar";
 
 @Component({
-  selector: 'app-categories-home',
-  templateUrl: './categories-home.component.html',
-  styleUrls: ['./categories-home.component.scss'],
+  selector: 'app-pacients-home',
+  templateUrl: './pacients-home.component.html',
+  styleUrls: ['./pacients-home.component.scss'],
   providers: [ToastMessage, ConfirmationModal]
 })
-export class CategoriesHomeComponent implements OnInit, OnDestroy {
+export class PacientsHomeComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
   isLoading = false
   loadingMode: ProgressBarModule = 'indeterminate';
-  public categoriesData: Array<GetPacientsResponse> = [];
+  public pacientsData: Array<GetPacientsResponse> = [];
   public productsData = []
 
   constructor(
@@ -49,7 +49,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response : any) => {
           if (response.length > 0) {
-            this.categoriesData = response;
+            this.pacientsData = response;
             this.isLoading = false
           }
         },
@@ -94,7 +94,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
 
   handleCategoryAction(event: EventAction): void {
     if (event) {
-      this.ref = this.dialogService.open(CategoryFormComponent, {
+      this.ref = this.dialogService.open(PacientsFormComponent, {
         header: event?.action,
         width: '70%',
         contentStyle: {overflow: 'auto'},

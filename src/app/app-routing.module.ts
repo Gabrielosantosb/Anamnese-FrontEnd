@@ -29,9 +29,9 @@ const routes: Routes = [
     canActivate:[AuthGuardService]
   },
   {
-    path : "categories",
-    loadChildren: ()=> import('./modules/categories/categories.module')
-      .then((m)=> m.CategoriesModule),
+    path : "pacients",
+    loadChildren: ()=> import('./modules/categories/pacients.module')
+      .then((m)=> m.PacientsModule),
     canActivate:[AuthGuardService]
   }
 ];

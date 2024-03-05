@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoriesHomeComponent } from './page/categories-home/categories-home.component';
+import { PacientsHomeComponent } from './page/pacients-home/pacients-home.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
-import {CATEGORIES_ROTES} from "./categories.routing";
+import {CATEGORIES_ROTES} from "./pacients.routing";
 import {SharedModule} from "../../shared/shared.module";
 import {HttpClientModule} from "@angular/common/http";
 import {CardModule} from "primeng/card";
@@ -15,10 +15,10 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {DialogService, DynamicDialogModule} from "primeng/dynamicdialog";
 import {DropdownModule} from "primeng/dropdown";
 import {ConfirmationService} from "primeng/api";
-import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
+import { PacientsTableComponent } from './components/pacients-table/pacients-table.component';
 import {RippleModule} from "primeng/ripple";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
-import { CategoryFormComponent } from './components/category-form/category-form/category-form.component';
+import { PacientsFormComponent } from './components/category-form/pacients-form/pacients-form.component';
 import {InputTextModule} from "primeng/inputtext";
 import {TooltipModule} from "primeng/tooltip";
 import {ProgressBarModule} from "primeng/progressbar";
@@ -27,9 +27,9 @@ import {ProgressBarModule} from "primeng/progressbar";
 
 @NgModule({
   declarations: [
-    CategoriesHomeComponent,
-    CategoriesTableComponent,
-    CategoryFormComponent
+    PacientsHomeComponent,
+    PacientsTableComponent,
+    PacientsFormComponent
   ],
   imports: [
     CommonModule,
@@ -55,4 +55,4 @@ import {ProgressBarModule} from "primeng/progressbar";
   ],
   providers : [DialogService, ConfirmationService]
 })
-export class CategoriesModule { }
+export class PacientsModule { }

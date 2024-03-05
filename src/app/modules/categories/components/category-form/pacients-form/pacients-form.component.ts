@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {FormBuilder, Validators} from "@angular/forms";
-import {CategoryEvent} from "../../../../../../models/interfaces/enums/categories/CategoryEvent";
+import {PacientsEvent} from "../../../../../../models/interfaces/enums/pacients/PacientEvent";
 import {EditCategoryAction} from "../../../../../../models/interfaces/categories/event/editCategory";
 import {ToastMessage} from "../../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../../services/confirmation/confirmation-service.service";
@@ -10,18 +10,18 @@ import {PacientService} from "../../../../../services/categories/categories.serv
 import {ProgressBar, ProgressBarModule} from "primeng/progressbar";
 
 @Component({
-  selector: 'app-category-form',
-  templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.scss'],
+  selector: 'app-pacients-form',
+  templateUrl: './pacients-form.component.html',
+  styleUrls: ['./pacients-form.component.scss'],
   providers: [ToastMessage, ConfirmationModal]
 })
-export class CategoryFormComponent implements OnInit, OnDestroy {
+export class PacientsFormComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
   isLoading = false
   loadingMode: ProgressBarModule = 'indeterminate';
 
-  public addPacientAction = CategoryEvent.ADD_CATEGORY_ACTION;
-  public editPacientAction = CategoryEvent.EDIT_CATEGORY_ACTION;
+  public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
+  public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
 
   public categoryAction!: { event: EditCategoryAction };
   public categoryForm = this.formBuilder.group({

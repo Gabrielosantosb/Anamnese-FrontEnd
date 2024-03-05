@@ -1,22 +1,22 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
 import {EditCategoryAction} from "../../../../../models/interfaces/categories/event/editCategory";
-import {CategoryEvent} from "../../../../../models/interfaces/enums/categories/CategoryEvent";
+import {PacientsEvent} from "../../../../../models/interfaces/enums/pacients/PacientEvent";
 import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
 
 @Component({
-  selector: 'app-categories-table',
-  templateUrl: './categories-table.component.html',
-  styleUrls: ['./categories-table.component.scss']
+  selector: 'app-pacients-table',
+  templateUrl: './pacients-table.component.html',
+  styleUrls: ['./pacients-table.component.scss']
 })
-export class CategoriesTableComponent {
-  @Input() public categories: Array<GetPacientsResponse> = [];
-  @Output() public categoryEvent = new EventEmitter<EditCategoryAction>();
+export class PacientsTableComponent {
+  @Input() public pacients: Array<GetPacientsResponse> = [];
+  @Output() public pacientEvent = new EventEmitter<EditCategoryAction>();
   @Output() public deleteCategoryEvent = new EventEmitter<DeletePacient>();
 
   public categorySelected!: GetPacientsResponse;
-  public addCategoryAction = CategoryEvent.ADD_CATEGORY_ACTION;
-  public editCategoryAction = CategoryEvent.EDIT_CATEGORY_ACTION;
+  public addCategoryAction = PacientsEvent.ADD_PACIENT_ACTION;
+  public editCategoryAction = PacientsEvent.EDIT_PACIENT_ACTION;
 
   handleDeleteCategoryEvent(pacient_id: number, pacientName: string): void {
     if (pacient_id !== null && pacientName !== '') {
@@ -25,6 +25,6 @@ export class CategoriesTableComponent {
   }
 
   handleCategoryEvent(action: string, id?: string, categoryName?: string): void {
-    if (action && action !== '') this.categoryEvent.emit({ action, id, categoryName });
+    if (action && action !== '') this.pacientEvent.emit({ action, id, categoryName });
   }
 }
