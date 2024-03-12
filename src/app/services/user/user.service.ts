@@ -24,14 +24,14 @@ export class UserService {
   signupUser (requestData: SignUpUserRequest): Observable<SignUpUserResponse>
   {
     return this.http.post<SignUpUserResponse>(
-      `${this.API_URL}/api/User/create-user`,
+      `${this.API_URL}/api/Profissional/create-user`,
       requestData
     )
   }
 
   authUser(requestData: AuthRequest): Observable<AuthResponse>{
     return this.http.post<AuthResponse>(
-      `${this.API_URL}/api/User/login`,
+      `${this.API_URL}/api/Profissional/login`,
       requestData
     )
   }

@@ -33,14 +33,6 @@ export class PacientService {
       this.httpOptions
     )
   }
-  createCategory(requestData: { name: string }): Observable<Array<GetPacientsResponse>> {
-
-    return this.http.post<Array<GetPacientsResponse>>(
-      `${this.API_URL}/category`,
-      requestData,
-      this.httpOptions
-    );
-  }
 
   createPacient(requestData: {
     username: string;

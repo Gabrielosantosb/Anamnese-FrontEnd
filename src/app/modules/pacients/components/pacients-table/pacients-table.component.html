@@ -49,10 +49,10 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-category >
+        <ng-template pTemplate="body" let-pacient >
 <!--        <ng-template pTemplate="body" let-category>-->
           <tr >
-            <td>{{category?.userName}}</td>
+            <td>{{pacient?.username}}</td>
             <td>
               <div class='flex justify-content-center gap-3 align-content-center align-items-center' style="margin-bottom: 10px">
                 <button
@@ -62,7 +62,7 @@
                   tooltipPosition="top"
                   icon='pi pi-pencil'
                   class="p-button-outlined p-button-primary"
-                  (click)="handleCategoryEvent(editCategoryAction, category?.id, category?.name)"
+                  (click)="handleCategoryEvent(editCategoryAction, pacient?.id, pacient?.username)"
                 ></button>
                 <button
                   pButton
@@ -71,7 +71,7 @@
                   tooltipPosition="top"
                   icon='pi pi-trash'
                   class="p-button-outlined p-button-danger"
-                  (click)="handleDeleteCategoryEvent(category?.id, category?.userName)"
+                  (click)="handleDeleteCategoryEvent(pacient?.id, pacient?.username)"
                 ></button>
               </div>
             </td>
