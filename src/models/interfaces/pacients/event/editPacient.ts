@@ -1,6 +1,6 @@
 export interface EditPacientAction{
   action: string
   id?: number
-  categoryName?: string
+  pacientName?: string
 
 }

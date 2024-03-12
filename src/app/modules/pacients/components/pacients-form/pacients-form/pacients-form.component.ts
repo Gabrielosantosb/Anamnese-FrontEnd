@@ -48,8 +48,8 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     this.pacientAction = this.ref.data;
 
     if (
-      (this.pacientAction?.event?.action === this.editPacientAction && this.pacientAction?.event?.categoryName !== null) || undefined)
-      this.setPacientName(this.pacientAction?.event?.categoryName as string);
+      (this.pacientAction?.event?.action === this.editPacientAction && this.pacientAction?.event?.pacientName !== null) || undefined)
+      this.setPacientName(this.pacientAction?.event?.pacientName as string);
 
   }
 
@@ -66,7 +66,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   handleSubmitPacientAction(): void {
     if (this.pacientAction?.event?.action === this.addPacientAction) this.handleSubmitAddPacient();
-    if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditCategory();
+    if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditPacient();
     return;
   }
 
@@ -104,19 +104,19 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleSubmitEditCategory(): void {
+  handleSubmitEditPacient(): void {
     if (
       this.pacientForm?.value &&
       this.pacientForm?.valid &&
       this.pacientAction?.event?.id
     ) {
-      const requestEditCategory: { name: string; category_id: number } = {
+      const requestEditCategory: { pacient_id: number, name: string } = {
         name: this.pacientForm?.value?.name as string,
-        category_id: this.pacientAction?.event?.id,
+        pacient_id: this.pacientAction?.event?.id,
       };
 
       this.pacientService
-        .editCategory(requestEditCategory)
+        .editPacient(requestEditCategory)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
@@ -132,8 +132,8 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  setPacientName(categoryName: string): void {
-    if (categoryName) {
+  setPacientName(pacientName: string): void {
+    if (pacientName) {
       const formValues = {
         name: this.pacientForm.value.name || '',
         email: this.pacientForm.value.email || '',

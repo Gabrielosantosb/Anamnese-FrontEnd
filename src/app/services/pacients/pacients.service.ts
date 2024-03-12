@@ -51,11 +51,11 @@ export class PacientService {
     );
   }
 
-  editCategory(requestData: { category_id: number, name: string }): Observable<void> {
+  editPacient(requestData: { pacient_id: number, name: string }): Observable<void> {
     return this.http.put<void>(
-      `${this.API_URL}/category/edit`,
+      `${this.API_URL}/api/Pacient/update-pacient/${requestData.pacient_id}`,
       { name: requestData.name },
-      { ...this.httpOptions, params: { category_id: requestData.category_id } }
+      { ...this.httpOptions }
     );
   }
 
