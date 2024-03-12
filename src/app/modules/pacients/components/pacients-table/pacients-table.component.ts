@@ -15,8 +15,8 @@ export class PacientsTableComponent {
   @Output() public deleteCategoryEvent = new EventEmitter<DeletePacient>();
 
   public categorySelected!: GetPacientsResponse;
-  public addCategoryAction = PacientsEvent.ADD_PACIENT_ACTION;
-  public editCategoryAction = PacientsEvent.EDIT_PACIENT_ACTION;
+  public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
+  public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
 
   handleDeleteCategoryEvent(pacient_id: number, pacientName: string): void {
     if (pacient_id !== null && pacientName !== '') {
