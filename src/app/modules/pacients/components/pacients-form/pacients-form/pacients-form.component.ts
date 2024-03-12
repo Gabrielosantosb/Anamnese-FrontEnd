@@ -23,8 +23,8 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
   public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
 
-  public categoryAction!: { event: EditPacientAction };
-  public categoryForm = this.formBuilder.group({
+  public pacientAction!: { event: EditPacientAction };
+  public pacientForm = this.formBuilder.group({
     name: ['gabriel', Validators.required],
     email: ['gabriel@gmail.com', Validators.required],
     adress: ['QNJ', Validators.required],
@@ -44,32 +44,32 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.categoryAction = this.ref.data;
+    this.pacientAction = this.ref.data;
 
     if (
-      (this.categoryAction?.event?.action === this.editPacientAction && this.categoryAction?.event?.categoryName !== null) || undefined)
-      this.setPacientName(this.categoryAction?.event?.categoryName as string);
+      (this.pacientAction?.event?.action === this.editPacientAction && this.pacientAction?.event?.categoryName !== null) || undefined)
+      this.setPacientName(this.pacientAction?.event?.categoryName as string);
 
   }
 
   handleSubmitPacientAction(): void {
-    if (this.categoryAction?.event?.action === this.addPacientAction) this.handleSubmitAddPacient();
-    if (this.categoryAction?.event?.action === this.editPacientAction) this.handleSubmitEditCategory();
+    if (this.pacientAction?.event?.action === this.addPacientAction) this.handleSubmitAddPacient();
+    if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditCategory();
     return;
   }
 
   handleSubmitAddPacient(): void {
-    if (this.categoryForm?.value && this.categoryForm?.valid) {
+    if (this.pacientForm?.value && this.pacientForm?.valid) {
       this.isLoading = true
       const requestCreateCategory: { username: string, email: string, adress: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
-        username: this.categoryForm.value.name as string,
-        email: this.categoryForm.value.email as string,
-        adress: this.categoryForm.value.adress as string,
-        uf: this.categoryForm.value.uf as string,
-        phone: this.categoryForm.value.phone as string,
-        profession: this.categoryForm.value.profession as string,
-        birth: this.categoryForm.value.birth as string,
-        gender: this.categoryForm.value.gender as string,
+        username: this.pacientForm.value.name as string,
+        email: this.pacientForm.value.email as string,
+        adress: this.pacientForm.value.adress as string,
+        uf: this.pacientForm.value.uf as string,
+        phone: this.pacientForm.value.phone as string,
+        profession: this.pacientForm.value.profession as string,
+        birth: this.pacientForm.value.birth as string,
+        gender: this.pacientForm.value.gender as string,
       };
 
       this.pacientService
@@ -78,14 +78,14 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response:any) => {
             if (response) {
-              this.categoryForm.reset();
+              this.pacientForm.reset();
               this.toastMessage.SuccessMessage('Paciente criado com sucesso!')
               this.isLoading = false
             }
           },
           error: (err: any) => {
             console.log(err);
-            this.categoryForm.reset();
+            this.pacientForm.reset();
             this.toastMessage.ErrorMessage('Erro ao criar Paciente!')
           },
         });
@@ -94,13 +94,13 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   handleSubmitEditCategory(): void {
     if (
-      this.categoryForm?.value &&
-      this.categoryForm?.valid &&
-      this.categoryAction?.event?.id
+      this.pacientForm?.value &&
+      this.pacientForm?.valid &&
+      this.pacientAction?.event?.id
     ) {
       const requestEditCategory: { name: string; category_id: string } = {
-        name: this.categoryForm?.value?.name as string,
-        category_id: this.categoryAction?.event?.id,
+        name: this.pacientForm?.value?.name as string,
+        category_id: this.pacientAction?.event?.id,
       };
 
       this.pacientService
@@ -108,13 +108,13 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
-            this.categoryForm.reset();
-            this.toastMessage.SuccessMessage('Categoria editada com sucesso!')
+            this.pacientForm.reset();
+            this.toastMessage.SuccessMessage('Paciente editada com sucesso!')
           },
           error: (err: any) => {
             console.log(err);
-            this.categoryForm.reset();
-            this.toastMessage.ErrorMessage('Erro ao editar categoria!')
+            this.pacientForm.reset();
+            this.toastMessage.ErrorMessage('Erro ao editar Paciente!')
           },
         });
     }
@@ -123,16 +123,16 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   setPacientName(categoryName: string): void {
     if (categoryName) {
       const formValues = {
-        name: this.categoryForm.value.name || '',
-        email: this.categoryForm.value.email || '',
-        adress: this.categoryForm.value.adress || '',
-        uf: this.categoryForm.value.uf || '',
-        phone: this.categoryForm.value.phone|| '',
-        birth: this.categoryForm.value.birth || '',
-        gender: this.categoryForm.value.gender|| '',
-        profession: this.categoryForm.value.profession|| '',
+        name: this.pacientForm.value.name || '',
+        email: this.pacientForm.value.email || '',
+        adress: this.pacientForm.value.adress || '',
+        uf: this.pacientForm.value.uf || '',
+        phone: this.pacientForm.value.phone|| '',
+        birth: this.pacientForm.value.birth || '',
+        gender: this.pacientForm.value.gender|| '',
+        profession: this.pacientForm.value.profession|| '',
       };
-      this.categoryForm.setValue(formValues);
+      this.pacientForm.setValue(formValues);
     }
   }
 
