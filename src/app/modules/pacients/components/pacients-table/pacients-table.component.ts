@@ -25,7 +25,8 @@ export class PacientsTableComponent {
   }
 
   handlePacientEvent(action: string, id?: number, pacientName?: string): void {
-    console.log('bateu')
+    console.log('pacientName: ', pacientName)
+    console.log('id: ', id)
     if (action && action !== '') this.pacientEvent.emit({ action, id, pacientName });
   }
 }

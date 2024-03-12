@@ -8,6 +8,7 @@ import {ToastMessage} from "../../../../../services/toast-message/toast-message"
 import {ConfirmationModal} from "../../../../../services/confirmation/confirmation-service.service";
 import {PacientService} from "../../../../../services/pacients/pacients.service";
 import {ProgressBar, ProgressBarModule} from "primeng/progressbar";
+import {GetPacientsResponse} from "../../../../../../models/interfaces/pacients/get-pacient-service.service";
 
 @Component({
   selector: 'app-pacients-form',
@@ -48,9 +49,13 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     this.pacientAction = this.ref.data;
 
     if (
-      (this.pacientAction?.event?.action === this.editPacientAction && this.pacientAction?.event?.pacientName !== null) || undefined)
-      this.setPacientName(this.pacientAction?.event?.pacientName as string);
-
+      this.pacientAction?.event?.action === this.editPacientAction &&
+      this.pacientAction?.event?.pacientName !== null &&
+      this.pacientAction?.event?.pacientName !== undefined &&
+      this.pacientAction?.event?.id !== undefined
+  ) {
+      this.loadPacientData(this.pacientAction.event.id);
+    }
   }
 
   dateValidator(control :AbstractControl) {
@@ -62,6 +67,19 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       }
     }
     return null;
+  }
+
+  loadPacientData(pacientId: number): void {
+    this.pacientService.getPacientById(pacientId, this.pacientForm)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (pacientData: GetPacientsResponse) => {
+          console.log('Dados do paciente carregados:', pacientData);
+        },
+        error: (error) => {
+          console.error('Erro ao carregar dados do paciente:', error);
+        }
+      });
   }
 
   handleSubmitPacientAction(): void {
@@ -144,6 +162,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
         gender: this.pacientForm.value.gender|| '',
         profession: this.pacientForm.value.profession|| '',
       };
+      console.log(formValues)
       this.pacientForm.setValue(formValues);
     }
   }
@@ -153,4 +172,3 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 }
-
