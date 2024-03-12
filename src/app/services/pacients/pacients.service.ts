@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
 import {Observable} from "rxjs";
-import {GetPacientsResponse} from "../../../models/interfaces/categories/get-categories-service.service";
+import {GetPacientsResponse} from "../../../models/interfaces/pacients/get-pacient-service.service";
 
 @Injectable({
   providedIn: 'root'

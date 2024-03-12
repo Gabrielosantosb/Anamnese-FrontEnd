@@ -4,7 +4,7 @@ import {PacientService} from "../../../../services/pacients/pacients.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
-import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
+import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 import {CreateProductRequest} from "../../../../../models/interfaces/products/request/CreateProductRequest";
 import {ProductsService} from "../../../../services/products/products.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";

@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
-import {EditCategoryAction} from "../../../../../models/interfaces/categories/event/editCategory";
+import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
+import {EditPacientAction} from "../../../../../models/interfaces/pacients/event/editPacient";
 import {PacientsEvent} from "../../../../../models/interfaces/enums/pacients/PacientEvent";
-import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
+import {DeletePacient} from "../../../../../models/interfaces/pacients/event/deletePacient";
 
 @Component({
   selector: 'app-pacients-table',
@@ -11,7 +11,7 @@ import {DeletePacient} from "../../../../../models/interfaces/categories/event/d
 })
 export class PacientsTableComponent {
   @Input() public pacients: Array<GetPacientsResponse> = [];
-  @Output() public pacientEvent = new EventEmitter<EditCategoryAction>();
+  @Output() public pacientEvent = new EventEmitter<EditPacientAction>();
   @Output() public deleteCategoryEvent = new EventEmitter<DeletePacient>();
 
   public categorySelected!: GetPacientsResponse;

@@ -2,14 +2,14 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PacientService} from "../../../../services/pacients/pacients.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {Subject, takeUntil} from "rxjs";
-import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
+import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {Router} from "@angular/router";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {EventAction} from "../../../../../models/interfaces/products/event/EventAction";
 import {PacientsFormComponent} from "../../components/pacients-form/pacients-form/pacients-form.component";
 import {ProductsDataTransferService} from "../../../../shared/products/products-data-transfer.service";
-import {DeletePacient} from "../../../../../models/interfaces/categories/event/deletePacient";
+import {DeletePacient} from "../../../../../models/interfaces/pacients/event/deletePacient";
 import {ProgressBarModule} from "primeng/progressbar";
 
 @Component({

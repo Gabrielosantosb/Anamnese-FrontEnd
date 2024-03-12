@@ -3,7 +3,7 @@ import {Subject, takeUntil} from "rxjs";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {FormBuilder, Validators} from "@angular/forms";
 import {PacientsEvent} from "../../../../../../models/interfaces/enums/pacients/PacientEvent";
-import {EditCategoryAction} from "../../../../../../models/interfaces/categories/event/editCategory";
+import {EditPacientAction} from "../../../../../../models/interfaces/pacients/event/editPacient";
 import {ToastMessage} from "../../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../../services/confirmation/confirmation-service.service";
 import {PacientService} from "../../../../../services/pacients/pacients.service";
@@ -23,7 +23,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
   public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
 
-  public categoryAction!: { event: EditCategoryAction };
+  public categoryAction!: { event: EditPacientAction };
   public categoryForm = this.formBuilder.group({
     name: ['gabriel', Validators.required],
     email: ['gabriel@gmail.com', Validators.required],
