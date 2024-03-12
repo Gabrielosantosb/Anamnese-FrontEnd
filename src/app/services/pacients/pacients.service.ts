@@ -37,7 +37,7 @@ export class PacientService {
   createPacient(requestData: {
     username: string;
     email: string;
-    adress: string;
+    address: string;
     uf: string;
     phone: string;
     birth: string;

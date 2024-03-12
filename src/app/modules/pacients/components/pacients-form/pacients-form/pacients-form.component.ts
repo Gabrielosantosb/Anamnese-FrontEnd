@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
-import {FormBuilder, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import {PacientsEvent} from "../../../../../../models/interfaces/enums/pacients/PacientEvent";
 import {EditPacientAction} from "../../../../../../models/interfaces/pacients/event/editPacient";
 import {ToastMessage} from "../../../../../services/toast-message/toast-message";
@@ -25,14 +25,15 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   public pacientAction!: { event: EditPacientAction };
   public pacientForm = this.formBuilder.group({
-    name: ['gabriel', Validators.required],
-    email: ['gabriel@gmail.com', Validators.required],
-    adress: ['QNJ', Validators.required],
-    uf: ['DF', Validators.required],
-    phone: ['123123123123', Validators.required],
-    birth: ['26102002', Validators.required],
-    gender: ['M', Validators.required],
-    profession: ['Vagabumdo', Validators.required],
+    name: ['', Validators.required],
+    email: ['', Validators.required],
+    address: ['', Validators.required],
+    uf: ['', Validators.required],
+    phone: ['', Validators.required],
+    birth: ['', [Validators.required, this.dateValidator]],
+
+    gender: ['', Validators.required],
+    profession: ['', Validators.required],
   });
 
   constructor(
@@ -52,6 +53,17 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   }
 
+  dateValidator(control :AbstractControl) {
+    const dateString = control.value;
+    if (dateString) {
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // Formato yyyy-mm-dd
+      if (!dateRegex.test(dateString)) {
+        return { invalidFormat: true };
+      }
+    }
+    return null;
+  }
+
   handleSubmitPacientAction(): void {
     if (this.pacientAction?.event?.action === this.addPacientAction) this.handleSubmitAddPacient();
     if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditCategory();
@@ -61,10 +73,10 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   handleSubmitAddPacient(): void {
     if (this.pacientForm?.value && this.pacientForm?.valid) {
       this.isLoading = true
-      const requestCreateCategory: { username: string, email: string, adress: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
+      const requestCreateCategory: { username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
         username: this.pacientForm.value.name as string,
         email: this.pacientForm.value.email as string,
-        adress: this.pacientForm.value.adress as string,
+        address: this.pacientForm.value.address as string,
         uf: this.pacientForm.value.uf as string,
         phone: this.pacientForm.value.phone as string,
         profession: this.pacientForm.value.profession as string,
@@ -125,7 +137,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       const formValues = {
         name: this.pacientForm.value.name || '',
         email: this.pacientForm.value.email || '',
-        adress: this.pacientForm.value.adress || '',
+        address: this.pacientForm.value.address || '',
         uf: this.pacientForm.value.uf || '',
         phone: this.pacientForm.value.phone|| '',
         birth: this.pacientForm.value.birth || '',
