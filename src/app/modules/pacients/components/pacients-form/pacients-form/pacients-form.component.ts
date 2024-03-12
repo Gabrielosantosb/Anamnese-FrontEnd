@@ -91,7 +91,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   handleSubmitAddPacient(): void {
     if (this.pacientForm?.value && this.pacientForm?.valid) {
       this.isLoading = true
-      const requestCreateCategory: { username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
+      const requestCreatePacient: { username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
         username: this.pacientForm.value.name as string,
         email: this.pacientForm.value.email as string,
         address: this.pacientForm.value.address as string,
@@ -103,7 +103,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       };
 
       this.pacientService
-        .createPacient(requestCreateCategory)
+        .createPacient(requestCreatePacient)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response:any) => {
@@ -128,13 +128,20 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       this.pacientForm?.valid &&
       this.pacientAction?.event?.id
     ) {
-      const requestEditCategory: { pacient_id: number, name: string } = {
-        name: this.pacientForm?.value?.name as string,
+      const requestEditPacient: { pacient_id: number, username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
         pacient_id: this.pacientAction?.event?.id,
+        username: this.pacientForm?.value?.name as string,
+        email: this.pacientForm.value.email as string,
+        address: this.pacientForm.value.address as string,
+        uf: this.pacientForm.value.uf as string,
+        phone: this.pacientForm.value.phone as string,
+        profession: this.pacientForm.value.profession as string,
+        birth: this.pacientForm.value.birth as string,
+        gender: this.pacientForm.value.gender as string,
       };
-
+      console.log(requestEditPacient)
       this.pacientService
-        .editPacient(requestEditCategory)
+        .editPacient(requestEditPacient)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {

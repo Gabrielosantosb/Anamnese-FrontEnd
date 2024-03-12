@@ -71,10 +71,18 @@ export class PacientService {
     );
   }
 
-  editPacient(requestData: { pacient_id: number, name: string }): Observable<void> {
+  editPacient(requestData: { pacient_id: number,
+    username: string,
+    email: string;
+    address: string;
+    uf: string;
+    phone: string;
+    birth: string;
+    profession: string;
+    gender: string;}): Observable<void> {
     return this.http.put<void>(
       `${this.API_URL}/api/Pacient/update-pacient/${requestData.pacient_id}`,
-      { name: requestData.name },
+      requestData,
       { ...this.httpOptions }
     );
   }
