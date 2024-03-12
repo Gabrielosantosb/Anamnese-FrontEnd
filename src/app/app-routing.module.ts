@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path : "pacients",
-    loadChildren: ()=> import('./modules/categories/pacients.module')
+    loadChildren: ()=> import('./modules/pacients/pacients.module')
       .then((m)=> m.PacientsModule),
     canActivate:[AuthGuardService]
   }
