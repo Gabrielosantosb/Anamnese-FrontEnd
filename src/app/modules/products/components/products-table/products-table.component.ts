@@ -17,10 +17,10 @@ export class ProductsTableComponent {
   public addProductAction = ProductEvent.ADD_PRODUCT_EVENT
   public editProductAction = ProductEvent.EDIT_PRODUCT_EVENT
 
-  handleProductEvent(action: string, id?: string): void {
+  handleProductEvent(action: string, id?: number): void {
     if (action && action !== '')
     {
-      const productEventData = id && id !== '' ? {action, id} : {action}
+      const productEventData = id && id !== null ? {action, id} : {action}
       this.productEvent.emit(productEventData)
     }
   }

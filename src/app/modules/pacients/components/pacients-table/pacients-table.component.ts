@@ -24,7 +24,7 @@ export class PacientsTableComponent {
     }
   }
 
-  handlePacientEvent(action: string, id?: string, categoryName?: string): void {
+  handlePacientEvent(action: string, id?: number, categoryName?: string): void {
     if (action && action !== '') this.pacientEvent.emit({ action, id, categoryName });
   }
 }

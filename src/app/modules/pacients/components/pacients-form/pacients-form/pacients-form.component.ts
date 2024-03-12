@@ -110,7 +110,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       this.pacientForm?.valid &&
       this.pacientAction?.event?.id
     ) {
-      const requestEditCategory: { name: string; category_id: string } = {
+      const requestEditCategory: { name: string; category_id: number } = {
         name: this.pacientForm?.value?.name as string,
         category_id: this.pacientAction?.event?.id,
       };

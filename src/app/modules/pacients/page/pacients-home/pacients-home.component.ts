@@ -112,10 +112,6 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private isCategoryUsed(category_id: string): boolean {
-    let productsData = this.productsDtService.getProductsData()
-    return productsData.some(product => product.category.id === category_id);
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

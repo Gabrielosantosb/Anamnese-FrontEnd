@@ -85,7 +85,8 @@ export class ProductFormComponent implements OnInit, OnDestroy {
           if (response.length > 0) {
             this.categoriesDatas = response;
             if (this.productAction?.event?.action === this.editProductAction && this.productAction?.productDatas) {
-              this.getProductSelectedDatas(this.productAction?.event?.id as string);
+              console.log('foi')
+              // this.getProductSelectedDatas(this.productAction?.event?.id as string);
             }
           }
         },
@@ -177,28 +178,28 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  getProductSelectedDatas(productId: string): void {
-    const allProducts = this.productAction?.productDatas;
-
-
-    if (allProducts.length > 0) {
-      const productFiltered = allProducts.filter(
-        (element) => element?.id === productId
-      );
-
-      if (productFiltered) {
-        this.productSelectedDatas = productFiltered[0];
-
-        this.editProductForm.setValue({
-          name: this.productSelectedDatas?.name,
-          price: this.productSelectedDatas?.price,
-          amount: this.productSelectedDatas?.amount,
-          description: this.productSelectedDatas?.description,
-          category_id: this.productSelectedDatas?.category.id
-        });
-      }
-    }
-  }
+  // getProductSelectedDatas(productId: number): void {
+  //   const allProducts = this.productAction?.productDatas;
+  //
+  //
+  //   if (allProducts.length > 0) {
+  //     const productFiltered = allProducts.filter(
+  //       (element) => element?.id === productId
+  //     );
+  //
+  //     if (productFiltered) {
+  //       this.productSelectedDatas = productFiltered[0];
+  //
+  //       this.editProductForm.setValue({
+  //         name: this.productSelectedDatas?.name,
+  //         price: this.productSelectedDatas?.price,
+  //         amount: this.productSelectedDatas?.amount,
+  //         description: this.productSelectedDatas?.description,
+  //         category_id: this.productSelectedDatas?.category.id
+  //       });
+  //     }
+  //   }
+  // }
 
   getProductDatas(): void {
     this.productsService
