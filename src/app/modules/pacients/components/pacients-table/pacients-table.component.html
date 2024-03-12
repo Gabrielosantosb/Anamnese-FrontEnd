@@ -3,7 +3,7 @@
     <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Pacientes">
       <p-table
         [value]="pacients"
-        [(selection)]="categorySelected"
+        [(selection)]="pacientSelected"
         [rows]="10"
         [paginator]="true"
         [responsive]="true"
@@ -43,7 +43,7 @@
                   pTooltip = "Adicionar Paciente"
                   tooltipPosition="top"
                   label='Adicionar'
-                  (onClick)="handleCategoryEvent(addPacientAction)"
+                  (onClick)="handlePacientEvent(addPacientAction)"
                 ></p-button>
               </div>
             </th>
@@ -62,7 +62,7 @@
                   tooltipPosition="top"
                   icon='pi pi-pencil'
                   class="p-button-outlined p-button-primary"
-                  (click)="handleCategoryEvent(editPacientAction, pacient?.id, pacient?.username)"
+                  (click)="handlePacientEvent(editPacientAction, pacient?.pacientId, pacient?.username)"
                 ></button>
                 <button
                   pButton
@@ -71,7 +71,7 @@
                   tooltipPosition="top"
                   icon='pi pi-trash'
                   class="p-button-outlined p-button-danger"
-                  (click)="handleDeleteCategoryEvent(pacient?.id, pacient?.username)"
+                  (click)="handleDeletePacientEvent(pacient?.pacientId, pacient?.username)"
                 ></button>
               </div>
             </td>

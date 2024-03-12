@@ -2,6 +2,6 @@
 <p-progressBar *ngIf="isLoading" mode="{{loadingMode}}"></p-progressBar>
 <app-pacients-table
   [pacients]="pacientsData"
-  (deleteCategoryEvent)="handleDeleteCategoryAction($event)"
+  (deletePacientEvent)="handleDeleteCategoryAction($event)"
   (pacientEvent)="handleCategoryAction($event)"
 ></app-pacients-table>

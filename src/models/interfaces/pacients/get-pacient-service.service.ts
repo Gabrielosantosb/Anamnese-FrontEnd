@@ -1,6 +1,6 @@
 export interface GetPacientsResponse
 {
-  id: string,
+  id: number,
   username: string,
   email: string,
   address: string,

@@ -12,19 +12,19 @@ import {DeletePacient} from "../../../../../models/interfaces/pacients/event/del
 export class PacientsTableComponent {
   @Input() public pacients: Array<GetPacientsResponse> = [];
   @Output() public pacientEvent = new EventEmitter<EditPacientAction>();
-  @Output() public deleteCategoryEvent = new EventEmitter<DeletePacient>();
+  @Output() public deletePacientEvent = new EventEmitter<DeletePacient>();
 
-  public categorySelected!: GetPacientsResponse;
+  public pacientSelected!: GetPacientsResponse;
   public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
   public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
 
-  handleDeleteCategoryEvent(pacient_id: number, pacientName: string): void {
+  handleDeletePacientEvent(pacient_id: number, pacientName: string): void {
     if (pacient_id !== null && pacientName !== '') {
-      this.deleteCategoryEvent.emit({ pacient_id, pacientName });
+      this.deletePacientEvent.emit({ pacient_id, pacientName });
     }
   }
 
-  handleCategoryEvent(action: string, id?: string, categoryName?: string): void {
+  handlePacientEvent(action: string, id?: string, categoryName?: string): void {
     if (action && action !== '') this.pacientEvent.emit({ action, id, categoryName });
   }
 }

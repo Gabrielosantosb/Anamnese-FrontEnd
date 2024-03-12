@@ -62,9 +62,10 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
       });
   }
   handleDeleteCategoryAction(event: DeletePacient): void {
-    if (event && event.pacientName !== 'Macbooks' && event.pacientName !== 'Notebooks') {
+    if (event.pacientName != null) {
+      console.log(event)
         this.confirmationModal.confirmDelete(`Confirma a exclusão da categoria: ${event?.pacientName}`, () => this.deletePacient(event?.pacient_id));
-      // }
+
     } else {
       this.toastMessage.ErrorMessage(`Não é possível excluir o Paciente ${event.pacientName}`);
     }
