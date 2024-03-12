@@ -6,7 +6,7 @@ import {PacientsEvent} from "../../../../../../models/interfaces/enums/pacients/
 import {EditCategoryAction} from "../../../../../../models/interfaces/categories/event/editCategory";
 import {ToastMessage} from "../../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../../services/confirmation/confirmation-service.service";
-import {PacientService} from "../../../../../services/categories/categories.service";
+import {PacientService} from "../../../../../services/pacients/pacients.service";
 import {ProgressBar, ProgressBarModule} from "primeng/progressbar";
 
 @Component({

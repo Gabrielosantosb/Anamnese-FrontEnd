@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, take, takeUntil} from "rxjs";
-import {PacientService} from "../../../../services/categories/categories.service";
+import {PacientService} from "../../../../services/pacients/pacients.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";

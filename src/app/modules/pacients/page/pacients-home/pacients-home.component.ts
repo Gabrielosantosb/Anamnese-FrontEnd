@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PacientService} from "../../../../services/categories/categories.service";
+import {PacientService} from "../../../../services/pacients/pacients.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {Subject, takeUntil} from "rxjs";
 import {GetPacientsResponse} from "../../../../../models/interfaces/categories/get-categories-service.service";
