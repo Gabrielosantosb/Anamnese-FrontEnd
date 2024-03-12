@@ -1,0 +1,24 @@
+<div>
+  <p-progressBar *ngIf="isLoading"  mode="{{loadingMode}}"></p-progressBar>
+  <form [formGroup]="categoryForm" (ngSubmit)="handleSubmitPacientAction()">
+    <div class="card flex flex-column md:flex-column gap-3">
+      <input pInputText placeholder="Nome" formControlName="name" />
+      <input pInputText placeholder="Email" formControlName="email" />
+      <input pInputText placeholder="Endereço" formControlName="adress" />
+      <input pInputText placeholder="Profissão" formControlName="profession" />
+      <input pInputText placeholder="UF" formControlName="uf" />
+      <input pInputText placeholder="Data de nascimento" formControlName="birth" />
+      <input pInputText placeholder="Genêro" formControlName="gender" />
+      <input pInputText placeholder="Telefone" formControlName="phone" />
+      <div
+        class="flex flex-row justify-content-center align-content-center align-items-center"
+      >
+        <p-button
+          [disabled]="!categoryForm.valid"
+          type="submit"
+          label="Concluir"
+        ></p-button>
+      </div>
+    </div>
+  </form>
+</div>
