@@ -6,9 +6,9 @@ import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {Router} from "@angular/router";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
-import {EventAction} from "../../../../../models/interfaces/products/event/EventAction";
+import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {PacientsFormComponent} from "../../components/pacients-form/pacients-form/pacients-form.component";
-import {ProductsDataTransferService} from "../../../../shared/products/products-data-transfer.service";
+import {ReportsDataTransferService} from "../../../../shared/products/reports-data-transfer.service";
 import {DeletePacient} from "../../../../../models/interfaces/pacients/event/deletePacient";
 import {ProgressBarModule} from "primeng/progressbar";
 
@@ -28,7 +28,7 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private pacientSerivce: PacientService,
-    private productsDtService: ProductsDataTransferService,
+    private productsDtService: ReportsDataTransferService,
     private dialogService: DialogService,
     private toastMessage: ToastMessage,
     private confirmationModal: ConfirmationModal,

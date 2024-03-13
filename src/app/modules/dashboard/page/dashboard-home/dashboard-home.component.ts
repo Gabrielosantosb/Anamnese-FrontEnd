@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ProductsService} from "../../../../services/products/products.service";
+import {ReportsService} from "../../../../services/reports/reports.service";
 import {MessageService} from "primeng/api";
-import {GetAllProductsResponse} from "../../../../../models/interfaces/products/response/GetAllProductsResponse";
+import {GetAllProductsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {error} from "@angular/compiler-cli/src/transformers/util";
-import {ProductsDataTransferService} from "../../../../shared/products/products-data-transfer.service";
+import {ReportsDataTransferService} from "../../../../shared/products/reports-data-transfer.service";
 import {Subject, takeUntil} from "rxjs";
 import {ChartData, ChartOptions} from "chart.js";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
@@ -21,9 +21,9 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   public productsChartData !: ChartData
   public productsChartOptions!: ChartOptions
 
-  constructor(private productsService: ProductsService,
+  constructor(private productsService: ReportsService,
               private messageService: MessageService,
-              private productsDataService: ProductsDataTransferService,
+              private productsDataService: ReportsDataTransferService,
               private toastMessage: ToastMessage) {
   }
 

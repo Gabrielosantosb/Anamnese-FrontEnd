@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, map, take} from "rxjs";
-import {GetAllProductsResponse} from "../../../models/interfaces/products/response/GetAllProductsResponse";
+import {GetAllProductsResponse} from "../../../models/interfaces/reports/response/GetAllProductsResponse";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsDataTransferService {
+export class ReportsDataTransferService {
   // Dolar Quando retorna um observable
   public productsDataEmitter$ =
     new BehaviorSubject<Array<GetAllProductsResponse> | null>(null);

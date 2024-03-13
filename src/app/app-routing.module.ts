@@ -24,8 +24,8 @@ const routes: Routes = [
   },
   {
     path : "products",
-    loadChildren: ()=> import('./modules/products/products.module')
-      .then((m)=> m.ProductsModule),
+    loadChildren: ()=> import('./modules/reports/reports.module')
+      .then((m)=> m.ReportsModule),
     canActivate:[AuthGuardService]
   },
   {

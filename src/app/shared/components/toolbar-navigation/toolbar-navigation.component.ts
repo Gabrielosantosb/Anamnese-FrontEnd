@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ConfirmationModal} from "../../../services/confirmation/confirmation-service.service";
 import {DialogService} from "primeng/dynamicdialog";
-import {ProductFormComponent} from "../../../modules/products/components/product-form/product-form.component";
+import {ReportFormComponent} from "../../../modules/reports/components/report-form/report-form.component";
 import {ProductEvent} from "../../../../models/interfaces/enums/products/ProductEvent.js";
 
 
@@ -24,7 +24,7 @@ export class ToolbarNavigationComponent {
   }
 
   handleSaleProduct(): void {
-    this.dialogService.open(ProductFormComponent, {
+    this.dialogService.open(ReportFormComponent, {
       header: ProductEvent.SALE_PRODUCT_EVENT,
       width: '70%',
       contentStyle: {overflow: 'auto'},
