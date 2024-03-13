@@ -35,6 +35,14 @@ export class PacientService {
     )
   }
 
+  getProfissionalPacients(): Observable<Array<GetPacientsResponse>> {
+    var profissionalId = 1
+    return this.http.get<Array<GetPacientsResponse>>(
+      `${this.API_URL}/api/Pacient/profissional/${profissionalId}`,
+      this.httpOptions
+    )
+  }
+
   getPacientById(pacientId: number, pacientForm: FormGroup): Observable<GetPacientsResponse> {
     return this.http.get<GetPacientsResponse>(
       `${this.API_URL}/api/Pacient/get-pacient/${pacientId}`
