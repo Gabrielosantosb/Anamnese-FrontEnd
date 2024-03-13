@@ -3,7 +3,7 @@ import {ReportsService} from "../../../../services/reports/reports.service";
 import {MessageService} from "primeng/api";
 import {GetAllProductsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {error} from "@angular/compiler-cli/src/transformers/util";
-import {ReportsDataTransferService} from "../../../../shared/products/reports-data-transfer.service";
+import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
 import {Subject, takeUntil} from "rxjs";
 import {ChartData, ChartOptions} from "chart.js";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";

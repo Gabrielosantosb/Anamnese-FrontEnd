@@ -15,13 +15,6 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {ToastMessage} from "../services/toast-message/toast-message";
 import { ShortenPipe } from './pipes/shorten/shorten.pipe';
 import {SidebarModule} from "primeng/sidebar";
-
-
-
-
-
-
-
 @NgModule({
   declarations: [
     ToolbarNavigationComponent,
@@ -33,6 +26,7 @@ import {SidebarModule} from "primeng/sidebar";
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
+
         // PrimeNg
         ToolbarModule,
         CardModule,

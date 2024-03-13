@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {PacientsFormComponent} from "../../components/pacients-form/pacients-form/pacients-form.component";
-import {ReportsDataTransferService} from "../../../../shared/products/reports-data-transfer.service";
+import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
 import {DeletePacient} from "../../../../../models/interfaces/pacients/event/deletePacient";
 import {ProgressBarModule} from "primeng/progressbar";
 
