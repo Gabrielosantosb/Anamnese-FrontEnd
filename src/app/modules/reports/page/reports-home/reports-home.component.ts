@@ -24,7 +24,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
   public productsDatas: Array<GetAllProductsResponse> = [];
 
   constructor(
-    private productsService: ReportsService,
+    private reportService: ReportsService,
     private productsDtService: ReportsDataTransferService,
     private router: Router,
     private confirmationService: ConfirmationService,
@@ -46,22 +46,22 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
   }
 
   getAPIProductsDatas() {
-    this.productsService
-      .getAllProducts()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          if (response.length > 0) {
-            this.productsDatas = response;
-            this.productsDtService.setProductsDatas(response);
-          }
-        },
-        error: (err) => {
-          console.log(err);
-          this.toastMessage.ErrorMessage("Erro ao buscar produtos")
-          this.router.navigate(['/dashboard']);
-        },
-      });
+    // this.reportService
+    //   .getAllProducts()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe({
+    //     next: (response) => {
+    //       if (response.length > 0) {
+    //         this.productsDatas = response;
+    //         this.productsDtService.setProductsDatas(response);
+    //       }
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //       this.toastMessage.ErrorMessage("Erro ao buscar produtos")
+    //       this.router.navigate(['/dashboard']);
+    //     },
+    //   });
   }
 
   handleProductAction(event: EventAction): void {
@@ -93,7 +93,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
 
   deleteProduct(product_id: string) {
     if (product_id) {
-      this.productsService
+      this.reportService
         .deleteProduct(product_id)
         .pipe(takeUntil(this.destroy$))
         .subscribe({

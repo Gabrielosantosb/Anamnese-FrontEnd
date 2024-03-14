@@ -9,9 +9,12 @@ import {CreateProductRequest} from "../../../../../models/interfaces/reports/req
 import {ReportsService} from "../../../../services/reports/reports.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
-import {GetAllProductsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
+import {
+  GetAllProductsResponse,
+  GetAllReportsResponse
+} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
-import {ProductEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
+import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EditProductRequest} from "../../../../../models/interfaces/reports/request/EditProductRequest";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {SaleProductRequest} from "../../../../../models/interfaces/reports/request/SaleProductRequest";
@@ -32,6 +35,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   };
   public productSelectedDatas!: GetAllProductsResponse;
   public productsDatas: Array<GetAllProductsResponse> = [];
+  public reportData: Array<GetAllReportsResponse> = []
   public addProductForm = this.formBuilder.group({
     name: ['', Validators.required],
     price: ['', Validators.required],
@@ -51,9 +55,9 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     product_id: ["", Validators.required]
   })
 
-  public addProductAction = ProductEvent.ADD_PRODUCT_EVENT;
-  public editProductAction = ProductEvent.EDIT_PRODUCT_EVENT;
-  public saleProductAction = ProductEvent.SALE_PRODUCT_EVENT;
+  public addProductAction = ReportEvent.ADD_REPORT_EVENT;
+  public editProductAction = ReportEvent.EDIT_REPORT_EVENT;
+  public deleteReportAction = ReportEvent.DELETE_REPORT_EVENT;
   public renderDropdown = false
   public saleProductSelected !: GetAllProductsResponse
 
@@ -71,8 +75,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.productAction = this.ref.data;
-    this.productAction?.event?.action === this.saleProductAction && this.getProductDatas();
-    this.getAllCategories();
+    // this.getAllCategories();
     this.renderDropdown = true
   }
 
@@ -216,6 +219,20 @@ export class ReportFormComponent implements OnInit, OnDestroy {
       });
   }
 
+  getReportData(): void {
+    this.productsService
+      .getAllReports()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          if (response.length > 0) {
+            this.reportData = response;
+            this.reportData &&
+            this.productsDtService.setProductsDatas(this.productsDatas);
+          }
+        },
+      });
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

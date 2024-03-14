@@ -23,8 +23,9 @@ export class UserService {
   }
   signupUser (requestData: SignUpUserRequest): Observable<SignUpUserResponse>
   {
+    console.log('aqui', requestData)
     return this.http.post<SignUpUserResponse>(
-      `${this.API_URL}/api/Profissional/create-user`,
+      `${this.API_URL}/api/Profissional/create-profissional`,
       requestData
     )
   }

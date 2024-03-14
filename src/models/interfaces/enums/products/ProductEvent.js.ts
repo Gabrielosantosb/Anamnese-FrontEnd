@@ -1,7 +1,6 @@
-export enum ProductEvent
+export enum ReportEvent
 {
-  ADD_PRODUCT_EVENT = "Adicionar Produto",
-  EDIT_PRODUCT_EVENT = "Editar produto",
-  SALE_PRODUCT_EVENT = "Vender Produto",
-  DELETE_PRODUCT_EVENT = "Deletar produto",
+  ADD_REPORT_EVENT = "Adicionar Ficha",
+  EDIT_REPORT_EVENT = "Editar Ficha",
+  DELETE_REPORT_EVENT = "Deletar Ficha",
 }

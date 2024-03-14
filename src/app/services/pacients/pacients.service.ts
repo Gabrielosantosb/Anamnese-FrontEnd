@@ -36,9 +36,9 @@ export class PacientService {
   }
 
   getProfissionalPacients(): Observable<Array<GetPacientsResponse>> {
-    var profissionalId = 1
+    // var profissionalId = 1
     return this.http.get<Array<GetPacientsResponse>>(
-      `${this.API_URL}/api/Pacient/profissional/${profissionalId}`,
+      `${this.API_URL}/api/Pacient/get-profissional-pacient`,
       this.httpOptions
     )
   }

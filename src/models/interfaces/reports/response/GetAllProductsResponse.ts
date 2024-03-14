@@ -9,3 +9,23 @@ export interface GetAllProductsResponse {
     name: string,
   };
 }
+
+export interface GetAllReportsResponse
+{
+  reportId: number,
+  reportDateTime: Date,
+  medicalHistory: string
+  "currentMedications": string,
+  "cardiovascularIssues": boolean,
+  "diabetes": boolean,
+  "familyHistoryCardiovascularIssues": boolean,
+  "familyHistoryDiabetes": boolean,
+  "physicalActivity": string,
+  "smoker": boolean,
+  "alcoholConsumption": number,
+  "emergencyContactName": string,
+  "emergencyContactPhone": string,
+  "observations": string,
+  "pacientId": number,
+  "pacient": null
+}

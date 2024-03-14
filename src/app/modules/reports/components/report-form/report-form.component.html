@@ -80,7 +80,7 @@
 
 <!--FORMULARIO VENDER PRODUTO-->
 
-<div *ngIf="productAction.event.action === saleProductAction">
+<div >
   <!--  Nome produto-->
   <form [formGroup]="saleProductForm " (ngSubmit)="handleSaleProduct()">
     <div class="card flex flex-column md:flex-column gap-3">

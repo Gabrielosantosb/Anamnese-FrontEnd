@@ -3,7 +3,10 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
 import {map, Observable} from "rxjs";
-import {GetAllProductsResponse} from "../../../models/interfaces/reports/response/GetAllProductsResponse";
+import {
+  GetAllProductsResponse,
+  GetAllReportsResponse
+} from "../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {DeleteProductResponse} from "../../../models/interfaces/reports/response/DeleteProductResponse";
 import {CreateProductRequest} from "../../../models/interfaces/reports/request/CreateProductRequest";
 import {CreateProductResponse} from "../../../models/interfaces/reports/response/CreateProductResponse";
@@ -33,6 +36,9 @@ export class ReportsService {
       map((product) => product.filter
       ((data) => data?.amount > 0))
     )
+  }
+  getAllReports(): Observable<Array<GetAllReportsResponse>> {
+    return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
   }
 
   deleteProduct(product_id: string): Observable<DeleteProductResponse> {

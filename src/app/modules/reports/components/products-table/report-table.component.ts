@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {GetAllProductsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
-import {ProductEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
+import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {DeleteProductAction} from "../../../../../models/interfaces/reports/event/DeleteProductAction";
 
@@ -14,8 +14,8 @@ export class ReportTableComponent {
   @Output() productEvent = new EventEmitter<EventAction>()
   @Output() deleteProductEvent = new EventEmitter<DeleteProductAction>()
   public productsSelected!: GetAllProductsResponse;
-  public addProductAction = ProductEvent.ADD_PRODUCT_EVENT
-  public editProductAction = ProductEvent.EDIT_PRODUCT_EVENT
+  public addProductAction = ReportEvent.ADD_REPORT_EVENT
+  public editProductAction = ReportEvent.EDIT_REPORT_EVENT
 
   handleProductEvent(action: string, id?: number): void {
     if (action && action !== '')

@@ -21,7 +21,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   public productsChartData !: ChartData
   public productsChartOptions!: ChartOptions
 
-  constructor(private productsService: ReportsService,
+  constructor(private reportsService: ReportsService,
               private messageService: MessageService,
               private productsDataService: ReportsDataTransferService,
               private toastMessage: ToastMessage) {
@@ -32,21 +32,21 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   }
 
   private getProductsData() {
-    this.productsService.getAllProducts()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          if (response.length > 0) {
-            this.productsList = response;
-            this.productsDataService.setProductsDatas(this.productsList)
-            this.setProductsChartConfig();
-          }
-        },
-        error: (err) => {
-          console.log(err);
-          this.toastMessage.ErrorMessage("Erro ao buscar produtos")
-        }
-      });
+    // this.reportsService.getAllProducts()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe({
+    //     next: (response) => {
+    //       if (response.length > 0) {
+    //         this.productsList = response;
+    //         this.productsDataService.setProductsDatas(this.productsList)
+    //         this.setProductsChartConfig();
+    //       }
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //       this.toastMessage.ErrorMessage("Erro ao buscar produtos")
+    //     }
+    //   });
   }
 
   private setProductsChartConfig(): void {
