@@ -37,6 +37,11 @@ export class ReportsService {
       ((data) => data?.amount > 0))
     )
   }
+
+  getAllReport(): Observable<Array<GetAllReportsResponse>> {
+    return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
+
+  }
   getAllReports(): Observable<Array<GetAllReportsResponse>> {
     return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
   }

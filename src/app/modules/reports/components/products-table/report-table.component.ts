@@ -1,8 +1,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {GetAllProductsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
+import {
+  GetAllProductsResponse,
+  GetAllReportsResponse
+} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {DeleteProductAction} from "../../../../../models/interfaces/reports/event/DeleteProductAction";
+import {PacientService} from "../../../../services/pacients/pacients.service";
+import {ReportsService} from "../../../../services/reports/reports.service";
+import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 
 @Component({
   selector: 'app-products-table',
@@ -11,11 +17,29 @@ import {DeleteProductAction} from "../../../../../models/interfaces/reports/even
 })
 export class ReportTableComponent {
   @Input() products: Array<GetAllProductsResponse> = []
+  @Input() public reports: Array<GetAllReportsResponse> = [];
   @Output() productEvent = new EventEmitter<EventAction>()
   @Output() deleteProductEvent = new EventEmitter<DeleteProductAction>()
   public productsSelected!: GetAllProductsResponse;
   public addProductAction = ReportEvent.ADD_REPORT_EVENT
   public editProductAction = ReportEvent.EDIT_REPORT_EVENT
+  showProfissionalReports = false
+  constructor(private reportService: ReportsService) {
+  }
+
+  handleShowAllReports(): void {
+
+    this.reportService.getAllReports().subscribe({
+      next: (allReportData) => {
+        this.showProfissionalReports = false
+        this.reports = allReportData;
+        console.log(this.reports)
+      },
+      error: (error) => {
+        console.error('Erro ao obter fichas do usuário:', error);
+      }
+    });
+  }
 
   handleProductEvent(action: string, id?: number): void {
     if (action && action !== '')

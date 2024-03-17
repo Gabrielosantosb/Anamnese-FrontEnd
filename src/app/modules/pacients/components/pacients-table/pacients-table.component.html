@@ -1,6 +1,6 @@
 <div class='grid'>
   <div class='col-12'>
-    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Pacientes">
+    <p-card styleClass="shadow-3 m-5 text-indigo-800" >
       <div class="flex flex-row justify-content-around " style="margin-bottom: 10px;">
 
         <p-button
@@ -23,84 +23,82 @@
       </div>
       <hr style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px;">
 
-      <ng-container *ngIf="pacients && pacients.length > 0; else noPacients">
-        <p-table
-          [value]="pacients"
-          [(selection)]="pacientSelected"
-          [rows]="10"
-          [paginator]="true"
-          [responsive]="true"
-          [tableStyle]="{'min-width': '75rem' }"
-          [rowHover]='true'
-          [showCurrentPageReport]='true'
-          dataKey="id"
-          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} pacientes"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th pSortableColumn="name">
-                <div class='flex justify-content-between align-items-center'>
-                  <div class="flex justify-content-between align-items-center">
-                    Nome
-                  </div>
-                  <div class='justify-content-between align-items-center'>
-                    <p-sortIcon field='name'></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field='name'
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]='false'
-                      [showAddButton]="false"
-                      [showOperator]="false"
-                    ></p-columnFilter>
-                  </div>
+      <p-table
+        [value]="pacients"
+        [(selection)]="pacientSelected"
+        [rows]="10"
+        [paginator]="true"
+        [responsive]="true"
+        [tableStyle]="{'min-width': '75rem' }"
+        [rowHover]='true'
+        [showCurrentPageReport]='true'
+        dataKey="id"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} pacientes"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="name">
+              <div class='flex justify-content-between align-items-center'>
+                <div class="flex justify-content-between align-items-center">
+                  Nome
                 </div>
-              </th>
-              <th>
-                <div class="flex justify-content-center" style="margin-bottom: 20px">
-                  <p-button
-                    styleClass="p-button-outlined"
-                    icon='pi pi-plus'
-                    class="p-button-outlined "
-                    pTooltip="Adicionar Paciente"
-                    tooltipPosition="top"
-                    label='Adicionar'
-                    (click)="handlePacientEvent(addPacientAction)"
-                  ></p-button>
+                <div class='justify-content-between align-items-center'>
+                  <p-sortIcon field='name'></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field='name'
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]='false'
+                    [showAddButton]="false"
+                    [showOperator]="false"
+                  ></p-columnFilter>
                 </div>
-              </th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-pacient >
-            <tr >
-              <td>{{pacient?.username}}</td>
-              <td>
-                <div class='flex justify-content-center gap-3 align-content-center align-items-center' style="margin-bottom: 10px">
-                  <button
-                    pButton
-                    pRipple
-                    pTooltip='Editar Paciente'
-                    tooltipPosition="top"
-                    icon='pi pi-pencil'
-                    class="p-button-outlined p-button-primary"
-                    (click)="handlePacientEvent(editPacientAction, pacient?.pacientId, pacient?.username)"
-                  ></button>
-                  <button
-                    pButton
-                    pRipple
-                    pTooltip='Excluir Paciente'
-                    tooltipPosition="top"
-                    icon='pi pi-trash'
-                    class="p-button-outlined p-button-danger"
-                    (click)="handleDeletePacientEvent(pacient?.pacientId, pacient?.username)"
-                  ></button>
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </ng-container>
+              </div>
+            </th>
+            <th>
+              <div class="flex justify-content-center" style="margin-bottom: 20px">
+                <p-button
+                  styleClass="p-button-outlined"
+                  icon='pi pi-plus'
+                  class="p-button-outlined "
+                  pTooltip="Adicionar Paciente"
+                  tooltipPosition="top"
+                  label='Adicionar'
+                  (click)="handlePacientEvent(addPacientAction)"
+                ></p-button>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pacient >
+          <tr >
+            <td>{{pacient?.username}}</td>
+            <td>
+              <div class='flex justify-content-center gap-3 align-content-center align-items-center' style="margin-bottom: 10px">
+                <button
+                  pButton
+                  pRipple
+                  pTooltip='Editar Paciente'
+                  tooltipPosition="top"
+                  icon='pi pi-pencil'
+                  class="p-button-outlined p-button-primary"
+                  (click)="handlePacientEvent(editPacientAction, pacient?.pacientId, pacient?.username)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  pTooltip='Excluir Paciente'
+                  tooltipPosition="top"
+                  icon='pi pi-trash'
+                  class="p-button-outlined p-button-danger"
+                  (click)="handleDeletePacientEvent(pacient?.pacientId, pacient?.username)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
 
       <ng-template #noPacients>
         <div class="text-center">Nenhum paciente encontrado.</div>

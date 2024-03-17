@@ -157,29 +157,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleSaleProduct(): void {
-    if (this.saleProductForm.valid && this.saleProductForm.value) {
-      const requestData: SaleProductRequest = {
-        amount: Number(this.saleProductForm.value.amount),
-        product_id: String(this.saleProductForm.value.product_id)
-      };
-      this.productsService.saleProduct(requestData).pipe(takeUntil(this.destroy$)).subscribe({
-        next: (response) => {
-          if (response) {
-            this.saleProductForm.reset()
-            this.getProductDatas()
-            this.toastMessage.SuccessMessage('Venda efetuada com sucesso!')
-            this.router.navigate(['/dashboard'])
-          }
-        },
-        error: (err) => {
-          console.log(err)
-          this.saleProductForm.reset()
-          this.toastMessage.ErrorMessage('Error ao efetuar venda')
-        }
-      })
-    }
-  }
 
   // getProductSelectedDatas(productId: number): void {
   //   const allProducts = this.productAction?.productDatas;
