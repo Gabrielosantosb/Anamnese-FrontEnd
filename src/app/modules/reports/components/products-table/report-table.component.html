@@ -254,7 +254,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-report >
           <tr >
-            <td>{{report?.reportDateTime}}</td>
+            <td>{{ report?.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td>
               <div class='flex justify-content-center gap-3 align-content-center align-items-center' style="margin-bottom: 10px">
                 <button
