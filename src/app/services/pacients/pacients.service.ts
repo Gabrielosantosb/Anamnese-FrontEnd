@@ -102,4 +102,15 @@ export class PacientService {
       this.httpOptions
     );
   }
+
+  countAllPacients () : Observable<number>
+  {
+    return this.http.get<number>(`${this.API_URL}/api/Pacient/count-pacients`,
+      this.httpOptions)
+  }
+  countProfissionalPacients () : Observable<number>
+  {
+    return this.http.get<number>(`${this.API_URL}/api/Pacient/count-profissional`,
+      this.httpOptions)
+  }
 }

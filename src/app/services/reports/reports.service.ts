@@ -60,6 +60,12 @@ export class ReportsService {
 
   }
 
+  countReport () : Observable<number>
+  {
+    return this.http.get<number>(`${this.API_URL}/api/Report/count-report`,
+      this.httpOptions)
+  }
+
   saleProduct(requestData: SaleProductRequest): Observable<SaleProductResponse> {
     return this.http.put<SaleProductResponse>(`${this.API_URL}/product/sale`, {amount: requestData?.amount}, {
         ...this.httpOptions,

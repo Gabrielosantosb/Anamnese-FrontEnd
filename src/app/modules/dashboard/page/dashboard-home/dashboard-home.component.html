@@ -2,21 +2,39 @@
 
 <div class="grid">
   <div class="col-12">
-    <!--    GRAFICO PRODUTOS EM ESTOQUE-->
-    <p-card
-      header="Quantidade produtos em estoque"
-      styleClass="shadow-3 m-5 text-indigo-800"
-    >
-      <p-chart
-        type="bar"
-        [data]="productsChartData"
-        [options]="productsChartOptions"
-        height=700;
-      >
-      </p-chart>
+    <!-- Gráfico de produtos em estoque -->
+    <p-card header="Quantidade produtos em estoque" styleClass="shadow-3 m-5 text-indigo-800">
+      <p-chart type="bar" [data]="productsChartData" [options]="productsChartOptions" height=700;></p-chart>
     </p-card>
   </div>
-  <p-confirmDialog></p-confirmDialog>
 
+  <!-- Totais -->
+  <div class="col-4">
+    <div class="card shadow-3 m-5">
+      <div class="card-body">
+        <h5 class="card-title">Total de Pacientes</h5>
+        <p class="card-text">{{ allPacients }}</p>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card shadow-3 m-5">
+      <div class="card-body">
+        <h5 class="card-title">Total de Fichas</h5>
+        <p class="card-text">{{ allReports }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card shadow-3 m-5">
+      <div class="card-body">
+        <h5 class="card-title">Total de Pacientes Criados pelo Profissional</h5>
+        <p class="card-text">{{ allProfissionalPacients }}</p>
+
+      </div>
+    </div>
+  </div>
 </div>
-

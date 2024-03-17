@@ -35,7 +35,8 @@ import {SharedModule} from "../../shared/shared.module";
         // SharedModule
         SharedModule,
         ConfirmDialogModule,
-        SharedModule
+        SharedModule,
+        ChartModule
     ],
   providers:[MessageService, CookieService, ConfirmationService]
 })

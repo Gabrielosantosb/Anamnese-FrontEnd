@@ -17,6 +17,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {ToastMessage} from "./services/toast-message/toast-message";
 import {SharedModule} from "./shared/shared.module";
 import {ProgressBarModule} from "primeng/progressbar";
+import {ChartModule} from "primeng/chart";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {ProgressBarModule} from "primeng/progressbar";
         FormsModule,
         ConfirmDialogModule,
         SharedModule,
-        ProgressBarModule
+        ProgressBarModule,
+        ChartModule
 
     ],
   providers: [CookieService, MessageService,ConfirmationService, ToastMessage],
