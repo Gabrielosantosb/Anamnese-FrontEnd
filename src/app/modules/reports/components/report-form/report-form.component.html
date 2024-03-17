@@ -1,115 +1,145 @@
-<!--FORMULARIO ADD PRODUTO-->
-<div *ngIf="productAction.event.action === addProductAction">
-  <!--  Nome produto-->
-  <form [formGroup]="addProductForm" (ngSubmit)="handleSubmitAddProduct()">
-    <div class="card flex flex-column md:flex-column gap-3">
-      <input pInputText
-             placeholder="Nome"
-             formControlName="name">
-      <!--Categoria Produto-->
-      <p-dropdown
-        styleClass="w-full"
-        [options]="categoriesDatas"
-        [(ngModel)]="selectedCategory"
-        optionLabel="name"
-        optionValue="id"
-        placeholder="Selecione uma categoria"
-        formControlName="category_id"
-      ></p-dropdown>
-      <!--Preco producto-->
-      <input pInputText
-             placeholder="Preço"
-             formControlName="price">
-      <!--      Descricao-->
-      <input pInputText
-             placeholder="Descrição"
-             formControlName="description">
-      <!--      Quantidade -->
-      <input pInputText
-             type="number"
-             placeholder="Quantidade"
-             formControlName="amount">
-      <div class="flex flex-roe justify-content-center align-content-center align-items-center m-1">
-        <p-button
-          [disabled]="!addProductForm.valid"
-          type="submit"
-          label="Concluir"
-        ></p-button>
-      </div>
-    </div>
-  </form>
-</div>
+<!--&lt;!&ndash;FORMULARIO ADD PRODUTO&ndash;&gt;-->
+<!--<div *ngIf="productAction.event.action === addProductAction">-->
+<!--  &lt;!&ndash;  Nome produto&ndash;&gt;-->
+<!--  <form [formGroup]="addProductForm" (ngSubmit)="handleSubmitAddProduct()">-->
+<!--    <div class="card flex flex-column md:flex-column gap-3">-->
+<!--      <input pInputText-->
+<!--             placeholder="Nome"-->
+<!--             formControlName="name">-->
+<!--      &lt;!&ndash;Categoria Produto&ndash;&gt;-->
+<!--      <p-dropdown-->
+<!--        styleClass="w-full"-->
+<!--        [options]="categoriesDatas"-->
+<!--        [(ngModel)]="selectedCategory"-->
+<!--        optionLabel="name"-->
+<!--        optionValue="id"-->
+<!--        placeholder="Selecione uma categoria"-->
+<!--        formControlName="category_id"-->
+<!--      ></p-dropdown>-->
+<!--      &lt;!&ndash;Preco producto&ndash;&gt;-->
+<!--      <input pInputText-->
+<!--             placeholder="Preço"-->
+<!--             formControlName="price">-->
+<!--      &lt;!&ndash;      Descricao&ndash;&gt;-->
+<!--      <input pInputText-->
+<!--             placeholder="Descrição"-->
+<!--             formControlName="description">-->
+<!--      &lt;!&ndash;      Quantidade &ndash;&gt;-->
+<!--      <input pInputText-->
+<!--             type="number"-->
+<!--             placeholder="Quantidade"-->
+<!--             formControlName="amount">-->
+<!--      <div class="flex flex-roe justify-content-center align-content-center align-items-center m-1">-->
+<!--        <p-button-->
+<!--          [disabled]="!addProductForm.valid"-->
+<!--          type="submit"-->
+<!--          label="Concluir"-->
+<!--        ></p-button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
 
-<!--FORMULARIO EDITAR PRODUTO-->
-<div *ngIf="productAction?.event?.action === editProductAction">
-  <form [formGroup]="editProductForm" (ngSubmit)="handleSubmitEditProduct()">
-    <div class="card flex flex-column md:flex-column gap-3">
-      <input pInputText placeholder="Nome" formControlName="name"/>
-      <div *ngIf="renderDropdown">
-        <p-dropdown
-          styleClass="w-full"
-          [options]="categoriesDatas"
-          [(ngModel)]="selectedCategory"
-          optionLabel="name"
-          optionValue="id"
-          formControlName="category_id"
-        ></p-dropdown>
-      </div>
-      <input pInputText placeholder="Preço" formControlName="price"/>
-      <input pInputText placeholder="Descrição" formControlName="description"/>
-      <input
-        pInputText
-        type="number"
-        placeholder="Quantidade"
-        formControlName="amount"
-      />
+<!--&lt;!&ndash;FORMULARIO EDITAR PRODUTO&ndash;&gt;-->
+<!--<div *ngIf="productAction?.event?.action === editProductAction">-->
+<!--  <form [formGroup]="editProductForm" (ngSubmit)="handleSubmitEditProduct()">-->
+<!--    <div class="card flex flex-column md:flex-column gap-3">-->
+<!--      <input pInputText placeholder="Nome" formControlName="name"/>-->
+<!--      <div *ngIf="renderDropdown">-->
+<!--        <p-dropdown-->
+<!--          styleClass="w-full"-->
+<!--          [options]="categoriesDatas"-->
+<!--          [(ngModel)]="selectedCategory"-->
+<!--          optionLabel="name"-->
+<!--          optionValue="id"-->
+<!--          formControlName="category_id"-->
+<!--        ></p-dropdown>-->
+<!--      </div>-->
+<!--      <input pInputText placeholder="Preço" formControlName="price"/>-->
+<!--      <input pInputText placeholder="Descrição" formControlName="description"/>-->
+<!--      <input-->
+<!--        pInputText-->
+<!--        type="number"-->
+<!--        placeholder="Quantidade"-->
+<!--        formControlName="amount"-->
+<!--      />-->
 
+<!--      <div-->
+<!--        class="flex flex-row justify-content-center align-content-center align-items-center"-->
+<!--      >-->
+<!--        <p-button-->
+<!--          [disabled]="!editProductForm.valid"-->
+<!--          type="submit"-->
+<!--          label="Concluir"-->
+<!--        ></p-button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash;FORMULARIO VENDER PRODUTO&ndash;&gt;-->
+
+<!--<div >-->
+<!--  &lt;!&ndash;  Nome produto&ndash;&gt;-->
+<!--  <form [formGroup]="saleProductForm ">-->
+<!--    <div class="card flex flex-column md:flex-column gap-3">-->
+
+<!--      <p-dropdown-->
+<!--        styleClass="w-full"-->
+<!--        [options]="productsDatas"-->
+<!--        [(ngModel)]="saleProductSelected"-->
+<!--        placeholder="Selecione o produto"-->
+<!--        optionLabel="name"-->
+<!--        optionValue="id"-->
+<!--        formControlName="product_id"-->
+<!--      ></p-dropdown>-->
+<!--      <input-->
+<!--        pInputText-->
+<!--        type="number"-->
+<!--        placeholder="Quantidade"-->
+<!--        formControlName="amount"-->
+<!--      />-->
+
+<!--      <div-->
+<!--        class="flex flex-row justify-content-center align-content-center align-items-center"-->
+<!--      >-->
+<!--        <p-button-->
+<!--          [disabled]="!saleProductForm.valid"-->
+<!--          type="submit"-->
+<!--          label="Concluir"-->
+<!--        ></p-button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
+
+<div>
+<!--  <form [formGroup]="reportForm" (ngSubmit)="handleSubmitReportAction()">-->
+  <form [formGroup]="reportForm">
+    <div class="card flex flex-column md:flex-column gap-3">
+      <textarea pInputTextarea placeholder="Histórico Médico" formControlName="medicalHistory"></textarea>
+      <textarea pInputTextarea placeholder="Medicações Atuais" formControlName="currentMedications"></textarea>
+      <p-checkbox label="Problemas Cardiovasculares" formControlName="cardiovascularIssues"></p-checkbox>
+      <p-checkbox label="Diabetes" formControlName="diabetes"></p-checkbox>
+      <p-checkbox label="Histórico Familiar de Problemas Cardiovasculares" formControlName="familyHistoryCardiovascularIssues"></p-checkbox>
+      <p-checkbox label="Histórico Familiar de Diabetes" formControlName="familyHistoryDiabetes"></p-checkbox>
+      <p-checkbox label="Fumante" formControlName="smoker"></p-checkbox>
+      <input pInputText placeholder="Atividade Física" formControlName="physicalActivity"/>
+      <input type="number" pInputText placeholder="Consumo de Álcool" formControlName="alcoholConsumption"/>
+      <input pInputText placeholder="Nome do Contato de Emergência" formControlName="emergencyContactName"/>
+      <input pInputText placeholder="Telefone do Contato de Emergência" formControlName="emergencyContactPhone"/>
+      <textarea pInputTextarea placeholder="Observações" formControlName="observations"></textarea>
       <div
         class="flex flex-row justify-content-center align-content-center align-items-center"
       >
         <p-button
-          [disabled]="!editProductForm.valid"
+          [disabled]="!reportForm.valid"
           type="submit"
           label="Concluir"
         ></p-button>
       </div>
-    </div>
-  </form>
-</div>
-
-
-<!--FORMULARIO VENDER PRODUTO-->
-
-<div >
-  <!--  Nome produto-->
-  <form [formGroup]="saleProductForm ">
-    <div class="card flex flex-column md:flex-column gap-3">
-
-      <p-dropdown
-        styleClass="w-full"
-        [options]="productsDatas"
-        [(ngModel)]="saleProductSelected"
-        placeholder="Selecione o produto"
-        optionLabel="name"
-        optionValue="id"
-        formControlName="product_id"
-      ></p-dropdown>
-      <input
-        pInputText
-        type="number"
-        placeholder="Quantidade"
-        formControlName="amount"
-      />
-
-      <div
-        class="flex flex-row justify-content-center align-content-center align-items-center"
-      >
-        <p-button
-          [disabled]="!saleProductForm.valid"
-          type="submit"
-          label="Concluir"
-        ></p-button>
-      </div>
+<!--      <p-progressBar *ngIf="isLoading" mode="{{loadingMode}}"></p-progressBar>-->
     </div>
   </form>
 </div>

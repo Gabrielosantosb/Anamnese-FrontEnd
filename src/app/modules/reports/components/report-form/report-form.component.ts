@@ -54,6 +54,20 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     amount: [0, Validators.required],
     product_id: ["", Validators.required]
   })
+  public reportForm = this.formBuilder.group({
+    medicalHistory: ['', Validators.required],
+    currentMedications: ['', Validators.required],
+    cardiovascularIssues: [false],
+    diabetes: [false],
+    familyHistoryCardiovascularIssues: [false],
+    familyHistoryDiabetes: [false],
+    physicalActivity: ['', Validators.required],
+    smoker: [false],
+    alcoholConsumption: [0, Validators.min(0)],
+    emergencyContactName: ['', Validators.required],
+    emergencyContactPhone: ['', Validators.required],
+    observations: ['']
+  })
 
   public addProductAction = ReportEvent.ADD_REPORT_EVENT;
   public editProductAction = ReportEvent.EDIT_REPORT_EVENT;

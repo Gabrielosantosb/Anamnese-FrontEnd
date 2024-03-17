@@ -2,7 +2,7 @@
 
 <app-products-table
   [products]="productsDatas"
-  (productEvent)="handleProductAction($event)"
+  (reportEvent)="handleReportAction($event)"
   (deleteProductEvent)="handleDeleteProductAction($event)"
 ></app-products-table>
 <p-confirmDialog></p-confirmDialog>

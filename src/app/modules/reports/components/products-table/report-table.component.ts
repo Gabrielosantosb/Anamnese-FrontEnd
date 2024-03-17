@@ -18,12 +18,13 @@ import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get
 export class ReportTableComponent {
   @Input() products: Array<GetAllProductsResponse> = []
   @Input() public reports: Array<GetAllReportsResponse> = [];
-  @Output() productEvent = new EventEmitter<EventAction>()
+  @Output() reportEvent = new EventEmitter<EventAction>()
   @Output() deleteProductEvent = new EventEmitter<DeleteProductAction>()
   public productsSelected!: GetAllProductsResponse;
   public addProductAction = ReportEvent.ADD_REPORT_EVENT
-  public editProductAction = ReportEvent.EDIT_REPORT_EVENT
+  public editReportAction = ReportEvent.EDIT_REPORT_EVENT
   showProfissionalReports = false
+  public reportSelected!: GetAllProductsResponse;
   constructor(private reportService: ReportsService) {
   }
 
@@ -41,13 +42,16 @@ export class ReportTableComponent {
     });
   }
 
-  handleProductEvent(action: string, id?: number): void {
+
+
+  handleReportEvent(action: string, id?: number): void {
     if (action && action !== '')
     {
-      const productEventData = id && id !== null ? {action, id} : {action}
-      this.productEvent.emit(productEventData)
+      const reportEventData = id && id !== null ? {action, id} : {action}
+      this.reportEvent.emit(reportEventData)
     }
   }
+
   handleDeleteProduct(product_id: string, productName: string): void {
     if(product_id !== "" && productName !== "")
     {

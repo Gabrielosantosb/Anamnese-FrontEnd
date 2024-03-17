@@ -203,6 +203,7 @@
 
       <p-table
         [value]="reports"
+        [(selection)]="reportSelected"
         [rows]="10"
         [paginator]="true"
         [responsive]="true"
@@ -259,10 +260,11 @@
                 <button
                   pButton
                   pRipple
-                  pTooltip='Editar Paciente'
+                  pTooltip='Editar ficha'
                   tooltipPosition="top"
                   icon='pi pi-pencil'
                   class="p-button-outlined p-button-primary"
+                  (click)="handleReportEvent(editReportAction, report.reportId)"
 
                 ></button>
                 <button

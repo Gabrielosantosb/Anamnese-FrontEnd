@@ -38,14 +38,9 @@ export class ReportsService {
     )
   }
 
-  getAllReport(): Observable<Array<GetAllReportsResponse>> {
-    return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
-
-  }
   getAllReports(): Observable<Array<GetAllReportsResponse>> {
     return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
   }
-
   deleteProduct(product_id: string): Observable<DeleteProductResponse> {
     return this.http.delete<DeleteProductResponse>(`${this.API_URL}/product/delete`, {
       ...this.httpOptions, params: {

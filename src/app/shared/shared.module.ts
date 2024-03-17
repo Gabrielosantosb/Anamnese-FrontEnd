@@ -15,28 +15,32 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {ToastMessage} from "../services/toast-message/toast-message";
 import { ShortenPipe } from './pipes/shorten/shorten.pipe';
 import {SidebarModule} from "primeng/sidebar";
+import {CheckboxModule} from "primeng/checkbox";
+import {FileUploadModule} from "primeng/fileupload";
 @NgModule({
   declarations: [
     ToolbarNavigationComponent,
     ReportFormComponent,
     ShortenPipe,
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
 
-        // PrimeNg
-        ToolbarModule,
-        CardModule,
-        ButtonModule,
-        ConfirmDialogModule,
-        InputTextModule,
-        DropdownModule,
-        InputTextareaModule,
-        SidebarModule
-    ],
+    // PrimeNg
+    ToolbarModule,
+    CardModule,
+    ButtonModule,
+    ConfirmDialogModule,
+    InputTextModule,
+    DropdownModule,
+    InputTextareaModule,
+    SidebarModule,
+    CheckboxModule,
+    FileUploadModule
+  ],
   exports: [
     ToolbarNavigationComponent,
     ShortenPipe,

@@ -64,7 +64,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
     //   });
   }
 
-  handleProductAction(event: EventAction): void {
+  handleReportAction(event: EventAction): void {
     if (event) {
       this.ref = this.dialogService.open(ReportFormComponent, {
         header: event?.action,
