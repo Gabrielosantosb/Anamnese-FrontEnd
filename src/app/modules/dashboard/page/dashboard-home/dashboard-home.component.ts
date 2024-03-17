@@ -14,8 +14,8 @@ import {ReportsService} from "../../../../services/reports/reports.service";
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  public productsChartData!: ChartData;
-  public productsChartOptions!: ChartOptions;
+  public chartData!: ChartData;
+  public chartOptions!: ChartOptions;
   public allPacients!: number;
   public allReports !: number;
   public allProfissionalPacients !:number;
@@ -102,7 +102,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.productsChartData = {
+    this.chartData = {
       labels: ['Resultados totais'],
       datasets: [
         {
@@ -129,7 +129,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
       ]
     };
-    this.productsChartOptions = {
+    this.chartOptions = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
       plugins: { legend: { labels: { color: textColor } } },
