@@ -9,6 +9,7 @@ import {ConfirmationModal} from "../../../../../services/confirmation/confirmati
 import {PacientService} from "../../../../../services/pacients/pacients.service";
 import {ProgressBar, ProgressBarModule} from "primeng/progressbar";
 import {GetPacientsResponse} from "../../../../../../models/interfaces/pacients/get-pacient-service.service";
+import {UF} from "../../../../../../models/interfaces/enums/UF/uf";
 
 @Component({
   selector: 'app-pacients-form',
@@ -23,7 +24,8 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
   public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
-
+  public estados = Object.values(UF)
+  public gender: string[] = ["Masculino", "Feminino", "Outro"];
   public pacientAction!: { event: EditPacientAction };
   public pacientForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -36,6 +38,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     gender: ['', Validators.required],
     profession: ['', Validators.required],
   });
+
 
   constructor(
     public ref: DynamicDialogConfig,

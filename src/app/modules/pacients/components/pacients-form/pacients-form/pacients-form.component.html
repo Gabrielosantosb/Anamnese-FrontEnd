@@ -2,13 +2,13 @@
   <form [formGroup]="pacientForm" (ngSubmit)="handleSubmitPacientAction()">
     <div class="card flex flex-column md:flex-column gap-3">
       <input pInputText placeholder="Nome" formControlName="name"/>
-      <input pInputText placeholder="Email" formControlName="email"/>
+      <input pInputText placeholder="Email" type="email" formControlName="email"/>
       <input pInputText placeholder="Endereço" formControlName="address"/>
       <input pInputText placeholder="Profissão" formControlName="profession"/>
-      <input pInputText placeholder="UF" formControlName="uf"/>
+      <p-dropdown formControlName="uf" [options]="estados" [showClear]="true" [style]="{'width':'100%', 'height': '40px'}" placeholder="Seleciona uma UF"></p-dropdown>
       <input type="date" pInputText placeholder="Data de nascimento" formControlName="birth" mask="00-00-0000"/>
-      <input pInputText placeholder="Genêro" formControlName="gender"/>
-      <input pInputText placeholder="Telefone" formControlName="phone"/>
+      <p-dropdown formControlName="gender" placeholder="Gênero" [options]="gender" [style]="{'width':'100%', 'height': '40px'}" [dropdownIcon]="'pi pi-chevron-down'" [showClear]="true"></p-dropdown>
+      <input pInputText placeholder="Telefone" formControlName="phone" pInputMask="(99) 99999-9999" maxlength="11" />
       <div
         class="flex flex-row justify-content-center align-content-center align-items-center"
       >
