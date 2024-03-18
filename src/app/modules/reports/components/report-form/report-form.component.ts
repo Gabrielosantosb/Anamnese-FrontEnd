@@ -1,23 +1,21 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, take, takeUntil} from "rxjs";
 import {PacientService} from "../../../../services/pacients/pacients.service";
-import {FormBuilder, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
-import {CreateProductRequest} from "../../../../../models/interfaces/reports/request/CreateProductRequest";
-import {ReportsService} from "../../../../services/reports/reports.service";
+
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
-import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
-import {
-  GetAllProductsResponse,
-  GetAllReportsResponse
-} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
-import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
-import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
-import {EditProductRequest} from "../../../../../models/interfaces/reports/request/EditProductRequest";
+
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {SaleProductRequest} from "../../../../../models/interfaces/reports/request/SaleProductRequest";
+import {ProgressBarModule} from "primeng/progressbar";
+import {PacientsEvent} from "../../../../../models/interfaces/enums/pacients/PacientEvent";
+import {UF} from "../../../../../models/interfaces/enums/UF/uf";
+import {EditPacientAction} from "../../../../../models/interfaces/pacients/event/editPacient";
+import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
+import {ReportsService} from "../../../../services/reports/reports.service";
 
 @Component({
   selector: 'app-report-form',
@@ -27,33 +25,25 @@ import {SaleProductRequest} from "../../../../../models/interfaces/reports/reque
 })
 export class ReportFormComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
-  public categoriesDatas: Array<GetPacientsResponse> = [];
-  public selectedCategory: Array<{ name: string; code: string }> = [];
-  public productAction!: {
-    event: EventAction;
-    productDatas: Array<GetAllProductsResponse>;
-  };
-  public productSelectedDatas!: GetAllProductsResponse;
-  public productsDatas: Array<GetAllProductsResponse> = [];
-  public reportData: Array<GetAllReportsResponse> = []
-  public addProductForm = this.formBuilder.group({
+  isLoading = false
+  loadingMode: ProgressBarModule = 'indeterminate';
+
+  public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
+  public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
+  public estados = Object.values(UF)
+  public gender: string[] = ["Masculino", "Feminino", "Outro"];
+  public pacientAction!: { event: EditPacientAction };
+  public pacientForm = this.formBuilder.group({
     name: ['', Validators.required],
-    price: ['', Validators.required],
-    description: ['', Validators.required],
-    category_id: ['', Validators.required],
-    amount: [0, Validators.required],
+    email: ['', Validators.required],
+    address: ['', Validators.required],
+    uf: ['', Validators.required],
+    phone: ['', Validators.required],
+    birth: ['', [Validators.required, this.dateValidator]],
+
+    gender: ['', Validators.required],
+    profession: ['', Validators.required],
   });
-  public editProductForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    price: ['', Validators.required],
-    description: ['', Validators.required],
-    amount: [0, Validators.required],
-    category_id: ['', Validators.required],
-  });
-  public saleProductForm = this.formBuilder.group({
-    amount: [0, Validators.required],
-    product_id: ["", Validators.required]
-  })
   public reportForm = this.formBuilder.group({
     medicalHistory: ['', Validators.required],
     currentMedications: ['', Validators.required],
@@ -69,163 +59,134 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     observations: ['']
   })
 
-  public addProductAction = ReportEvent.ADD_REPORT_EVENT;
-  public editProductAction = ReportEvent.EDIT_REPORT_EVENT;
-  public deleteReportAction = ReportEvent.DELETE_REPORT_EVENT;
-  public renderDropdown = false
-  public saleProductSelected !: GetAllProductsResponse
 
   constructor(
-    private pacientService: PacientService,
-    private productsService: ReportsService,
-    private productsDtService: ReportsDataTransferService,
-    private formBuilder: FormBuilder,
-    private messageService: MessageService,
-    private router: Router,
     public ref: DynamicDialogConfig,
-    private toastMessage: ToastMessage,
-  ) {
-  }
+    private formBuilder: FormBuilder,
+    private pacientService: PacientService,
+    private reportService: ReportsService,
+    private confirmationModal: ConfirmationModal,
+    private toastMessage: ToastMessage
+  ) {}
 
   ngOnInit(): void {
-    this.productAction = this.ref.data;
-    // this.getAllCategories();
-    this.renderDropdown = true
+    this.pacientAction = this.ref.data;
+
+    if (
+      this.pacientAction?.event?.action === this.editPacientAction &&
+      this.pacientAction?.event?.pacientName !== null &&
+      this.pacientAction?.event?.pacientName !== undefined &&
+      this.pacientAction?.event?.id !== undefined
+    ) {
+      this.loadPacientData(this.pacientAction.event.id);
+    }
   }
 
-  getAllCategories(): void {
-    this.pacientService
-      .getAllCategories()
+  dateValidator(control :AbstractControl) {
+    const dateString = control.value;
+    if (dateString) {
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // Formato yyyy-mm-dd
+      if (!dateRegex.test(dateString)) {
+        return { invalidFormat: true };
+      }
+    }
+    return null;
+  }
+
+  loadPacientData(pacientId: number): void {
+    this.pacientService.getPacientById(pacientId, this.reportForm)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (response) => {
-          if (response.length > 0) {
-            this.categoriesDatas = response;
-            if (this.productAction?.event?.action === this.editProductAction && this.productAction?.productDatas) {
-              console.log('foi')
-              // this.getProductSelectedDatas(this.productAction?.event?.id as string);
-            }
-          }
+        next: (pacientData: GetPacientsResponse) => {
+          console.log('Dados do paciente carregados:', pacientData);
         },
+        error: (error) => {
+          console.error('Erro ao carregar dados do paciente:', error);
+        }
       });
   }
 
-  handleSubmitAddProduct(): void {
-    if (this.addProductForm?.value && this.addProductForm?.valid) {
-      const requestCreateProduct: CreateProductRequest = {
-        name: this.addProductForm.value.name as string,
-        price: this.addProductForm.value.price as string,
-        description: this.addProductForm.value.description as string,
-        category_id: this.addProductForm.value.category_id as string,
-        amount: Number(this.addProductForm.value.amount),
-      };
-
-      this.productsService
-        .createProduct(requestCreateProduct)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (response) => {
-            if (response) {
-              this.toastMessage.SuccessMessage('Produto criado com sucesso!')
-            }
-          },
-          error: (err) => {
-            console.log(err);
-            this.toastMessage.ErrorMessage('Erro ao criar produto!')
-          },
-        });
-    }
-
-    this.addProductForm.reset();
+  handleSubmitPacientAction(): void {
+    if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditPacient();
+    return;
   }
 
-  handleSubmitEditProduct(): void {
-    if (
-      this.editProductForm.value &&
-      this.editProductForm.valid &&
-      this.productAction.event.id
-    ) {
-      const requestEditProduct: EditProductRequest = {
-        name: String(this.editProductForm.value.name),
-        price: String(this.editProductForm.value.price),
-        description: String(this.editProductForm.value.description as string),
-        product_id: this.productAction?.event?.id,
-        amount: Number(this.editProductForm.value.amount),
-        category_id: String(this.editProductForm.value.category_id)
-      };
 
-      this.productsService
-        .editProduct(requestEditProduct)
+
+  handleSubmitEditPacient(): void {
+    if (
+      this.pacientForm?.value &&
+      this.pacientForm?.valid &&
+      this.pacientAction?.event?.id
+    ) {
+      const requestEditPacient: {
+        reportId: number,
+        medicalHistory: string,
+        currentMedications: string,
+        cardiovascularIssues: boolean,
+        diabetes: boolean,
+        familyHistoryCardiovascularIssues: boolean,
+        familyHistoryDiabetes: boolean,
+        physicalActivity: string,
+        smoker: boolean,
+        alcoholConsumption: number,
+        emergencyContactName: string,
+        emergencyContactPhone: string,
+        observations: string
+      } =
+        {
+          reportId: this.pacientAction.event.id,
+          medicalHistory: this.reportForm.get('medicalHistory')?.value as string,
+          currentMedications: this.reportForm.get('currentMedications')?.value as string,
+          cardiovascularIssues: this.reportForm.get('cardiovascularIssues')?.value as boolean,
+          diabetes: this.reportForm.get('diabetes')?.value as boolean,
+          familyHistoryCardiovascularIssues: this.reportForm.get('familyHistoryCardiovascularIssues')?.value as boolean,
+          familyHistoryDiabetes: this.reportForm.get('familyHistoryDiabetes')?.value as boolean,
+          physicalActivity: this.reportForm.get('physicalActivity')?.value as string,
+          smoker: this.reportForm.get('smoker')?.value as boolean,
+          alcoholConsumption: this.reportForm.get('alcoholConsumption')?.value as number,
+          emergencyContactName: this.reportForm.get('emergencyContactName')?.value as string,
+          emergencyContactPhone: this.reportForm.get('emergencyContactPhone')?.value as string,
+          observations: this.reportForm.get('observations')?.value as string
+      };
+      console.log(requestEditPacient)
+      this.reportService
+        .editReport( this.pacientAction.event.id, requestEditPacient)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
-            this.toastMessage.SuccessMessage('Produto editado com sucesso!')
-            this.editProductForm.reset();
+            this.pacientForm.reset();
+            this.toastMessage.SuccessMessage('Paciente editada com sucesso!')
           },
-          error: (err) => {
-            this.toastMessage.ErrorMessage('Erro ao editar produto')
-            this.editProductForm.reset();
+          error: (err: any) => {
             console.log(err);
+            this.pacientForm.reset();
+            this.toastMessage.ErrorMessage('Erro ao editar Paciente!')
           },
         });
     }
   }
 
-
-  // getProductSelectedDatas(productId: number): void {
-  //   const allProducts = this.productAction?.productDatas;
-  //
-  //
-  //   if (allProducts.length > 0) {
-  //     const productFiltered = allProducts.filter(
-  //       (element) => element?.id === productId
-  //     );
-  //
-  //     if (productFiltered) {
-  //       this.productSelectedDatas = productFiltered[0];
-  //
-  //       this.editProductForm.setValue({
-  //         name: this.productSelectedDatas?.name,
-  //         price: this.productSelectedDatas?.price,
-  //         amount: this.productSelectedDatas?.amount,
-  //         description: this.productSelectedDatas?.description,
-  //         category_id: this.productSelectedDatas?.category.id
-  //       });
-  //     }
-  //   }
-  // }
-
-  getProductDatas(): void {
-    this.productsService
-      .getAllProducts()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          if (response.length > 0) {
-            this.productsDatas = response;
-            this.productsDatas &&
-            this.productsDtService.setProductsDatas(this.productsDatas);
-          }
-        },
-      });
+  setPacientName(pacientName: string): void {
+    if (pacientName) {
+      const formValues = {
+        name: this.pacientForm.value.name || '',
+        email: this.pacientForm.value.email || '',
+        address: this.pacientForm.value.address || '',
+        uf: this.pacientForm.value.uf || '',
+        phone: this.pacientForm.value.phone|| '',
+        birth: this.pacientForm.value.birth || '',
+        gender: this.pacientForm.value.gender|| '',
+        profession: this.pacientForm.value.profession|| '',
+      };
+      console.log(formValues)
+      this.pacientForm.setValue(formValues);
+    }
   }
 
-  getReportData(): void {
-    this.productsService
-      .getAllReports()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          if (response.length > 0) {
-            this.reportData = response;
-            this.reportData &&
-            this.productsDtService.setProductsDatas(this.productsDatas);
-          }
-        },
-      });
-  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 }
+

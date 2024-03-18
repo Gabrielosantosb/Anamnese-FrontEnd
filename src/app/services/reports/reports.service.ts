@@ -49,10 +49,9 @@ export class ReportsService {
     });
   }
 
-  createProduct(requestData: CreateProductRequest): Observable<CreateProductResponse> {
-    return this.http.post<CreateProductResponse>(`${this.API_URL}/product`, requestData, this.httpOptions)
-
-  }
+editReport(reportId: number, requestData: any): Observable<void>{
+    return this.http.put<void>(`${this.API_URL}/api/Report/update-report/${reportId}`, this.httpOptions)
+}
 
   editProduct(requestData: EditProductRequest): Observable<void> {
     return this.http.put<void>(`${this.API_URL}/product/edit`, requestData,

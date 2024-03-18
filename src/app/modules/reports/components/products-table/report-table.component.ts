@@ -45,11 +45,7 @@ export class ReportTableComponent {
 
 
   handleReportEvent(action: string, id?: number): void {
-    if (action && action !== '')
-    {
-      const reportEventData = id && id !== null ? {action, id} : {action}
-      this.reportEvent.emit(reportEventData)
-    }
+    if (action && action !== '') this.reportEvent.emit({action, id})
   }
 
   handleDeleteProduct(product_id: string, productName: string): void {
