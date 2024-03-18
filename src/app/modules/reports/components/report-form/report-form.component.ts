@@ -45,18 +45,18 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     profession: ['', Validators.required],
   });
   public reportForm = this.formBuilder.group({
-    medicalHistory: ['', Validators.required],
-    currentMedications: ['', Validators.required],
+    medicalHistory: ['teste', Validators.required],
+    currentMedications: ['teste', Validators.required],
     cardiovascularIssues: [false],
     diabetes: [false],
     familyHistoryCardiovascularIssues: [false],
     familyHistoryDiabetes: [false],
-    physicalActivity: ['', Validators.required],
+    physicalActivity: ['teste', Validators.required],
     smoker: [false],
     alcoholConsumption: [0, Validators.min(0)],
-    emergencyContactName: ['', Validators.required],
-    emergencyContactPhone: ['', Validators.required],
-    observations: ['']
+    emergencyContactName: ['teste', Validators.required],
+    emergencyContactPhone: ['teste', Validators.required],
+    observations: ['teste']
   })
 
 
