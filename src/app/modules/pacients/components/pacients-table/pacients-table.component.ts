@@ -33,8 +33,11 @@ export class PacientsTableComponent {
     if (action && action !== '') this.pacientEvent.emit({action, id, pacientName});
   }
 
+  log(){
+    console.log('Aqui', this.pacients)
+  }
   handleShowAllPacients(): void {
-
+    console.log('bateu')
     this.pacientService.getAllPacients().subscribe({
       next: (allPacientsData) => {
         this.showProfissionalPacients = false

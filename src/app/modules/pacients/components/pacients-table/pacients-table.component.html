@@ -1,6 +1,6 @@
 <div class='grid'>
   <div class='col-12'>
-    <p-card styleClass="shadow-3 m-5 text-indigo-800" >
+    <p-card styleClass="shadow-3 m-5 text-indigo-800">
       <div class="flex flex-row justify-content-around " style="margin-bottom: 10px;">
 
         <p-button
@@ -71,11 +71,12 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-pacient >
-          <tr >
-            <td>{{pacient?.username}}</td>
+        <ng-template pTemplate="body" let-pacient>
+          <tr>
+            <td>{{ pacient?.username }}</td>
             <td>
-              <div class='flex justify-content-center gap-3 align-content-center align-items-center' style="margin-bottom: 10px">
+              <div class='flex justify-content-center gap-3 align-content-center align-items-center'
+                   style="margin-bottom: 10px">
                 <button
                   pButton
                   pRipple
@@ -94,14 +95,16 @@
                   class="p-button-outlined p-button-danger"
                   (click)="handleDeletePacientEvent(pacient?.pacientId, pacient?.username)"
                 ></button>
-                <button
-                  pButton
-                  pRipple
-                  pTooltip='Adicionar ficha'
-                  tooltipPosition="top"
-                  icon='pi pi-book'
-                  class="p-button-outlined p-button-info"
-                ></button>
+                <div *ngIf="!pacient?.report">
+                  <button
+                    pButton
+                    pRipple
+                    pTooltip='Adicionar ficha'
+                    tooltipPosition="top"
+                    icon='pi pi-book'
+                    class="p-button-outlined p-button-info"
+                  ></button>
+                </div>
               </div>
             </td>
           </tr>

@@ -58,11 +58,7 @@ editReport(reportId: number, requestData: any): Observable<void>{
     return this.http.put<void>(`${this.API_URL}/api/Report/update-report/${reportId}`, this.httpOptions)
 }
 
-  editProduct(requestData: EditProductRequest): Observable<void> {
-    return this.http.put<void>(`${this.API_URL}/product/edit`, requestData,
-      this.httpOptions)
 
-  }
 
   countReport () : Observable<number>
   {
@@ -70,14 +66,7 @@ editReport(reportId: number, requestData: any): Observable<void>{
       this.httpOptions)
   }
 
-  saleProduct(requestData: SaleProductRequest): Observable<SaleProductResponse> {
-    return this.http.put<SaleProductResponse>(`${this.API_URL}/product/sale`, {amount: requestData?.amount}, {
-        ...this.httpOptions,
-          params: {
-          product_id: requestData?.product_id
-        }
-      }
-    )
-  }
+
+
 
 }

@@ -10,4 +10,5 @@ export interface GetPacientsResponse
   gender: string,
   profession: string,
   doctorId: number
+  report: {}
 }
