@@ -32,12 +32,26 @@ export class ReportsService {
   }
 
 
-  getAllProducts(): Observable<Array<GetAllProductsResponse>> {
-    return this.http.get<Array<GetAllProductsResponse>>(`${this.API_URL}/products`, this.httpOptions).pipe(
-      map((product) => product.filter
-      ((data) => data?.amount > 0))
-    )
+  createReport(pacientId: number, requestData: {
+    medicalHistory: string;
+    currentMedications: string;
+    cardiovascularIssues: boolean;
+    address: string;
+    diabetes: boolean;
+    familyHistoryCardiovascularIssues: boolean;
+    familyHistoryDiabetes: boolean;
+    physicalActivity: string;
+    smoker: boolean;
+    alcoholConsumption: number;
+    emergencyContactName: string;
+    emergencyContactPhone: string;
+    observations: string;
+  }): Observable<Array<GetAllReportsResponse>> {
+    return this.http.post<Array<GetAllReportsResponse>>(
+      `${this.API_URL}/api/Report/create-report/${pacientId}`, requestData, this.httpOptions
+    );
   }
+
 
   getAllReports(): Observable<Array<GetAllReportsResponse>> {
     return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)

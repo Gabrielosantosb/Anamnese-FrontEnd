@@ -22,12 +22,7 @@ export class PacientService {
 
   constructor(private http: HttpClient, private cookie: CookieService) {}
 
-  getAllCategories(): Observable<Array<GetPacientsResponse>> {
-    return this.http.get<Array<GetPacientsResponse>>(
-      `${this.API_URL}/categories`,
-      this.httpOptions
-    )
-  }
+
   getAllPacients(): Observable<Array<GetPacientsResponse>> {
     return this.http.get<Array<GetPacientsResponse>>(
       `${this.API_URL}/api/Pacient/get-pacients`,
@@ -36,7 +31,6 @@ export class PacientService {
   }
 
   getProfissionalPacients(): Observable<Array<GetPacientsResponse>> {
-    // var profissionalId = 1
     return this.http.get<Array<GetPacientsResponse>>(
       `${this.API_URL}/api/Pacient/get-profissional-pacient`,
       this.httpOptions
