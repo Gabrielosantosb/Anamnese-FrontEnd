@@ -6,7 +6,8 @@
 <app-pacients-table
   [pacients]="pacientsData"
   (deletePacientEvent)="handleDeleteCategoryAction($event)"
-  (pacientEvent)="handleCategoryAction($event)"
+  (pacientEvent)="handlePacientAction($event)"
+  (reportEvent)="handleReportAction($event)"
 
 ></app-pacients-table>
 

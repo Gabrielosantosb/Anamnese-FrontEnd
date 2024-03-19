@@ -1,14 +1,17 @@
-<div>
+<div *ngIf="showPacientForm">
   <form [formGroup]="pacientForm" (ngSubmit)="handleSubmitPacientAction()">
     <div class="card flex flex-column md:flex-column gap-3">
       <input pInputText placeholder="Nome" formControlName="name"/>
       <input pInputText placeholder="Email" type="email" formControlName="email"/>
       <input pInputText placeholder="Endereço" formControlName="address"/>
       <input pInputText placeholder="Profissão" formControlName="profession"/>
-      <p-dropdown formControlName="uf" [options]="estados" [showClear]="true" [style]="{'width':'100%', 'height': '40px'}" placeholder="Seleciona uma UF"></p-dropdown>
+      <p-dropdown formControlName="uf" [options]="estados" [showClear]="true"
+                  [style]="{'width':'100%', 'height': '40px'}" placeholder="Seleciona uma UF"></p-dropdown>
       <input type="date" pInputText placeholder="Data de nascimento" formControlName="birth" mask="00-00-0000"/>
-      <p-dropdown formControlName="gender" placeholder="Gênero" [options]="gender" [style]="{'width':'100%', 'height': '40px'}" [dropdownIcon]="'pi pi-chevron-down'" [showClear]="true"></p-dropdown>
-      <input pInputText placeholder="Telefone" formControlName="phone" pInputMask="(99) 99999-9999" maxlength="11" />
+      <p-dropdown formControlName="gender" placeholder="Gênero" [options]="gender"
+                  [style]="{'width':'100%', 'height': '40px'}" [dropdownIcon]="'pi pi-chevron-down'"
+                  [showClear]="true"></p-dropdown>
+      <input pInputText placeholder="Telefone" formControlName="phone" pInputMask="(99) 99999-9999" maxlength="11"/>
       <div
         class="flex flex-row justify-content-center align-content-center align-items-center"
       >
@@ -19,6 +22,33 @@
         ></p-button>
       </div>
       <p-progressBar *ngIf="isLoading" mode="{{loadingMode}}"></p-progressBar>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="showReportForm">
+  <form [formGroup]="reportForm" (ngSubmit)="handleSubmitReportAction()">
+    <div class="card flex flex-column md:flex-column gap-3">
+      <textarea pInputTextarea rows="5" placeholder="Histórico Médico" formControlName="medicalHistory"></textarea>
+      <textarea pInputTextarea rows="5" placeholder="Medicações Atuais" formControlName="currentMedications"></textarea>
+      <p-checkbox label="Problemas Cardiovasculares" formControlName="cardiovascularIssues"></p-checkbox>
+      <p-checkbox label="Diabetes" formControlName="diabetes"></p-checkbox>
+      <p-checkbox label="Histórico Familiar de Problemas Cardiovasculares" formControlName="familyHistoryCardiovascularIssues"></p-checkbox>
+      <p-checkbox label="Histórico Familiar de Diabetes" formControlName="familyHistoryDiabetes"></p-checkbox>
+      <p-checkbox label="Fumante" formControlName="smoker"></p-checkbox>
+      <input pInputText placeholder="Atividade Física" formControlName="physicalActivity"/>
+      <p>Consumo de álcool, de 1 a 5</p>
+      <input pInputText placeholder="Consumo de Álcool" formControlName="alcoholConsumption" type="number"/>
+      <input pInputText placeholder="Nome do Contato de Emergência" formControlName="emergencyContactName"/>
+      <input pInputText placeholder="Telefone do Contato de Emergência" formControlName="emergencyContactPhone"  maxlength="11"/>
+      <textarea pInputTextarea rows="5" placeholder="Observações" formControlName="observations"></textarea>
+      <div class="flex flex-row justify-content-center align-content-center align-items-center">
+        <p-button
+          [disabled]="!reportForm.valid"
+          type="submit"
+          label="Concluir"
+        ></p-button>
+      </div>
     </div>
   </form>
 </div>

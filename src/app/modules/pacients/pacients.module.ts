@@ -22,6 +22,7 @@ import { PacientsFormComponent } from './components/pacients-form/pacients-form/
 import {InputTextModule} from "primeng/inputtext";
 import {TooltipModule} from "primeng/tooltip";
 import {ProgressBarModule} from "primeng/progressbar";
+import {CheckboxModule} from "primeng/checkbox";
 
 
 
@@ -31,28 +32,29 @@ import {ProgressBarModule} from "primeng/progressbar";
     PacientsTableComponent,
     PacientsFormComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(CATEGORIES_ROTES),
-    SharedModule,
-    HttpClientModule,
-    // -----PrimeNG------
-    CardModule,
-    ButtonModule,
-    TableModule,
-    InputMaskModule,
-    InputSwitchModule,
-    InputTextareaModule,
-    DynamicDialogModule,
-    DropdownModule,
-    RippleModule,
-    ConfirmDialogModule,
-    InputTextModule,
-    TooltipModule,
-    ProgressBarModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(CATEGORIES_ROTES),
+        SharedModule,
+        HttpClientModule,
+        // -----PrimeNG------
+        CardModule,
+        ButtonModule,
+        TableModule,
+        InputMaskModule,
+        InputSwitchModule,
+        InputTextareaModule,
+        DynamicDialogModule,
+        DropdownModule,
+        RippleModule,
+        ConfirmDialogModule,
+        InputTextModule,
+        TooltipModule,
+        ProgressBarModule,
+        CheckboxModule
+    ],
   providers : [DialogService, ConfirmationService]
 })
 export class PacientsModule { }

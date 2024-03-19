@@ -10,6 +10,8 @@ import {PacientService} from "../../../../../services/pacients/pacients.service"
 import {ProgressBar, ProgressBarModule} from "primeng/progressbar";
 import {GetPacientsResponse} from "../../../../../../models/interfaces/pacients/get-pacient-service.service";
 import {UF} from "../../../../../../models/interfaces/enums/UF/uf";
+import {EditReportAction} from "../../../../../../models/interfaces/reports/event/EditReportAction";
+import {ReportEvent} from "../../../../../../models/interfaces/enums/products/ProductEvent.js";
 
 @Component({
   selector: 'app-pacients-form',
@@ -24,9 +26,16 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
   public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
+  public addReportAction = ReportEvent.ADD_REPORT_EVENT;
+  public editReportAction = ReportEvent.EDIT_REPORT_EVENT;
+
   public estados = Object.values(UF)
   public gender: string[] = ["Masculino", "Feminino", "Outro"];
+
   public pacientAction!: { event: EditPacientAction };
+  public reportAction !: {event: EditReportAction}
+  public showPacientForm  = false;
+  public showReportForm = false;
   public pacientForm = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', Validators.required],
@@ -39,6 +48,21 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     profession: ['', Validators.required],
   });
 
+  public reportForm = this.formBuilder.group({
+    medicalHistory: ['teste', Validators.required],
+    currentMedications: ['teste', Validators.required],
+    cardiovascularIssues: [false],
+    diabetes: [false],
+    familyHistoryCardiovascularIssues: [false],
+    familyHistoryDiabetes: [false],
+    physicalActivity: ['teste', Validators.required],
+    smoker: [false],
+    alcoholConsumption: [0, Validators.min(0)],
+    emergencyContactName: ['teste', Validators.required],
+    emergencyContactPhone: ['teste', Validators.required],
+    observations: ['teste']
+  })
+
 
   constructor(
     public ref: DynamicDialogConfig,
@@ -48,16 +72,35 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     private toastMessage: ToastMessage
   ) {}
 
+
   ngOnInit(): void {
     this.pacientAction = this.ref.data;
-
+    console.log('pacientAction', this.pacientAction?.event?.action)
+    console.log('aqui1', this.addReportAction)
+    console.log('aqui2', this.reportAction?.event?.action)
     if (
-      this.pacientAction?.event?.action === this.editPacientAction &&
-      this.pacientAction?.event?.pacientName !== null &&
-      this.pacientAction?.event?.pacientName !== undefined &&
-      this.pacientAction?.event?.id !== undefined
-  ) {
-      this.loadPacientData(this.pacientAction.event.id);
+      this.pacientAction?.event?.action === this.editPacientAction ||
+      this.pacientAction?.event?.action === this.addPacientAction ||
+      this.pacientAction?.event?.action === this.addReportAction ||
+      this.pacientAction?.event?.action === this.editReportAction
+    ) {
+      this.showPacientForm = true;
+      if (
+        this.pacientAction?.event?.action === this.editPacientAction &&
+        this.pacientAction?.event?.pacientName !== null &&
+        this.pacientAction?.event?.pacientName !== undefined &&
+        this.pacientAction?.event?.id !== undefined
+      ) {
+        this.loadPacientData(this.pacientAction.event.id);
+      }
+      if (
+        this.reportAction?.event?.action === this.addReportAction &&
+        this.reportAction?.event?.id !== null &&
+        this.reportAction?.event?.id !== undefined
+      ) {
+        this.showReportForm = true
+        this.loadReportData(this.reportAction.event.id);
+      }
     }
   }
 
@@ -90,8 +133,34 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditPacient();
     return;
   }
+  handleSubmitReportAction(): void {
+    if(this.reportAction?.event?.action === this.editPacientAction) this.handleSubmitEditReport()
+    if(this.reportAction?.event?.action === this.addReportAction) this.handleSubmitAddReport()
+
+  }
+  handleSubmitAddReport(): void {
+    console.log('bateu')
+    if (this.reportForm?.value && this.reportForm?.valid) {
+      console.log('Adicionar relatório:', this.reportForm.value);
+      this.reportForm.reset();
+    }
+  }
+
+  handleSubmitEditReport(): void {
+    if (
+      this.reportForm?.value &&
+      this.reportForm?.valid &&
+      this.reportAction?.event?.id
+    ) {
+      console.log('Editar relatório:', this.reportForm.value);
+      this.reportForm.reset();
+    }
+  }
+
+
 
   handleSubmitAddPacient(): void {
+    this.showPacientForm = true
     if (this.pacientForm?.value && this.pacientForm?.valid) {
       this.isLoading = true
       const requestCreatePacient: { username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
@@ -176,7 +245,11 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       this.pacientForm.setValue(formValues);
     }
   }
+  loadReportData(reportId: number): void{
+    console.log('Carregar dados do relatório para edição:', reportId);
 
+
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

@@ -11,6 +11,7 @@ import {PacientsFormComponent} from "../../components/pacients-form/pacients-for
 import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
 import {DeletePacient} from "../../../../../models/interfaces/pacients/event/deletePacient";
 import {ProgressBarModule} from "primeng/progressbar";
+import {ReportFormComponent} from "../../../reports/components/report-form/report-form.component";
 
 @Component({
   selector: 'app-pacients-home',
@@ -37,11 +38,11 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getAllCategories();
+    this.getAllPacients();
   }
 
 
-  getAllCategories() {
+  getAllPacients() {
     this.isLoading = true
     this.pacientSerivce
       .getAllPacients()
@@ -78,22 +79,40 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
-            this.getAllCategories();
+            this.getAllPacients();
             this.toastMessage.SuccessMessage('Paciente  removida com sucesso!')
           },
           error: (err: string) => {
             console.log(err);
-            this.getAllCategories();
+            this.getAllPacients();
             this.toastMessage.ErrorMessage('Erro ao remover paciente !')
           },
         });
 
-      this.getAllCategories();
+      this.getAllPacients();
     }
   }
 
+  handleReportAction(event :EventAction): void{
+    console.log('Evento bateu' , event)
+    if (event) {
+      this.ref = this.dialogService.open(ReportFormComponent, {
+        header: event?.action,
+        width: '70%',
+        contentStyle: {overflow: 'auto'},
+        baseZIndex: 10000,
+        maximizable: true,
+        data: {
+          event: event,
+        },
+      });
 
-  handleCategoryAction(event: EventAction): void {
+      this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
+        next: () => this.getAllPacients(),
+      });
+    }
+  }
+  handlePacientAction(event: EventAction): void {
     if (event) {
       this.ref = this.dialogService.open(PacientsFormComponent, {
         header: event?.action,
@@ -107,7 +126,7 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
       });
 
       this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
-        next: () => this.getAllCategories(),
+        next: () => this.getAllPacients(),
       });
     }
   }

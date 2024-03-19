@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {
   GetAllProductsResponse,
   GetAllReportsResponse
@@ -13,6 +13,7 @@ import {CreateProductResponse} from "../../../models/interfaces/reports/response
 import {EditProductRequest} from "../../../models/interfaces/reports/request/EditProductRequest";
 import {SaleProductRequest} from "../../../models/interfaces/reports/request/SaleProductRequest";
 import {SaleProductResponse} from "../../../models/interfaces/reports/response/SaleProductResponse";
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,10 @@ export class ReportsService {
     return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
   }
 
-  getReportById(reportId : number): Observable<Array<GetAllReportsResponse>> {
-    return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports/${reportId}`, this.httpOptions)
+  getReportById(reportId : number, reportForm: FormGroup): Observable<Array<GetAllReportsResponse>> {
+    return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports/${reportId}`, this.httpOptions).pipe(
+
+    )
   }
 
   deleteProduct(product_id: string): Observable<DeleteProductResponse> {
