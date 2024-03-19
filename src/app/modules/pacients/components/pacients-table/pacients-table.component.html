@@ -101,8 +101,19 @@
                     pRipple
                     pTooltip='Adicionar ficha'
                     tooltipPosition="top"
+                    icon='pi pi-plus'
+                    class="p-button-outlined p-button-warning"
+                    (click)="handleReportEvent(addReportAction, pacient?.pacientId, pacient?.username)"
+                  ></button>
+                </div>
+                <div *ngIf="pacient?.report">
+                  <button
+                    pButton
+                    pRipple
+                    pTooltip='Editar ficha'
+                    tooltipPosition="top"
                     icon='pi pi-book'
-                    class="p-button-outlined p-button-info"
+                    class="p-button-outlined p-button-warning"
                     (click)="handleReportEvent(editReportAction, pacient?.pacientId, pacient?.username)"
                   ></button>
                 </div>
