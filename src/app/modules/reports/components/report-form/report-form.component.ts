@@ -2,12 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, take, takeUntil} from "rxjs";
 import {PacientService} from "../../../../services/pacients/pacients.service";
 import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
-import {MessageService} from "primeng/api";
-import {Router} from "@angular/router";
-import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
-
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
-
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {SaleProductRequest} from "../../../../../models/interfaces/reports/request/SaleProductRequest";
 import {ProgressBarModule} from "primeng/progressbar";
@@ -16,6 +11,10 @@ import {UF} from "../../../../../models/interfaces/enums/UF/uf";
 import {EditPacientAction} from "../../../../../models/interfaces/pacients/event/editPacient";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {ReportsService} from "../../../../services/reports/reports.service";
+import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
+import {EditReportAction} from "../../../../../models/interfaces/reports/event/EditReportAction";
+import _default from "chart.js/dist/plugins/plugin.tooltip";
+import numbers = _default.defaults.animations.numbers;
 
 @Component({
   selector: 'app-report-form',
@@ -28,11 +27,11 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   isLoading = false
   loadingMode: ProgressBarModule = 'indeterminate';
 
-  public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
-  public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
-  public estados = Object.values(UF)
-  public gender: string[] = ["Masculino", "Feminino", "Outro"];
+  public addReportAction = ReportEvent.ADD_REPORT_EVENT;
+  public editReportAction = ReportEvent.EDIT_REPORT_EVENT;
+
   public pacientAction!: { event: EditPacientAction };
+  public reportAction !: { event: EditReportAction }
   public pacientForm = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', Validators.required],
@@ -67,31 +66,92 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     private reportService: ReportsService,
     private confirmationModal: ConfirmationModal,
     private toastMessage: ToastMessage
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.pacientAction = this.ref.data;
+    this.reportAction = this.ref.data;
 
-    if (
-      this.pacientAction?.event?.action === this.editPacientAction &&
-      this.pacientAction?.event?.pacientName !== null &&
-      this.pacientAction?.event?.pacientName !== undefined &&
-      this.pacientAction?.event?.id !== undefined
-    ) {
+    // if(this.pacientAction?.event?.action == this.editReportAction) || this.pacientAction?.event?.action == this.addReportAction)
+    // {
+    //   this.loadPa
+    // }
+    // if (
+    //   this.pacientAction?.event?.action === this.editPacientAction &&
+    //   this.pacientAction?.event?.pacientName !== null &&
+    //   this.pacientAction?.event?.pacientName !== undefined &&
+    //   this.pacientAction?.event?.id !== undefined
+    // )
+    {
       // this.loadPacientData(this.pacientAction.event.id);
     }
   }
 
-  dateValidator(control :AbstractControl) {
+  handleSubmitReportAction(): void {
+    if (this.reportAction?.event?.action === this.editReportAction) this.handleSubmitEditReport()
+    if (this.reportAction?.event?.action === this.addReportAction) this.handleSubmitAddReport()
+
+  }
+
+  dateValidator(control: AbstractControl) {
     const dateString = control.value;
     if (dateString) {
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // Formato yyyy-mm-dd
       if (!dateRegex.test(dateString)) {
-        return { invalidFormat: true };
+        return {invalidFormat: true};
       }
     }
     return null;
   }
+
+  handleSubmitEditReport(): void {
+    if (
+      this.reportForm?.value &&
+      this.reportForm?.valid &&
+      this.reportAction?.event?.id
+    ) {
+      console.log('Editar relatório:', this.reportForm.value);
+      this.reportForm.reset();
+    }
+  }
+
+  handleSubmitAddReport(): void {
+    var pacientId  = this.reportAction?.event?.id
+    if (this.reportForm?.value && this.reportForm?.valid && pacientId) {
+      const requestCreateForm = this.reportForm.value as {
+        medicalHistory: string;
+        currentMedications: string;
+        cardiovascularIssues: boolean;
+        address: string;
+        diabetes: boolean;
+        familyHistoryCardiovascularIssues: boolean;
+        familyHistoryDiabetes: boolean;
+        physicalActivity: string;
+        smoker: boolean;
+        alcoholConsumption: number;
+        emergencyContactName: string;
+        emergencyContactPhone: string;
+        observations: string;
+      };
+      console.log('Adicionar relatório:', requestCreateForm)
+      this.reportService.createReport(pacientId, requestCreateForm).pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => {
+            if(response){
+              this.reportForm.reset();
+              this.toastMessage.SuccessMessage('Ficha criada com sucesso!')
+            }
+          },
+          error:(err) =>{
+            console.log(err)
+            this.pacientForm.reset();
+            this.toastMessage.ErrorMessage('Erro ao criar ficha')
+          }
+        })
+      this.reportForm.reset();
+    }
+  }
+
 
   // loadPacientData(pacientId: number): void {
   //   this.reportService.getReportById(pacientId, this.reportForm)
@@ -106,83 +166,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   //     });
   // }
 
-  handleSubmitPacientAction(): void {
-    if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditPacient();
-    return;
-  }
-
-
-
-  handleSubmitEditPacient(): void {
-    if (
-      this.pacientForm?.value &&
-      this.pacientForm?.valid &&
-      this.pacientAction?.event?.id
-    ) {
-      const requestEditPacient: {
-        reportId: number,
-        medicalHistory: string,
-        currentMedications: string,
-        cardiovascularIssues: boolean,
-        diabetes: boolean,
-        familyHistoryCardiovascularIssues: boolean,
-        familyHistoryDiabetes: boolean,
-        physicalActivity: string,
-        smoker: boolean,
-        alcoholConsumption: number,
-        emergencyContactName: string,
-        emergencyContactPhone: string,
-        observations: string
-      } =
-        {
-          reportId: this.pacientAction.event.id,
-          medicalHistory: this.reportForm.get('medicalHistory')?.value as string,
-          currentMedications: this.reportForm.get('currentMedications')?.value as string,
-          cardiovascularIssues: this.reportForm.get('cardiovascularIssues')?.value as boolean,
-          diabetes: this.reportForm.get('diabetes')?.value as boolean,
-          familyHistoryCardiovascularIssues: this.reportForm.get('familyHistoryCardiovascularIssues')?.value as boolean,
-          familyHistoryDiabetes: this.reportForm.get('familyHistoryDiabetes')?.value as boolean,
-          physicalActivity: this.reportForm.get('physicalActivity')?.value as string,
-          smoker: this.reportForm.get('smoker')?.value as boolean,
-          alcoholConsumption: this.reportForm.get('alcoholConsumption')?.value as number,
-          emergencyContactName: this.reportForm.get('emergencyContactName')?.value as string,
-          emergencyContactPhone: this.reportForm.get('emergencyContactPhone')?.value as string,
-          observations: this.reportForm.get('observations')?.value as string
-      };
-      console.log(requestEditPacient)
-      this.reportService
-        .editReport( this.pacientAction.event.id, requestEditPacient)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: () => {
-            this.pacientForm.reset();
-            this.toastMessage.SuccessMessage('Paciente editada com sucesso!')
-          },
-          error: (err: any) => {
-            console.log(err);
-            this.pacientForm.reset();
-            this.toastMessage.ErrorMessage('Erro ao editar Paciente!')
-          },
-        });
-    }
-  }
-
-  setPacientName(pacientName: string): void {
-    if (pacientName) {
-      const formValues = {
-        name: this.pacientForm.value.name || '',
-        email: this.pacientForm.value.email || '',
-        address: this.pacientForm.value.address || '',
-        uf: this.pacientForm.value.uf || '',
-        phone: this.pacientForm.value.phone|| '',
-        birth: this.pacientForm.value.birth || '',
-        gender: this.pacientForm.value.gender|| '',
-        profession: this.pacientForm.value.profession|| '',
-      };
-      console.log(formValues)
-      this.pacientForm.setValue(formValues);
-    }
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

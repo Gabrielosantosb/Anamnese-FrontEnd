@@ -36,7 +36,6 @@ export class PacientsTableComponent {
   }
 
   handleReportEvent(action: string, id?: number, pacientName?: string): void {
-
     if (action && action !== '')
     {
       this.reportEvent.emit({action, id, pacientName});

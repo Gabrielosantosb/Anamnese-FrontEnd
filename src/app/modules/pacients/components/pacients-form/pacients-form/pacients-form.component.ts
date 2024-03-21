@@ -76,15 +76,10 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.pacientAction = this.ref.data;
     console.log('pacientAction', this.pacientAction?.event?.action)
-    console.log('aqui1', this.addReportAction)
-    console.log('aqui2', this.reportAction?.event?.action)
     if (
       this.pacientAction?.event?.action === this.editPacientAction ||
-      this.pacientAction?.event?.action === this.addPacientAction ||
-      this.pacientAction?.event?.action === this.addReportAction ||
-      this.pacientAction?.event?.action === this.editReportAction
+      this.pacientAction?.event?.action === this.addPacientAction
     ) {
-      this.showPacientForm = true;
       if (
         this.pacientAction?.event?.action === this.editPacientAction &&
         this.pacientAction?.event?.pacientName !== null &&
@@ -92,14 +87,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
         this.pacientAction?.event?.id !== undefined
       ) {
         this.loadPacientData(this.pacientAction.event.id);
-      }
-      if (
-        this.reportAction?.event?.action === this.addReportAction &&
-        this.reportAction?.event?.id !== null &&
-        this.reportAction?.event?.id !== undefined
-      ) {
-        this.showReportForm = true
-        this.loadReportData(this.reportAction.event.id);
       }
     }
   }
@@ -160,7 +147,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
 
   handleSubmitAddPacient(): void {
-    this.showPacientForm = true
     if (this.pacientForm?.value && this.pacientForm?.valid) {
       this.isLoading = true
       const requestCreatePacient: { username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
@@ -185,7 +171,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
               this.isLoading = false
             }
           },
-          error: (err: any) => {
+          error: (err: Error) => {
             console.log(err);
             this.pacientForm.reset();
             this.toastMessage.ErrorMessage('Erro ao criar Paciente!')
