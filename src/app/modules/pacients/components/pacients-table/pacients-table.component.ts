@@ -48,7 +48,6 @@ export class PacientsTableComponent {
 
 
   handleShowAllPacients(): void {
-    console.log('bateu')
     this.pacientService.getAllPacients().subscribe({
       next: (allPacientsData) => {
         this.showProfissionalPacients = false

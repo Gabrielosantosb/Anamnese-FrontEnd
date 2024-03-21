@@ -20,16 +20,14 @@ export class ReportTableComponent {
   @Input() public reports: Array<GetReportResponse> = [];
   @Output() reportEvent = new EventEmitter<EventAction>()
   @Output() deleteProductEvent = new EventEmitter<DeleteProductAction>()
-  public productsSelected!: GetAllProductsResponse;
-  public addProductAction = ReportEvent.ADD_REPORT_EVENT
   public editReportAction = ReportEvent.EDIT_REPORT_EVENT
   showProfissionalReports = false
   public reportSelected!: GetAllProductsResponse;
   constructor(private reportService: ReportsService) {
   }
 
-  handleShowAllReports(): void {
 
+  handleShowAllReports(): void {
     this.reportService.getAllReports().subscribe({
       next: (allReportData) => {
         this.showProfissionalReports = false

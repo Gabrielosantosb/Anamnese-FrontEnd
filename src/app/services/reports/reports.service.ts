@@ -4,15 +4,9 @@ import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
 import {map, Observable, tap} from "rxjs";
 import {
-  GetAllProductsResponse,
   GetReportResponse, ReportRequest
 } from "../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {DeleteProductResponse} from "../../../models/interfaces/reports/response/DeleteProductResponse";
-import {CreateProductRequest} from "../../../models/interfaces/reports/request/CreateProductRequest";
-import {CreateProductResponse} from "../../../models/interfaces/reports/response/CreateProductResponse";
-import {EditProductRequest} from "../../../models/interfaces/reports/request/EditProductRequest";
-import {SaleProductRequest} from "../../../models/interfaces/reports/request/SaleProductRequest";
-import {SaleProductResponse} from "../../../models/interfaces/reports/response/SaleProductResponse";
 import {FormGroup} from "@angular/forms";
 
 @Injectable({
@@ -82,6 +76,7 @@ export class ReportsService {
       }
     });
   }
+
 
 editReport(reportId: number, requestData: ReportRequest): Observable<void>{
     return this.http.put<void>(`${this.API_URL}/api/Report/update-report/${reportId}`, requestData, this.httpOptions)
