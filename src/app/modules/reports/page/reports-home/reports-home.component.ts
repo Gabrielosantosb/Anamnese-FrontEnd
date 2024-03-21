@@ -74,6 +74,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
         maximizable: true,
         data: {
           event: event,
+
           productDatas: this.productsDatas,
         },
       });

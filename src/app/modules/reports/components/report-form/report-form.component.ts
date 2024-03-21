@@ -32,8 +32,9 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   public addReportAction = ReportEvent.ADD_REPORT_EVENT;
   public editReportAction = ReportEvent.EDIT_REPORT_EVENT;
   public reportAction !: { event: EditReportAction }
-
+  reportId = 0;
   public reportForm = this.formBuilder.group({
+
     medicalHistory: ['', Validators.required],
     currentMedications: ['', Validators.required],
     cardiovascularIssues: [false],
@@ -83,12 +84,37 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
 
   handleSubmitEditReport(): void {
-    if (
-      this.reportForm?.value &&
-      this.reportForm?.valid &&
-      this.reportAction?.event?.id
-    ) {
-      console.log('Editar relatório:', this.reportForm.value);
+    if (this.reportForm?.value && this.reportForm?.valid && this.reportId > 0) {
+      const requestUpdateForm = this.reportForm.value as {
+        medicalHistory: string;
+        currentMedications: string;
+        cardiovascularIssues: boolean;
+        address: string;
+        diabetes: boolean;
+        familyHistoryCardiovascularIssues: boolean;
+        familyHistoryDiabetes: boolean;
+        physicalActivity: string;
+        smoker: boolean;
+        alcoholConsumption: number;
+        emergencyContactName: string;
+        emergencyContactPhone: string;
+        observations: string;
+      };
+      console.log('Editar relatório:', requestUpdateForm)
+      this.reportService.editReport(this.reportId , requestUpdateForm).pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response:any) => {
+            if(response  ){
+              this.reportForm.reset();
+              this.toastMessage.SuccessMessage('Ficha editada com sucesso!')
+            }
+          },
+          error:(err) =>{
+            console.log(err)
+            this.reportForm.reset();
+            this.toastMessage.ErrorMessage('Erro ao criar ficha')
+          }
+        })
       this.reportForm.reset();
     }
   }
@@ -132,13 +158,13 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
 
   loadReportData(pacientId: number): void {
-    console.log('Id' , this.reportAction?.event?.id)
-
     this.reportService.getReportByPacientId(pacientId, this.reportForm)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (reportData: GetAllReportsResponse) => {
+          this.reportId = reportData.reportId
           console.log('Dados ficha carregados:', reportData);
+
         },
         error: (error) => {
           console.error('Erro ao  dados da ficha:', error);

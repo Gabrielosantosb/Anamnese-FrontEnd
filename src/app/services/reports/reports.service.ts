@@ -56,9 +56,6 @@ export class ReportsService {
   getAllReports(): Observable<Array<GetAllReportsResponse>> {
     return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
   }
-  // getReportByPacientId(pacientId: number, reportForm: FormGroup): Observable<Array<GetAllReportsResponse>> {
-  //   return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-pacient-report/${pacientId}`, this.httpOptions)
-  // }
 
   getReportByPacientId(pacientId: number, reportForm: FormGroup): Observable<GetAllReportsResponse> {
     return this.http.get<GetAllReportsResponse>(`${this.API_URL}/api/Report/get-pacient-report/${pacientId}`, this.httpOptions).pipe(
@@ -80,11 +77,15 @@ export class ReportsService {
       })
     )
   }
+
   getReportById(reportId: number, reportForm: FormGroup): Observable<GetAllReportsResponse> {
     return this.http.get<GetAllReportsResponse>(
       `${this.API_URL}/api/Report/get-report/${reportId}`,
       this.httpOptions
     )
+  }
+  getReportId(pacientId: number): Observable<number> {
+    return this.http.get<number>(`${this.API_URL}/api/Report/get-pacient-report/${pacientId}`, this.httpOptions)
   }
 
 
@@ -97,7 +98,7 @@ export class ReportsService {
   }
 
 editReport(reportId: number, requestData: any): Observable<void>{
-    return this.http.put<void>(`${this.API_URL}/api/Report/update-report/${reportId}`, this.httpOptions)
+    return this.http.put<void>(`${this.API_URL}/api/Report/update-report/${reportId}`, requestData, this.httpOptions)
 }
 
 
