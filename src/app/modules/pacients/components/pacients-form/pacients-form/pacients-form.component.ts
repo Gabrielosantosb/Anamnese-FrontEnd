@@ -8,7 +8,10 @@ import {ToastMessage} from "../../../../../services/toast-message/toast-message"
 import {ConfirmationModal} from "../../../../../services/confirmation/confirmation-service.service";
 import {PacientService} from "../../../../../services/pacients/pacients.service";
 import {ProgressBar, ProgressBarModule} from "primeng/progressbar";
-import {GetPacientsResponse} from "../../../../../../models/interfaces/pacients/get-pacient-service.service";
+import {
+  AddPacientRequest, EditPacientRequest,
+  GetPacientsResponse
+} from "../../../../../../models/interfaces/pacients/get-pacient-service.service";
 import {UF} from "../../../../../../models/interfaces/enums/UF/uf";
 import {EditReportAction} from "../../../../../../models/interfaces/reports/event/EditReportAction";
 import {ReportEvent} from "../../../../../../models/interfaces/enums/products/ProductEvent.js";
@@ -26,24 +29,18 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
   public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
-  public addReportAction = ReportEvent.ADD_REPORT_EVENT;
-  public editReportAction = ReportEvent.EDIT_REPORT_EVENT;
-
   public estados = Object.values(UF)
   public gender: string[] = ["Masculino", "Feminino", "Outro"];
-
   public pacientAction!: { event: EditPacientAction };
-  public reportAction !: {event: EditReportAction}
-  public showPacientForm  = false;
-  public showReportForm = false;
+
+
   public pacientForm = this.formBuilder.group({
-    name: ['', Validators.required],
+    username: ['', Validators.required],
     email: ['', Validators.required],
     address: ['', Validators.required],
     uf: ['', Validators.required],
     phone: ['', Validators.required],
     birth: ['', [Validators.required, this.dateValidator]],
-
     gender: ['', Validators.required],
     profession: ['', Validators.required],
   });
@@ -109,17 +106,8 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   handleSubmitAddPacient(): void {
     if (this.pacientForm?.value && this.pacientForm?.valid) {
       this.isLoading = true
-      const requestCreatePacient: { username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
-        username: this.pacientForm.value.name as string,
-        email: this.pacientForm.value.email as string,
-        address: this.pacientForm.value.address as string,
-        uf: this.pacientForm.value.uf as string,
-        phone: this.pacientForm.value.phone as string,
-        profession: this.pacientForm.value.profession as string,
-        birth: this.pacientForm.value.birth as string,
-        gender: this.pacientForm.value.gender as string,
-      };
 
+      const requestCreatePacient = this.pacientForm.value as AddPacientRequest;
       this.pacientService
         .createPacient(requestCreatePacient)
         .pipe(takeUntil(this.destroy$))
@@ -146,17 +134,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       this.pacientForm?.valid &&
       this.pacientAction?.event?.id
     ) {
-      const requestEditPacient: { pacient_id: number, username: string, email: string, address: string, uf: string, phone: string, birth: string, gender: string, profession: string } = {
-        pacient_id: this.pacientAction?.event?.id,
-        username: this.pacientForm?.value?.name as string,
-        email: this.pacientForm.value.email as string,
-        address: this.pacientForm.value.address as string,
-        uf: this.pacientForm.value.uf as string,
-        phone: this.pacientForm.value.phone as string,
-        profession: this.pacientForm.value.profession as string,
-        birth: this.pacientForm.value.birth as string,
-        gender: this.pacientForm.value.gender as string,
-      };
+    const requestEditPacient = this.pacientForm.value as EditPacientRequest;
       console.log(requestEditPacient)
       this.pacientService
         .editPacient(requestEditPacient)

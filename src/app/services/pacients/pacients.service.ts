@@ -3,7 +3,12 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
 import {Observable, tap} from "rxjs";
-import {GetPacientsResponse} from "../../../models/interfaces/pacients/get-pacient-service.service";
+import {
+  AddPacientRequest,
+  EditPacientRequest,
+  GetPacientsResponse,
+
+} from "../../../models/interfaces/pacients/get-pacient-service.service";
 import {FormGroup} from "@angular/forms";
 
 @Injectable({
@@ -43,7 +48,7 @@ export class PacientService {
     ).pipe(
       tap((pacientData: GetPacientsResponse) => {
         pacientForm.setValue({
-          name: pacientData.username,
+          username: pacientData.username,
           email: pacientData.email,
           address: pacientData.address,
           uf: pacientData.uf,
@@ -56,15 +61,7 @@ export class PacientService {
     );
   }
 
-  createPacient(requestData: {
-    username: string;
-    email: string;
-    address: string;
-    uf: string;
-    phone: string;
-    birth: string;
-    profession: string;
-    gender: string;}): Observable<Array<GetPacientsResponse>> {
+  createPacient(requestData : AddPacientRequest): Observable<Array<GetPacientsResponse>> {
       console.log('Request:', requestData)
     return this.http.post<Array<GetPacientsResponse>>(
       `${this.API_URL}/api/Pacient/create-pacient`,
@@ -73,19 +70,11 @@ export class PacientService {
     );
   }
 
-  editPacient(requestData: { pacient_id: number,
-    username: string,
-    email: string;
-    address: string;
-    uf: string;
-    phone: string;
-    birth: string;
-    profession: string;
-    gender: string;}): Observable<void> {
+  editPacient(requestData: EditPacientRequest): Observable<void> {
     return this.http.put<void>(
       `${this.API_URL}/api/Pacient/update-pacient/${requestData.pacient_id}`,
       requestData,
-      { ...this.httpOptions }
+      this.httpOptions
     );
   }
 

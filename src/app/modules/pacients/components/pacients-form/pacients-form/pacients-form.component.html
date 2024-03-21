@@ -1,7 +1,7 @@
 <div >
   <form [formGroup]="pacientForm" (ngSubmit)="handleSubmitPacientAction()">
     <div class="card flex flex-column md:flex-column gap-3">
-      <input pInputText placeholder="Nome" formControlName="name"/>
+      <input pInputText placeholder="Nome" formControlName="username"/>
       <input pInputText placeholder="Email" type="email" formControlName="email"/>
       <input pInputText placeholder="Endereço" formControlName="address"/>
       <input pInputText placeholder="Profissão" formControlName="profession"/>

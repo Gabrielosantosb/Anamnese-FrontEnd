@@ -91,7 +91,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
       console.error('ID do relatório inválido');
       return;
     }
-
     const requestUpdateForm = this.reportForm.value as ReportRequest;
     console.log('Editar relatório:', requestUpdateForm);
 
