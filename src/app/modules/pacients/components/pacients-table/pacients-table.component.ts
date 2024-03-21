@@ -6,7 +6,7 @@ import {DeletePacient} from "../../../../../models/interfaces/pacients/event/del
 import {PacientService} from "../../../../services/pacients/pacients.service";
 import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EditReportAction} from "../../../../../models/interfaces/reports/event/EditReportAction";
-import {GetAllReportsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
+import {GetReportResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 
 @Component({
   selector: 'app-pacients-table',

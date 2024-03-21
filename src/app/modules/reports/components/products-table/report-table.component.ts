@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {
   GetAllProductsResponse,
-  GetAllReportsResponse
+  GetReportResponse
 } from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
@@ -17,7 +17,7 @@ import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get
 })
 export class ReportTableComponent {
   @Input() products: Array<GetAllProductsResponse> = []
-  @Input() public reports: Array<GetAllReportsResponse> = [];
+  @Input() public reports: Array<GetReportResponse> = [];
   @Output() reportEvent = new EventEmitter<EventAction>()
   @Output() deleteProductEvent = new EventEmitter<DeleteProductAction>()
   public productsSelected!: GetAllProductsResponse;

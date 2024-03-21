@@ -15,7 +15,10 @@ import {ReportEvent} from "../../../../../models/interfaces/enums/products/Produ
 import {EditReportAction} from "../../../../../models/interfaces/reports/event/EditReportAction";
 import _default from "chart.js/dist/plugins/plugin.tooltip";
 import numbers = _default.defaults.animations.numbers;
-import {GetAllReportsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
+import {
+  GetReportResponse,
+  ReportRequest
+} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 
 @Component({
@@ -84,59 +87,33 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
 
   handleSubmitEditReport(): void {
-    if (this.reportForm?.value && this.reportForm?.valid && this.reportId > 0) {
-      const requestUpdateForm = this.reportForm.value as {
-        medicalHistory: string;
-        currentMedications: string;
-        cardiovascularIssues: boolean;
-        address: string;
-        diabetes: boolean;
-        familyHistoryCardiovascularIssues: boolean;
-        familyHistoryDiabetes: boolean;
-        physicalActivity: string;
-        smoker: boolean;
-        alcoholConsumption: number;
-        emergencyContactName: string;
-        emergencyContactPhone: string;
-        observations: string;
-      };
-      console.log('Editar relatório:', requestUpdateForm)
-      this.reportService.editReport(this.reportId , requestUpdateForm).pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (response:any) => {
-            if(response  ){
-              this.reportForm.reset();
-              this.toastMessage.SuccessMessage('Ficha editada com sucesso!')
-            }
-          },
-          error:(err) =>{
-            console.log(err)
-            this.reportForm.reset();
-            this.toastMessage.ErrorMessage('Erro ao criar ficha')
-          }
-        })
-      this.reportForm.reset();
+    if (this.reportId <= 0) {
+      console.error('ID do relatório inválido');
+      return;
     }
+
+    const requestUpdateForm = this.reportForm.value as ReportRequest;
+    console.log('Editar relatório:', requestUpdateForm);
+
+    this.reportService.editReport(this.reportId, requestUpdateForm)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.reportForm.reset();
+          this.toastMessage.SuccessMessage('Ficha editada com sucesso!');
+        },
+        error: (err) => {
+          console.error(err);
+          this.reportForm.reset();
+          this.toastMessage.ErrorMessage('Erro ao editar ficha');
+        }
+      });
   }
 
   handleSubmitAddReport(): void {
     var pacientId  = this.reportAction?.event?.id
     if (this.reportForm?.value && this.reportForm?.valid && pacientId) {
-      const requestCreateForm = this.reportForm.value as {
-        medicalHistory: string;
-        currentMedications: string;
-        cardiovascularIssues: boolean;
-        address: string;
-        diabetes: boolean;
-        familyHistoryCardiovascularIssues: boolean;
-        familyHistoryDiabetes: boolean;
-        physicalActivity: string;
-        smoker: boolean;
-        alcoholConsumption: number;
-        emergencyContactName: string;
-        emergencyContactPhone: string;
-        observations: string;
-      };
+      const requestCreateForm = this.reportForm.value as  ReportRequest
       console.log('Adicionar relatório:', requestCreateForm)
       this.reportService.createReport(pacientId, requestCreateForm).pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -161,7 +138,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     this.reportService.getReportByPacientId(pacientId, this.reportForm)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (reportData: GetAllReportsResponse) => {
+        next: (reportData: GetReportResponse) => {
           this.reportId = reportData.reportId
           console.log('Dados ficha carregados:', reportData);
 

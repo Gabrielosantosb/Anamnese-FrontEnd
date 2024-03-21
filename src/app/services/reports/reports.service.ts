@@ -5,7 +5,7 @@ import {environments} from "../../../environments/environments";
 import {map, Observable, tap} from "rxjs";
 import {
   GetAllProductsResponse,
-  GetAllReportsResponse
+  GetReportResponse, ReportRequest
 } from "../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {DeleteProductResponse} from "../../../models/interfaces/reports/response/DeleteProductResponse";
 import {CreateProductRequest} from "../../../models/interfaces/reports/request/CreateProductRequest";
@@ -32,34 +32,20 @@ export class ReportsService {
   }
 
 
-  createReport(pacientId: number, requestData: {
-    medicalHistory: string;
-    currentMedications: string;
-    cardiovascularIssues: boolean;
-    address: string;
-    diabetes: boolean;
-    familyHistoryCardiovascularIssues: boolean;
-    familyHistoryDiabetes: boolean;
-    physicalActivity: string;
-    smoker: boolean;
-    alcoholConsumption: number;
-    emergencyContactName: string;
-    emergencyContactPhone: string;
-    observations: string;
-  }): Observable<Array<GetAllReportsResponse>> {
-    return this.http.post<Array<GetAllReportsResponse>>(
+  createReport(pacientId: number, requestData: ReportRequest): Observable<Array<GetReportResponse>> {
+    return this.http.post<Array<GetReportResponse>>(
       `${this.API_URL}/api/Report/create-report/${pacientId}`, requestData, this.httpOptions
     );
   }
 
 
-  getAllReports(): Observable<Array<GetAllReportsResponse>> {
-    return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
+  getAllReports(): Observable<Array<GetReportResponse>> {
+    return this.http.get<Array<GetReportResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
   }
 
-  getReportByPacientId(pacientId: number, reportForm: FormGroup): Observable<GetAllReportsResponse> {
-    return this.http.get<GetAllReportsResponse>(`${this.API_URL}/api/Report/get-pacient-report/${pacientId}`, this.httpOptions).pipe(
-      tap((reportData: GetAllReportsResponse) =>{
+  getReportByPacientId(pacientId: number, reportForm: FormGroup): Observable<GetReportResponse> {
+    return this.http.get<GetReportResponse>(`${this.API_URL}/api/Report/get-pacient-report/${pacientId}`, this.httpOptions).pipe(
+      tap((reportData: GetReportResponse) =>{
           reportForm.patchValue({
             medicalHistory: reportData.medicalHistory || '',
             currentMedications: reportData.currentMedications || '',
@@ -78,8 +64,8 @@ export class ReportsService {
     )
   }
 
-  getReportById(reportId: number, reportForm: FormGroup): Observable<GetAllReportsResponse> {
-    return this.http.get<GetAllReportsResponse>(
+  getReportById(reportId: number, reportForm: FormGroup): Observable<GetReportResponse> {
+    return this.http.get<GetReportResponse>(
       `${this.API_URL}/api/Report/get-report/${reportId}`,
       this.httpOptions
     )
@@ -97,7 +83,7 @@ export class ReportsService {
     });
   }
 
-editReport(reportId: number, requestData: any): Observable<void>{
+editReport(reportId: number, requestData: ReportRequest): Observable<void>{
     return this.http.put<void>(`${this.API_URL}/api/Report/update-report/${reportId}`, requestData, this.httpOptions)
 }
 
