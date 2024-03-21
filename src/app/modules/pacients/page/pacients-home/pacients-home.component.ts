@@ -103,7 +103,10 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
         baseZIndex: 10000,
         maximizable: true,
         data: {
-          event: event,
+          event:{
+            action : event.action,
+            id: event.id
+          }
         },
       });
 

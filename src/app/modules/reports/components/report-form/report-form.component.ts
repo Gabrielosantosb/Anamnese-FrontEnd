@@ -15,6 +15,8 @@ import {ReportEvent} from "../../../../../models/interfaces/enums/products/Produ
 import {EditReportAction} from "../../../../../models/interfaces/reports/event/EditReportAction";
 import _default from "chart.js/dist/plugins/plugin.tooltip";
 import numbers = _default.defaults.animations.numbers;
+import {GetAllReportsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
+import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 
 @Component({
   selector: 'app-report-form',
@@ -29,23 +31,11 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   public addReportAction = ReportEvent.ADD_REPORT_EVENT;
   public editReportAction = ReportEvent.EDIT_REPORT_EVENT;
-
-  public pacientAction!: { event: EditPacientAction };
   public reportAction !: { event: EditReportAction }
-  public pacientForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    email: ['', Validators.required],
-    address: ['', Validators.required],
-    uf: ['', Validators.required],
-    phone: ['', Validators.required],
-    birth: ['', [Validators.required, this.dateValidator]],
 
-    gender: ['', Validators.required],
-    profession: ['', Validators.required],
-  });
   public reportForm = this.formBuilder.group({
-    medicalHistory: ['teste', Validators.required],
-    currentMedications: ['teste', Validators.required],
+    medicalHistory: ['', Validators.required],
+    currentMedications: ['', Validators.required],
     cardiovascularIssues: [false],
     diabetes: [false],
     familyHistoryCardiovascularIssues: [false],
@@ -71,20 +61,18 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reportAction = this.ref.data;
-
-    // if(this.pacientAction?.event?.action == this.editReportAction) || this.pacientAction?.event?.action == this.addReportAction)
-    // {
-    //   this.loadPa
-    // }
-    // if (
-    //   this.pacientAction?.event?.action === this.editPacientAction &&
-    //   this.pacientAction?.event?.pacientName !== null &&
-    //   this.pacientAction?.event?.pacientName !== undefined &&
-    //   this.pacientAction?.event?.id !== undefined
-    // )
+    if(this.reportAction.event.action == this.editReportAction && this.reportAction.event.id)
     {
-      // this.loadPacientData(this.pacientAction.event.id);
+      this.loadReportData(this.reportAction.event.id)
     }
+
+    // if(this.reportAction?.event?.action == this.editReportAction || this.reportAction?.event?.action == this.addReportAction)
+    // {
+    //   if(this.reportAction?.event?.id && ){
+    //     this.loadReportData(this.reportAction.event.id)
+    //   }
+    // }
+
   }
 
   handleSubmitReportAction(): void {
@@ -93,16 +81,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   }
 
-  dateValidator(control: AbstractControl) {
-    const dateString = control.value;
-    if (dateString) {
-      const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // Formato yyyy-mm-dd
-      if (!dateRegex.test(dateString)) {
-        return {invalidFormat: true};
-      }
-    }
-    return null;
-  }
 
   handleSubmitEditReport(): void {
     if (
@@ -144,7 +122,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           },
           error:(err) =>{
             console.log(err)
-            this.pacientForm.reset();
+            this.reportForm.reset();
             this.toastMessage.ErrorMessage('Erro ao criar ficha')
           }
         })
@@ -153,18 +131,21 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   }
 
 
-  // loadPacientData(pacientId: number): void {
-  //   this.reportService.getReportById(pacientId, this.reportForm)
-  //     .pipe(takeUntil(this.destroy$))
-  //     .subscribe({
-  //       next: (pacientData: GetPacientsResponse) => {
-  //         console.log('Dados do paciente carregados:', pacientData);
-  //       },
-  //       error: (error) => {
-  //         console.error('Erro ao carregar dados do paciente:', error);
-  //       }
-  //     });
-  // }
+  loadReportData(pacientId: number): void {
+    console.log('Id' , this.reportAction?.event?.id)
+
+    this.reportService.getReportByPacientId(pacientId, this.reportForm)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (reportData: GetAllReportsResponse) => {
+          console.log('Dados ficha carregados:', reportData);
+        },
+        error: (error) => {
+          console.error('Erro ao  dados da ficha:', error);
+        }
+      });
+  }
+
 
 
   ngOnDestroy(): void {

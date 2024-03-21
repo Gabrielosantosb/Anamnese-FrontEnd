@@ -48,21 +48,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     profession: ['', Validators.required],
   });
 
-  public reportForm = this.formBuilder.group({
-    medicalHistory: ['teste', Validators.required],
-    currentMedications: ['teste', Validators.required],
-    cardiovascularIssues: [false],
-    diabetes: [false],
-    familyHistoryCardiovascularIssues: [false],
-    familyHistoryDiabetes: [false],
-    physicalActivity: ['teste', Validators.required],
-    smoker: [false],
-    alcoholConsumption: [0, Validators.min(0)],
-    emergencyContactName: ['teste', Validators.required],
-    emergencyContactPhone: ['teste', Validators.required],
-    observations: ['teste']
-  })
-
 
   constructor(
     public ref: DynamicDialogConfig,
@@ -75,7 +60,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pacientAction = this.ref.data;
-    console.log('pacientAction', this.pacientAction?.event?.action)
     if (
       this.pacientAction?.event?.action === this.editPacientAction ||
       this.pacientAction?.event?.action === this.addPacientAction
@@ -120,30 +104,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     if (this.pacientAction?.event?.action === this.editPacientAction) this.handleSubmitEditPacient();
     return;
   }
-  handleSubmitReportAction(): void {
-    if(this.reportAction?.event?.action === this.editPacientAction) this.handleSubmitEditReport()
-    if(this.reportAction?.event?.action === this.addReportAction) this.handleSubmitAddReport()
-
-  }
-  handleSubmitAddReport(): void {
-    console.log('bateu')
-    if (this.reportForm?.value && this.reportForm?.valid) {
-      console.log('Adicionar relatório:', this.reportForm.value);
-      this.reportForm.reset();
-    }
-  }
-
-  handleSubmitEditReport(): void {
-    if (
-      this.reportForm?.value &&
-      this.reportForm?.valid &&
-      this.reportAction?.event?.id
-    ) {
-      console.log('Editar relatório:', this.reportForm.value);
-      this.reportForm.reset();
-    }
-  }
-
 
 
   handleSubmitAddPacient(): void {
@@ -215,27 +175,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  setPacientName(pacientName: string): void {
-    if (pacientName) {
-      const formValues = {
-        name: this.pacientForm.value.name || '',
-        email: this.pacientForm.value.email || '',
-        address: this.pacientForm.value.address || '',
-        uf: this.pacientForm.value.uf || '',
-        phone: this.pacientForm.value.phone|| '',
-        birth: this.pacientForm.value.birth || '',
-        gender: this.pacientForm.value.gender|| '',
-        profession: this.pacientForm.value.profession|| '',
-      };
-      console.log(formValues)
-      this.pacientForm.setValue(formValues);
-    }
-  }
-  loadReportData(reportId: number): void{
-    console.log('Carregar dados do relatório para edição:', reportId);
-
-
-  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

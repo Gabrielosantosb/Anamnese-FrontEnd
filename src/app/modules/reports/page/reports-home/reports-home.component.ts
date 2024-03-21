@@ -35,15 +35,15 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.getServiceProductsDatas();
+    // this.getServiceProductsDatas();
   }
 
-  getServiceProductsDatas() {
-    const productsLoaded = this.productsDtService.getProductsData();
-    if (productsLoaded.length > 0) {
-      this.productsDatas = productsLoaded;
-    } else this.getAPIProductsDatas();
-  }
+  // getServiceProductsDatas() {
+  //   const productsLoaded = this.productsDtService.getProductsData();
+  //   if (productsLoaded.length > 0) {
+  //     this.productsDatas = productsLoaded;
+  //   } else this.getAPIProductsDatas();
+  // }
 
   getAPIProductsDatas() {
     // this.reportService

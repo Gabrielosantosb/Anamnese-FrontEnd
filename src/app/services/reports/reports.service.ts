@@ -56,12 +56,37 @@ export class ReportsService {
   getAllReports(): Observable<Array<GetAllReportsResponse>> {
     return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports`, this.httpOptions)
   }
+  // getReportByPacientId(pacientId: number, reportForm: FormGroup): Observable<Array<GetAllReportsResponse>> {
+  //   return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-pacient-report/${pacientId}`, this.httpOptions)
+  // }
 
-  getReportById(reportId : number, reportForm: FormGroup): Observable<Array<GetAllReportsResponse>> {
-    return this.http.get<Array<GetAllReportsResponse>>(`${this.API_URL}/api/Report/get-reports/${reportId}`, this.httpOptions).pipe(
-
+  getReportByPacientId(pacientId: number, reportForm: FormGroup): Observable<GetAllReportsResponse> {
+    return this.http.get<GetAllReportsResponse>(`${this.API_URL}/api/Report/get-pacient-report/${pacientId}`, this.httpOptions).pipe(
+      tap((reportData: GetAllReportsResponse) =>{
+          reportForm.patchValue({
+            medicalHistory: reportData.medicalHistory || '',
+            currentMedications: reportData.currentMedications || '',
+            cardiovascularIssues: reportData.cardiovascularIssues || false,
+            diabetes: reportData.diabetes || false,
+            familyHistoryCardiovascularIssues: reportData.familyHistoryCardiovascularIssues || false,
+            familyHistoryDiabetes: reportData.familyHistoryDiabetes || false,
+            physicalActivity: reportData.physicalActivity || '',
+            smoker: reportData.smoker || false,
+            alcoholConsumption: reportData.alcoholConsumption || 0,
+            emergencyContactName: reportData.emergencyContactName || '',
+            emergencyContactPhone: reportData.emergencyContactPhone || '',
+            observations: reportData.observations || ''
+          })
+      })
     )
   }
+  getReportById(reportId: number, reportForm: FormGroup): Observable<GetAllReportsResponse> {
+    return this.http.get<GetAllReportsResponse>(
+      `${this.API_URL}/api/Report/get-report/${reportId}`,
+      this.httpOptions
+    )
+  }
+
 
   deleteProduct(product_id: string): Observable<DeleteProductResponse> {
     return this.http.delete<DeleteProductResponse>(`${this.API_URL}/product/delete`, {
