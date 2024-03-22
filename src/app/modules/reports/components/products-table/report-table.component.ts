@@ -18,11 +18,9 @@ import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get
   styleUrls: []
 })
 export class ReportTableComponent {
-  @Input() products: Array<GetAllProductsResponse> = []
   @Input() reports: Array<GetReportResponse> = [];
   @Output() reportEvent = new EventEmitter<EventAction>()
   @Output() deleteReportEvent = new EventEmitter<DeleteReportAction>()
-  public editReportAction = ReportEvent.EDIT_REPORT_EVENT
   showProfissionalReports = false
   public reportSelected!: GetReportResponse;
   constructor(private reportService: ReportsService) {

@@ -83,8 +83,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
     console.log('ReportId', event?.reportId);
     if (event) {
       this.confirmationModal.confirmDelete(`Confirma a exclusão da ficha de: ${event?.pacientName}?`, () => {
-        console.log("Deletou aqui")
-        // this.deleteReport(event?.reportId);
+        this.deleteReport(event?.reportId);
       });
     } else {
       this.toastMessage.ErrorMessage(`Não é possível excluir a ficha.`);
@@ -98,10 +97,8 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
         .deleteReport(reportId)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: (response : any) => {
-            if (response) {
+          next: () => {
               this.toastMessage.SuccessMessage('Ficha removida com sucesso!')
-            }
           },
           error: (err) => {
             console.log(err);
