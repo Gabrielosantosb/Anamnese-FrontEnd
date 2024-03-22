@@ -47,7 +47,7 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
       .getAllPacients()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (response : any) => {
+        next: (response : GetPacientsResponse[]) => {
           if (response.length > 0) {
             this.pacientsData = response;
             this.isLoading = false

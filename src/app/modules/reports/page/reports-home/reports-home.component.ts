@@ -26,6 +26,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
   public reportData : Array<GetReportResponse> = []
+  isLoading = false
 
   constructor(
     private reportService: ReportsService,
@@ -36,10 +37,29 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    // this.getServiceProductsDatas();
+    this.getAllReports();
   }
 
 
+
+  getAllReports(){
+    this.isLoading = true
+    this.reportService
+      .getAllReports()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response: GetReportResponse[]) =>{
+          if(response){
+            this.reportData = response
+            this.isLoading = false
+          }
+        },
+        error:(err:Error) =>{
+          console.log(err)
+          this.toastMessage.ErrorMessage("Erro ao buscar fichas")
+        }
+      })
+  }
 
   getAPIProductsDatas() {
     // this.reportService
