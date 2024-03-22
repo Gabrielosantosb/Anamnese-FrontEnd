@@ -1,5 +1,5 @@
-export interface DeleteProductAction
+export interface DeleteReportAction
 {
-  product_id: string;
-  productName: string;
+  reportId: number;
+  pacientName: string;
 }

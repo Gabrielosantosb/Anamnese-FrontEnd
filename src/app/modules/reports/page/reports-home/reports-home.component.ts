@@ -3,7 +3,10 @@ import {Subject, takeUntil} from "rxjs";
 import {ReportsService} from "../../../../services/reports/reports.service";
 import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
 import {Router} from "@angular/router";
-import {GetAllProductsResponse} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
+import {
+  GetAllProductsResponse,
+  GetReportResponse
+} from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {ConfirmationService} from "primeng/api";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
@@ -22,6 +25,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
   public productsDatas: Array<GetAllProductsResponse> = [];
+  public reportData : Array<GetReportResponse> = []
 
   constructor(
     private reportService: ReportsService,
@@ -38,12 +42,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
     // this.getServiceProductsDatas();
   }
 
-  // getServiceProductsDatas() {
-  //   const productsLoaded = this.productsDtService.getProductsData();
-  //   if (productsLoaded.length > 0) {
-  //     this.productsDatas = productsLoaded;
-  //   } else this.getAPIProductsDatas();
-  // }
+
 
   getAPIProductsDatas() {
     // this.reportService
@@ -84,29 +83,30 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
     }
   }
 
-  handleDeleteProductAction(event: { product_id: string; productName: string; }): void {
+  handleDeleteReportAction(event: { reportId: number; pacientName: string; }): void {
+    console.log('ReportId', event?.reportId)
     if (event) {
-      this.confirmationModal.confirmDelete(`Confirma a exclusão do produto: ${event?.productName}?`, () => {
-        this.deleteProduct(event?.product_id)
+      this.confirmationModal.confirmDelete(`Confirma a exclusão da ficha de: ${event?.pacientName}?`, () => {
+        this.deleteReport(event?.reportId)
       })
     }
   }
 
-  deleteProduct(product_id: string) {
-    if (product_id) {
+  deleteReport(reportId: number) {
+    if (reportId) {
       this.reportService
-        .deleteProduct(product_id)
+        .deleteReport(reportId)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: (response) => {
+          next: (response : any) => {
             if (response) {
-              this.toastMessage.SuccessMessage('Produto removido com sucesso!')
+              this.toastMessage.SuccessMessage('Ficha removida com sucesso!')
               this.getAPIProductsDatas();
             }
           },
           error: (err) => {
             console.log(err);
-            this.toastMessage.ErrorMessage('Erro ao remover produto!')
+            this.toastMessage.ErrorMessage('Erro ao remover ficha!')
           },
         });
     }

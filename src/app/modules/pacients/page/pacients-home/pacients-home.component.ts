@@ -105,7 +105,7 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
         data: {
           event:{
             action : event.action,
-            id: event.id
+            // id: event.reportId
           }
         },
       });

@@ -5,24 +5,26 @@ import {
 } from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
-import {DeleteProductAction} from "../../../../../models/interfaces/reports/event/DeleteProductAction";
+import {
+  DeleteReportAction
+} from "../../../../../models/interfaces/reports/event/DeleteProductAction";
 import {PacientService} from "../../../../services/pacients/pacients.service";
 import {ReportsService} from "../../../../services/reports/reports.service";
 import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 
 @Component({
-  selector: 'app-products-table',
+  selector: 'app-report-table',
   templateUrl: './report-table.component.html',
   styleUrls: []
 })
 export class ReportTableComponent {
   @Input() products: Array<GetAllProductsResponse> = []
-  @Input() public reports: Array<GetReportResponse> = [];
+  @Input() reports: Array<GetReportResponse> = [];
   @Output() reportEvent = new EventEmitter<EventAction>()
-  @Output() deleteProductEvent = new EventEmitter<DeleteProductAction>()
+  @Output() deleteReportEvent = new EventEmitter<DeleteReportAction>()
   public editReportAction = ReportEvent.EDIT_REPORT_EVENT
   showProfissionalReports = false
-  public reportSelected!: GetAllProductsResponse;
+  public reportSelected!: GetReportResponse;
   constructor(private reportService: ReportsService) {
   }
 
@@ -40,18 +42,18 @@ export class ReportTableComponent {
     });
   }
 
-
-
-  handleReportEvent(action: string, id?: number): void {
-    if (action && action !== '') this.reportEvent.emit({action, id})
+  handleReportEvent(action: string, reportId?: number): void {
+    if (action && action !== '') this.reportEvent.emit({action, reportId})
   }
 
-  handleDeleteProduct(product_id: string, productName: string): void {
-    if(product_id !== "" && productName !== "")
+  handleDeleteReport(reportId: number, pacientName: string): void {
+    console.log('Report_Id', reportId)
+    console.log('PacientName', pacientName)
+    if(reportId !== null && pacientName !== "")
     {
-      this.deleteProductEvent.emit({
-        product_id,
-        productName,
+      this.deleteReportEvent.emit({
+        reportId,
+        pacientName,
       })
     }
   }

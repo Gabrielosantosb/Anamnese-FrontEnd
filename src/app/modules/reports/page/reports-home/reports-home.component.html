@@ -1,8 +1,8 @@
 <app-toolbar-navigation></app-toolbar-navigation>
 
-<app-products-table
-  [products]="productsDatas"
+<app-report-table
+  [reports]="reportData"
   (reportEvent)="handleReportAction($event)"
-  (deleteProductEvent)="handleDeleteProductAction($event)"
-></app-products-table>
+  (deleteReportEvent)="handleDeleteReportAction($event)"
+></app-report-table>
 <p-confirmDialog></p-confirmDialog>

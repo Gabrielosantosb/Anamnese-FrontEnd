@@ -69,13 +69,12 @@ export class ReportsService {
   }
 
 
-  deleteProduct(product_id: string): Observable<DeleteProductResponse> {
-    return this.http.delete<DeleteProductResponse>(`${this.API_URL}/product/delete`, {
-      ...this.httpOptions, params: {
-        product_id: product_id
-      }
-    });
+  deleteReport( reportId: number ): Observable<void>{
+    return this.http.delete<void>(`${this.API_URL}/api/Report/delete-report/${reportId}`,
+      this.httpOptions)
+
   }
+
 
 
 editReport(reportId: number, requestData: ReportRequest): Observable<void>{
