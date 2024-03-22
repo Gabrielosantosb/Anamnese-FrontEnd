@@ -13,6 +13,7 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ReportFormComponent} from "../../components/report-form/report-form.component";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
+import {DeleteReportAction} from "../../../../../models/interfaces/reports/event/DeleteProductAction";
 
 
 @Component({
@@ -24,14 +25,10 @@ import {ConfirmationModal} from "../../../../services/confirmation/confirmation-
 export class ReportsHomeComponent implements OnDestroy, OnInit {
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
-  public productsDatas: Array<GetAllProductsResponse> = [];
   public reportData : Array<GetReportResponse> = []
 
   constructor(
     private reportService: ReportsService,
-    private productsDtService: ReportsDataTransferService,
-    private router: Router,
-    private confirmationService: ConfirmationService,
     private dialogService: DialogService,
     private toastMessage: ToastMessage,
     private confirmationModal: ConfirmationModal
@@ -73,26 +70,29 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
         maximizable: true,
         data: {
           event: event,
-
-          productDatas: this.productsDatas,
+          // productDatas: this.productsDatas,
         },
       });
       this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
-        next: () => this.getAPIProductsDatas(),
+        next: () => console.log('aqui'),
       });
     }
   }
 
-  handleDeleteReportAction(event: { reportId: number; pacientName: string; }): void {
-    console.log('ReportId', event?.reportId)
+  handleDeleteReportAction(event: DeleteReportAction): void {
+    console.log('ReportId', event?.reportId);
     if (event) {
       this.confirmationModal.confirmDelete(`Confirma a exclusão da ficha de: ${event?.pacientName}?`, () => {
-        this.deleteReport(event?.reportId)
-      })
+        console.log("Deletou aqui")
+        // this.deleteReport(event?.reportId);
+      });
+    } else {
+      this.toastMessage.ErrorMessage(`Não é possível excluir a ficha.`);
+
     }
   }
-
   deleteReport(reportId: number) {
+    console.log(reportId)
     if (reportId) {
       this.reportService
         .deleteReport(reportId)
@@ -101,7 +101,6 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
           next: (response : any) => {
             if (response) {
               this.toastMessage.SuccessMessage('Ficha removida com sucesso!')
-              this.getAPIProductsDatas();
             }
           },
           error: (err) => {

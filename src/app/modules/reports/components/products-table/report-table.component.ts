@@ -47,8 +47,6 @@ export class ReportTableComponent {
   }
 
   handleDeleteReport(reportId: number, pacientName: string): void {
-    console.log('Report_Id', reportId)
-    console.log('PacientName', pacientName)
     if(reportId !== null && pacientName !== "")
     {
       this.deleteReportEvent.emit({

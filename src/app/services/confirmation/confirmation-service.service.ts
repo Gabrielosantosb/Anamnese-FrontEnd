@@ -25,6 +25,17 @@ export class ConfirmationModal {
       }
     })
   }
+  confirmReportDelete(message: string, onDelete: () => void): void {
+    this.confirmationService.confirm({
+      message: message,
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Não',
+      acceptLabel: 'Sim',
+      accept: () => {
+        console.log('Deletou');
+      }
+    });
+  }
   confirmDelete(message: string, onDelete: () => void): void {
     this.confirmationService.confirm({
       message: message,
@@ -32,6 +43,7 @@ export class ConfirmationModal {
       rejectLabel: 'Não',
       acceptLabel: 'Sim',
       accept: () => {
+        this.confirmationService.close();
         onDelete();
       }
     });

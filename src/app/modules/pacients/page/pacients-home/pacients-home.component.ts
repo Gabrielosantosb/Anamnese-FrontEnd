@@ -29,7 +29,6 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private pacientSerivce: PacientService,
-    private productsDtService: ReportsDataTransferService,
     private dialogService: DialogService,
     private toastMessage: ToastMessage,
     private confirmationModal: ConfirmationModal,
@@ -62,10 +61,10 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
         },
       });
   }
-  handleDeleteCategoryAction(event: DeletePacient): void {
+  handleDeletePacientAction(event: DeletePacient): void {
     if (event.pacientName != null) {
       console.log(event)
-        this.confirmationModal.confirmDelete(`Confirma a exclusão da categoria: ${event?.pacientName}`, () => this.deletePacient(event?.pacient_id));
+        this.confirmationModal.confirmDelete(`Confirma a exclusão do paciente: ${event?.pacientName}`, () => this.deletePacient(event?.pacient_id));
 
     } else {
       this.toastMessage.ErrorMessage(`Não é possível excluir o Paciente ${event.pacientName}`);
