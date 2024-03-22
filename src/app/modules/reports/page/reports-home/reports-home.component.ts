@@ -118,6 +118,7 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
+              this.getAllReports()
               this.toastMessage.SuccessMessage('Ficha removida com sucesso!')
           },
           error: (err) => {
