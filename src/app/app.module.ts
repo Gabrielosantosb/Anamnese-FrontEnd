@@ -18,7 +18,6 @@ import {ToastMessage} from "./services/toast-message/toast-message";
 import {SharedModule} from "./shared/shared.module";
 import {ProgressBarModule} from "primeng/progressbar";
 import {ChartModule} from "primeng/chart";
-import { ModalComponent } from './modal/modal.component';
 import { ReportDetailModalComponent } from './modal/report-detail-modal/report-detail-modal.component';
 
 
@@ -26,7 +25,6 @@ import { ReportDetailModalComponent } from './modal/report-detail-modal/report-d
   declarations: [
     AppComponent,
     HomeComponent,
-    ModalComponent,
     ReportDetailModalComponent,
   ],
     imports: [
