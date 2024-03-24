@@ -65,6 +65,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reportAction = this.ref.data;
+    console.log('ID', this.reportAction.event.id)
     if(this.reportAction.event.action == this.editReportAction && this.reportAction.event.id)
     {
       this.loadReportData(this.reportAction.event.id)

@@ -34,7 +34,6 @@ export class ReportTableComponent {
       next: (allReportData) => {
         this.showProfissionalReports = false
         this.reports = allReportData;
-        console.log(this.reports)
       },
       error: (error) => {
         console.error('Erro ao obter fichas do usuário:', error);
@@ -42,8 +41,8 @@ export class ReportTableComponent {
     });
   }
 
-  handleReportEvent(action: string, reportId?: number): void {
-    if (action && action !== '') this.reportEvent.emit({action, reportId})
+  handleReportEvent(action: string, id?: number): void {
+    if (action && action !== '') this.reportEvent.emit({action, id})
   }
 
   openModal(report: GetReportResponse) {

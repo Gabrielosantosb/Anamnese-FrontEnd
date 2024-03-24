@@ -1,5 +1,5 @@
 export interface EventAction
 {
   action: string;
-  reportId?: number;
+  id?: number;
 }
