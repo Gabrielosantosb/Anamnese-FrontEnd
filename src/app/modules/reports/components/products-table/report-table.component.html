@@ -21,7 +21,7 @@
       <hr style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px;">
       <p-table
         [value]="reports"
-        [(selection)]="reportSelected"
+        [(selection)]="selectedReport"
         [rows]="10"
         [paginator]="true"
         [responsive]="true"
@@ -78,6 +78,7 @@
                   tooltipPosition="top"
                   icon='pi pi-eye'
                   class="p-button-outlined p-button-info"
+                  (click)="openModal(report)"
                 ></button>
               </div>
             </td>
@@ -90,4 +91,81 @@
     </p-card>
   </div>
   <p-confirmDialog></p-confirmDialog>
+
+
+  <p-dialog header="Detalhes do Relatório" [(visible)]="displayModal" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
+    <div *ngIf="selectedReport" class="p-fluid">
+      <h2 class="p-mb-4">Ficha de: {{selectedReport.pacientName}}</h2>
+      <div class="p-grid">
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Data criada:</label>
+            <div>{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Nome do Paciente:</label>
+            <div>{{ selectedReport.pacientName }}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Histórico Médico:</label>
+            <div>{{selectedReport.medicalHistory}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Medicações Atuais:</label>
+            <div>{{selectedReport.currentMedications}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Problemas Cardiovasculares:</label>
+            <div>{{selectedReport.cardiovascularIssues}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Diabetes:</label>
+            <div>{{selectedReport.diabetes}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Diabetes Familiar:</label>
+            <div>{{selectedReport.familyHistoryCardiovascularIssues}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Atividade Física:</label>
+            <div>{{selectedReport.physicalActivity}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Fumante:</label>
+            <div>{{selectedReport.smoker}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Contato de emergência:</label>
+            <div>{{selectedReport.emergencyContactName}} - {{selectedReport.emergencyContactPhone}}</div>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="p-field">
+            <label>Observações:</label>
+            <div>{{selectedReport.observations}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+
 </div>

@@ -22,7 +22,9 @@ export class ReportTableComponent {
   @Output() reportEvent = new EventEmitter<EventAction>()
   @Output() deleteReportEvent = new EventEmitter<DeleteReportAction>()
   showProfissionalReports = false
-  public reportSelected!: GetReportResponse;
+  public selectedReport!: GetReportResponse;
+  displayModal: boolean = false;
+
   constructor(private reportService: ReportsService) {
   }
 
@@ -44,6 +46,10 @@ export class ReportTableComponent {
     if (action && action !== '') this.reportEvent.emit({action, reportId})
   }
 
+  openModal(report: GetReportResponse) {
+    this.selectedReport = report;
+    this.displayModal = true;
+  }
   handleDeleteReport(reportId: number, pacientName: string): void {
     if(reportId !== null && pacientName !== "")
     {

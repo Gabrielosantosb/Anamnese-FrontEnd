@@ -31,6 +31,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
   public editPacientAction = PacientsEvent.EDIT_PACIENT_ACTION;
   public estados = Object.values(UF)
   public gender: string[] = ["Masculino", "Feminino", "Outro"];
+  public showReportForm: boolean = false;
   public pacientAction!: { event: EditPacientAction };
 
 
@@ -44,6 +45,22 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
     gender: ['', Validators.required],
     profession: ['', Validators.required],
   });
+
+  public reportForm = this.formBuilder.group({
+    medicalHistory: ['teste', Validators.required],
+    currentMedications: ['teste', Validators.required],
+    cardiovascularIssues: [false],
+    diabetes: [false],
+    familyHistoryCardiovascularIssues: [false],
+    familyHistoryDiabetes: [false],
+    physicalActivity: ['teste', Validators.required],
+    smoker: [false],
+    alcoholConsumption: [0, Validators.min(0)],
+    emergencyContactName: ['teste', Validators.required],
+    emergencyContactPhone: ['teste', Validators.required],
+    observations: ['teste']
+  })
+
 
 
   constructor(
@@ -89,6 +106,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (pacientData: GetPacientsResponse) => {
           console.log('Dados do paciente carregados:', pacientData);
+          this.showReportForm = true;
         },
         error: (error) => {
           console.error('Erro ao carregar dados do paciente:', error);

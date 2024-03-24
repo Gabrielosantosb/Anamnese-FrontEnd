@@ -30,28 +30,29 @@ import {SharedModule} from "../../shared/shared.module";
     ReportsHomeComponent,
     ReportTableComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule,
-    HttpClientModule,
-    RouterModule.forChild(PRODUCTS_ROUTES),
-    // PrimeNG
-    CardModule,
-    ButtonModule,
-    TableModule,
-    InputMaskModule,
-    InputSwitchModule,
-    InputTextModule,
-    InputTextareaModule,
-    InputNumberModule,
-    DynamicDialogModule,
-    DropdownModule,
-    ConfirmDialogModule,
-    TooltipModule,
-    RippleModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        HttpClientModule,
+        RouterModule.forChild(PRODUCTS_ROUTES),
+        // PrimeNG
+        CardModule,
+        ButtonModule,
+        TableModule,
+        InputMaskModule,
+        InputSwitchModule,
+        InputTextModule,
+        InputTextareaModule,
+        InputNumberModule,
+        DynamicDialogModule,
+        DropdownModule,
+        ConfirmDialogModule,
+        TooltipModule,
+        RippleModule,
+        DialogModule
+    ],
   providers:[DialogService, ConfirmationService]
 })
 export class ReportsModule { }
