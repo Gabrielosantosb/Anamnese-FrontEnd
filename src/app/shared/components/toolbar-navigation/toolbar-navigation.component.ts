@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {ConfirmationModal} from "../../../services/confirmation/confirmation-service.service";
 import {DialogService} from "primeng/dynamicdialog";
+import {ClipboardService} from "ngx-clipboard";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-toolbar-navigation',
@@ -10,9 +12,18 @@ import {DialogService} from "primeng/dynamicdialog";
 })
 export class ToolbarNavigationComponent {
 
-  constructor(private confirmationModal: ConfirmationModal, private dialogService: DialogService) {
+  constructor(private confirmationModal: ConfirmationModal,
+              private dialogService: DialogService,
+              private clipboardService: ClipboardService,
+
+              private messageService: NzMessageService) {
   }
 
+  getIntegrationLink():void{
+    const url = 'teste123'
+    this.clipboardService.copyFromContent(url)
+    this.messageService.info('Link para anamnese copiado com sucesso!')
+  }
   navigateAnamneseForm():void{
     this.confirmationModal.confirmNavigatePacientForm('Link para preencher Anamnese')
   }
