@@ -6,6 +6,9 @@ import { ChartData, ChartOptions } from 'chart.js';
 import { PacientService } from '../../../../services/pacients/pacients.service';
 import { GetPacientsResponse } from '../../../../../models/interfaces/pacients/get-pacient-service.service';
 import {ReportsService} from "../../../../services/reports/reports.service";
+import {ToastMessage} from "../../../../services/toast-message/toast-message";
+import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard-home',
@@ -23,7 +26,10 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   constructor(
     private pacientService: PacientService,
     private reportService : ReportsService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private toastMessage: ToastMessage,
+    private confirmationModal: ConfirmationModal,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

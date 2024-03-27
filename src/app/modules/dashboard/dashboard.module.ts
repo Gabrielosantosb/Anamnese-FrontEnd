@@ -14,6 +14,18 @@ import {CookieService} from "ngx-cookie-service";
 import {ChartModule} from "primeng/chart";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {SharedModule} from "../../shared/shared.module";
+import {DialogService, DynamicDialogModule} from "primeng/dynamicdialog";
+import {ConfirmationModal} from "../../services/confirmation/confirmation-service.service";
+import {TableModule} from "primeng/table";
+import {InputMaskModule} from "primeng/inputmask";
+import {InputSwitchModule} from "primeng/inputswitch";
+import {InputTextModule} from "primeng/inputtext";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {InputNumberModule} from "primeng/inputnumber";
+import {DropdownModule} from "primeng/dropdown";
+import {TooltipModule} from "primeng/tooltip";
+import {RippleModule} from "primeng/ripple";
+import {DialogModule} from "primeng/dialog";
 
 
 @NgModule({
@@ -36,8 +48,9 @@ import {SharedModule} from "../../shared/shared.module";
         SharedModule,
         ConfirmDialogModule,
         SharedModule,
-        ChartModule
+        ChartModule,
     ],
-  providers:[MessageService, CookieService, ConfirmationService]
+  providers:[CookieService, ConfirmationService, DialogService]
+  // providers:[ConfirmationService, DialogService,ConfirmationModal]
 })
 export class DashboardModule { }

@@ -24,6 +24,7 @@ export class ToolbarNavigationComponent {
   }
 
   getIntegrationLink():void{
+    console.log("gerou link")
     const url = `http://localhost:53532/${this.token}`
     this.clipboardService.copyFromContent(url)
     this.toastMessage.SuccessMessage('Link para anamnese copiado com sucesso!')
@@ -33,6 +34,7 @@ export class ToolbarNavigationComponent {
     this.confirmationModal.confirmNavigatePacientForm('Link para preencher Anamnese')
   }
   logout(): void {
+    console.log('clicou')
     this.confirmationModal.confirmLogout("Tem certeza que deseja sair?")
   }
 
