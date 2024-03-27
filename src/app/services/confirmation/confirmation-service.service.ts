@@ -12,6 +12,7 @@ export class ConfirmationModal {
   constructor(private confirmationService: ConfirmationService, private router: Router, private cookie: CookieService) {
   }
   private readonly USER_AUTH = environments.COOKIES_VALUE.user_auth
+  private token = this.cookie.get("USER_INFO")
 
   confirmLogout(message: string): void {
     this.confirmationService.confirm({
@@ -24,6 +25,14 @@ export class ConfirmationModal {
         void this.router.navigate(["home"])
       }
     })
+  }
+  confirmNavigatePacientForm(link: string): void {
+    this.confirmationService.confirm({
+      message: `Link de Cópia:<br/><input type="text" value="${link}" readonly>`,
+      acceptLabel: 'Fechar',
+      rejectVisible: false,
+      header: 'Link de Paciente',
+    });
   }
   confirmReportDelete(message: string, onDelete: () => void): void {
     this.confirmationService.confirm({
