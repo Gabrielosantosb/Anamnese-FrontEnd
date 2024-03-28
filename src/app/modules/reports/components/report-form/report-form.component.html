@@ -3,11 +3,11 @@
     <div class="card flex flex-column md:flex-column gap-3">
       <textarea pInputTextarea rows="5" placeholder="Histórico Médico" formControlName="medicalHistory"></textarea>
       <textarea pInputTextarea rows="5" placeholder="Medicações Atuais" formControlName="currentMedications"></textarea>
-      <p-checkbox label="Problemas Cardiovasculares" formControlName="cardiovascularIssues"></p-checkbox>
-      <p-checkbox label="Diabetes" formControlName="diabetes"></p-checkbox>
-      <p-checkbox label="Histórico Familiar de Problemas Cardiovasculares" formControlName="familyHistoryCardiovascularIssues"></p-checkbox>
-      <p-checkbox label="Histórico Familiar de Diabetes" formControlName="familyHistoryDiabetes"></p-checkbox>
-      <p-checkbox label="Fumante" formControlName="smoker"></p-checkbox>
+      <p-checkbox label="Problemas Cardiovasculares" formControlName="cardiovascularIssues" [binary]="true"></p-checkbox>
+      <p-checkbox label="Diabetes" formControlName="diabetes" [binary]="true"></p-checkbox>
+      <p-checkbox label="Histórico Familiar de Problemas Cardiovasculares" formControlName="familyHistoryCardiovascularIssues" [binary]="true"></p-checkbox>
+      <p-checkbox label="Histórico Familiar de Diabetes" formControlName="familyHistoryDiabetes" [binary]="true"></p-checkbox>
+      <p-checkbox label="Fumante" formControlName="smoker" [binary]="true"></p-checkbox>
       <input pInputText placeholder="Atividade Física" formControlName="physicalActivity"/>
       <p>Consumo de álcool, de 1 a 5</p>
       <input pInputText placeholder="Consumo de Álcool" formControlName="alcoholConsumption" type="number"/>
