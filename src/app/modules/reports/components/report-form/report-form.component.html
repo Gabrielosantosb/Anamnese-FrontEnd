@@ -10,7 +10,8 @@
       <p-checkbox label="Fumante" formControlName="smoker" [binary]="true"></p-checkbox>
       <input pInputText placeholder="Atividade Física" formControlName="physicalActivity"/>
       <p>Consumo de álcool, de 1 a 5</p>
-      <input pInputText placeholder="Consumo de Álcool" formControlName="alcoholConsumption" type="number"/>
+      <input pInputText placeholder="Consumo de Álcool" formControlName="alcoholConsumption" type="number" min="0" max="5"/>
+
       <input pInputText placeholder="Nome do Contato de Emergência" formControlName="emergencyContactName"/>
       <input pInputText placeholder="Telefone do Contato de Emergência" formControlName="emergencyContactPhone"  maxlength="11"/>
       <textarea pInputTextarea rows="5" placeholder="Observações" formControlName="observations"></textarea>

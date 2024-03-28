@@ -46,7 +46,9 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     familyHistoryDiabetes: [false],
     physicalActivity: ['teste', Validators.required],
     smoker: [false],
-    alcoholConsumption: [0, Validators.min(0)],
+    // alcoholConsumption: [0, Validators.min(0)],
+    alcoholConsumption: [0, [Validators.min(0), Validators.max(5)]], // Definindo min e max
+
     emergencyContactName: ['teste', Validators.required],
     emergencyContactPhone: ['teste', Validators.required],
     observations: ['teste']
