@@ -50,6 +50,7 @@ export class PacientsTableComponent {
   handleShowAllPacients(): void {
     this.pacientService.getAllPacients().subscribe({
       next: (allPacientsData) => {
+        console.log(allPacientsData)
         this.showProfissionalPacients = false
         this.pacients = allPacientsData;
       },

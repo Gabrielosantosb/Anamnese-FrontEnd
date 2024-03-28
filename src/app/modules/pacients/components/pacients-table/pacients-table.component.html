@@ -37,16 +37,16 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="name">
+            <th pSortableColumn="username">
               <div class='flex justify-content-between align-items-center'>
                 <div class="flex justify-content-between align-items-center">
-                  Nome
+                  Nome do paciente
                 </div>
                 <div class='justify-content-between align-items-center'>
-                  <p-sortIcon field='name'></p-sortIcon>
+                  <p-sortIcon field='username'></p-sortIcon>
                   <p-columnFilter
                     type="text"
-                    field='name'
+                    field='username'
                     display="menu"
                     matchMode="contains"
                     [showMatchModes]='false'

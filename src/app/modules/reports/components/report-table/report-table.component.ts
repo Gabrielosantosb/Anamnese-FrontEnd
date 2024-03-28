@@ -3,14 +3,12 @@ import {
   GetAllProductsResponse,
   GetReportResponse
 } from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
-import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {
   DeleteReportAction
 } from "../../../../../models/interfaces/reports/event/DeleteProductAction";
-import {PacientService} from "../../../../services/pacients/pacients.service";
 import {ReportsService} from "../../../../services/reports/reports.service";
-import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
+
 
 @Component({
   selector: 'app-report-table',
