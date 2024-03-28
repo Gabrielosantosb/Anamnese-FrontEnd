@@ -1,39 +1,34 @@
 <app-toolbar-navigation></app-toolbar-navigation>
 
-<div class="grid">
+<div class="grid" style="display: flex; justify-content: space-around;">
   <div class="col-12">
-    <p-card header="Quantidade produtos em estoque" styleClass="shadow-3 m-5 text-indigo-800">
-      <p-chart type="bar" [data]="chartData" [options]="chartOptions" height=700;></p-chart>
+    <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
+      <p-chart type="bar" [data]="chartData" [options]="chartOptions" height="700"></p-chart>
     </p-card>
   </div>
 
   <!-- Totais -->
-  <div class="col-4">
-    <div class="card shadow-3 m-5">
-      <div class="card-body">
-        <h5 class="card-title" style="text-align: center">Total de Pacientes</h5>
-        <p class="card-text" style="text-align: center">{{ allPacients }}</p>
-
-      </div>
-    </div>
+  <div style="width: 330px;">
+    <p-card header="Total de pacientes" [style]="{ 'text-align': 'center' }">
+      <p style="text-align: center; font-size: 1.5em;">
+        {{ allPacients }}
+      </p>
+    </p-card>
   </div>
 
-  <div class="col-4">
-    <div class="card shadow-3 m-5">
-      <div class="card-body">
-        <h5 class="card-title" style="text-align: center">Total de Fichas</h5>
-        <p class="card-text" style="text-align: center">{{ allReports }}</p>
-      </div>
-    </div>
+  <div style="width: 330px;">
+    <p-card header="Total de fichas" [style]="{ 'text-align': 'center' }">
+      <p style="text-align: center; font-size: 1.5em;">
+        {{ allReports }}
+      </p>
+    </p-card>
   </div>
 
-  <div class="col-4">
-    <div class="card shadow-3 m-5">
-      <div class="card-body">
-        <h5 class="card-title" style="text-align: center">Total de Pacientes criados por você</h5>
-        <p class="card-text" style="text-align: center">{{ allProfissionalPacients }}</p>
-
-      </div>
-    </div>
+  <div style="width: 330px;">
+    <p-card header="Seus pacientes" [style]="{ 'text-align': 'center' }">
+      <p style="text-align: center; font-size: 1.5em;">
+        {{ allReports }}
+      </p>
+    </p-card>
   </div>
 </div>
