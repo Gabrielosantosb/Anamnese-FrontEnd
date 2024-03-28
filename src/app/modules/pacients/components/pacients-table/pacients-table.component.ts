@@ -59,6 +59,8 @@ export class PacientsTableComponent {
     });
   }
   handleProfissionalPacients(): void {
+    console.log('bateu no profissionalPacients')
+
       this.pacientService.getProfissionalPacients().subscribe({
       next: (profissionalPacientsData) => {
         this.pacients = profissionalPacientsData;
