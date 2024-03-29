@@ -1,5 +1,8 @@
 <div>
   <form [formGroup]="reportForm" (ngSubmit)="handleSubmitReportAction()">
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="getIntegrationLink()">
+      <i class="pi pi-copy"></i>
+    </button>
     <div class="card flex flex-column md:flex-column gap-3">
       <textarea pInputTextarea rows="5" placeholder="Histórico Médico" formControlName="medicalHistory"></textarea>
       <textarea pInputTextarea rows="5" placeholder="Medicações Atuais" formControlName="currentMedications"></textarea>

@@ -20,6 +20,9 @@ import {
   ReportRequest
 } from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
+import {CookieService} from "ngx-cookie-service";
+import {environments} from "../../../../../environments/environments";
+import {ClipboardService} from "ngx-clipboard";
 
 @Component({
   selector: 'app-report-form',
@@ -35,7 +38,9 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   public addReportAction = ReportEvent.ADD_REPORT_EVENT;
   public editReportAction = ReportEvent.EDIT_REPORT_EVENT;
   public reportAction !: { event: EditReportAction }
+  private readonly USER_AUTH = environments.COOKIES_VALUE.user_auth
   reportId = 0;
+  pacientId = 0
   public reportForm = this.formBuilder.group({
 
     medicalHistory: ['', Validators.required],
@@ -53,6 +58,8 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     emergencyContactPhone: ['teste', Validators.required],
     observations: ['teste']
   })
+  private token = this.cookie.get(this.USER_AUTH)
+
 
 
   constructor(
@@ -61,27 +68,32 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     private pacientService: PacientService,
     private reportService: ReportsService,
     private confirmationModal: ConfirmationModal,
-    private toastMessage: ToastMessage
+    private toastMessage: ToastMessage,
+    private cookie: CookieService,
+    private clipboardService: ClipboardService,
   ) {
   }
 
   ngOnInit(): void {
     this.reportAction = this.ref.data;
-    console.log('ID', this.reportAction.event.id)
+    if(this.reportAction.event.id  && this.reportAction.event.action == this.addReportAction)
+    {
+      this.pacientId = this.reportAction.event.id
+    }
+
     if(this.reportAction.event.action == this.editReportAction && this.reportAction.event.id)
     {
       this.loadReportData(this.reportAction.event.id)
+
     }
 
-    // if(this.reportAction?.event?.action == this.editReportAction || this.reportAction?.event?.action == this.addReportAction)
-    // {
-    //   if(this.reportAction?.event?.id && ){
-    //     this.loadReportData(this.reportAction.event.id)
-    //   }
-    // }
-
   }
-
+  getIntegrationLink():void{
+    console.log("gerou link")
+    const url = `http://localhost:53246/?token=${this.token}&pacientId=${this.pacientId}`;
+    this.clipboardService.copyFromContent(url)
+    this.toastMessage.InfoMessage('Link para anamnese copiado com sucesso!')
+  }
   handleSubmitReportAction(): void {
     if (this.reportAction?.event?.action === this.editReportAction) this.handleSubmitEditReport()
     if (this.reportAction?.event?.action === this.addReportAction) this.handleSubmitAddReport()

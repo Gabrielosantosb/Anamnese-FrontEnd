@@ -15,6 +15,14 @@ export class ToastMessage {
       life: 2000,
     });
   }
+  InfoMessage(detail: string): void {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Informação',
+      detail,
+      life: 2000,
+    });
+  }
 
   ErrorMessage(detail: string): void {
     this.messageService.add({
