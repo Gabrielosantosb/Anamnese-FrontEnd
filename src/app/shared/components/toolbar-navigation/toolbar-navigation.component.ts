@@ -25,7 +25,7 @@ export class ToolbarNavigationComponent {
 
   getIntegrationLink():void{
     console.log("gerou link")
-    const url = `http://localhost:53532/${this.token}`
+    const url = `http://localhost:53246/?token=${this.token}`;
     this.clipboardService.copyFromContent(url)
     this.toastMessage.SuccessMessage('Link para anamnese copiado com sucesso!')
     // this.messageService.info('Link para anamnese copiado com sucesso!')
