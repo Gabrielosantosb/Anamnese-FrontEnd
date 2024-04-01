@@ -99,12 +99,24 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     if (this.reportAction?.event?.action === this.addReportAction) this.handleSubmitAddReport()
   }
 
-  sendIntengrationWhatsApp(): void{
-    // this.pacientService.getPacientById(this.pacientId).pipe()
-    console.log('mandou')
+  sendIntegrationWhatsApp(): void {
+    this.pacientService.getPacientById(this.pacientId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (pacientData: any) => {
+          const url = `http://localhost:51216/?token=${this.token}&pacientId=${this.pacientId}`;
+          const message = `Olá *${pacientData.username}*, aqui está o link para a anamnese:\n${url}`;
+          const encodedMessage = encodeURIComponent(message);
+          const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(pacientData.phone)}&text=${encodedMessage}`;
+          window.open(whatsappLink, '_blank');
+        },
+        error: (err) => {
+          console.error(err);
+          this.toastMessage.ErrorMessage('Erro ao enviar o link via WhatsApp');
+        }
+      });
+    console.log('Mensagem enviada via WhatsApp');
   }
-
-
   handleSubmitEditReport(): void {
     if (this.reportId <= 0) {
       console.error('ID do relatório inválido');
