@@ -10,13 +10,13 @@
           label='Todos as fichas'
           (click)="handleShowAllReports()"
         ></p-button>
-<!--        <p-button-->
-<!--          styleClass="p-button-outlined"-->
-<!--          class="p-button-outlined "-->
-<!--          pTooltip="Meus pacientes"-->
-<!--          tooltipPosition="top"-->
-<!--          label='Minhas fichas'-->
-<!--        ></p-button>-->
+        <!--        <p-button-->
+        <!--          styleClass="p-button-outlined"-->
+        <!--          class="p-button-outlined "-->
+        <!--          pTooltip="Meus pacientes"-->
+        <!--          tooltipPosition="top"-->
+        <!--          label='Minhas fichas'-->
+        <!--        ></p-button>-->
       </div>
       <hr style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px;">
       <p-table
@@ -61,7 +61,8 @@
             <td>{{ report?.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td>{{ report?.pacientName }}</td>
             <td>
-              <div class='flex justify-content-center gap-3 align-content-center align-items-center' style="margin-bottom: 10px">
+              <div class='flex justify-content-center gap-3 align-content-center align-items-center'
+                   style="margin-bottom: 10px">
                 <button
                   pButton
                   pRipple
@@ -93,74 +94,68 @@
   <p-confirmDialog></p-confirmDialog>
 
 
-  <p-dialog header="Detalhes do Relatório" [(visible)]="displayModal" [modal]="true" [responsive]="true" [style]="{width: '50vw'}">
+  <p-dialog header="Detalhes do Relatório" [(visible)]="displayModal" [modal]="true" [responsive]="true"
+            [style]="{width: '50vw'}">
     <div *ngIf="selectedReport" class="p-fluid">
-      <h2 class="p-mb-4">Ficha de: {{selectedReport.pacientName}}</h2>
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Data criada:</label>
-            <div>{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</div>
-          </div>
+      <h1 style="text-align: center; font-size: 16px">Ficha de: <span style="display: inline-block; margin-right: 20px;">{{ selectedReport.pacientName }}</span> Data criada: <span style="display: inline-block;">{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</span></h1>
+      <hr style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px;">
+
+      <div>
+        <div class="p-field p-col-12 report-field">
+          <label>Data criada:</label>
+          <div>{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Nome do Paciente:</label>
-            <div>{{ selectedReport.pacientName }}</div>
-          </div>
+
+        <div class="p-field p-col-12 report-field">
+          <label>Nome do Paciente:</label>
+          <div>{{ selectedReport.pacientName }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Histórico Médico:</label>
-            <div>{{selectedReport.medicalHistory}}</div>
-          </div>
+
+        <div class="p-field p-col-12 report-field">
+          <label>Histórico Médico:</label>
+          <div>{{ selectedReport.medicalHistory }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Medicações Atuais:</label>
-            <div>{{selectedReport.currentMedications}}</div>
-          </div>
+
+        <div class="p-field p-col-12 report-field">
+          <label>Medicações Atuais:</label>
+          <div>{{ selectedReport.currentMedications }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Problemas Cardiovasculares:</label>
-            <div>{{selectedReport.cardiovascularIssues}}</div>
-          </div>
+
+        <div class="p-field p-col-12 report-field">
+          <label>Problemas Cardiovasculares:</label>
+          <div>{{ selectedReport.cardiovascularIssues ? 'Sim' : 'Não'}}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Diabetes:</label>
-            <div>{{selectedReport.diabetes}}</div>
-          </div>
+
+        <div class="p-field p-col-12 report-field">
+          <label>Diabetes:</label>
+          <div>{{ selectedReport.diabetes ? 'Sim' : 'Não' }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Diabetes Familiar:</label>
-            <div>{{selectedReport.familyHistoryCardiovascularIssues}}</div>
-          </div>
+        <div class="p-field p-col-12 report-field">
+          <label>Diabetes Familiar:</label>
+          <div>{{ selectedReport.familyHistoryCardiovascularIssues? 'Sim' : 'Não' }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Atividade Física:</label>
-            <div>{{selectedReport.physicalActivity}}</div>
-          </div>
+
+        <div class="p-field p-col-12 report-field">
+          <label>Atividade Física:</label>
+          <div>{{ selectedReport.physicalActivity }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Fumante:</label>
-            <div>{{selectedReport.smoker}}</div>
-          </div>
+
+
+        <div class="p-field p-col-12 report-field">
+          <label>Fumante:</label>
+          <div>{{ selectedReport.smoker ? 'Sim' : 'Não'}}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label>Contato de emergência:</label>
-            <div>{{selectedReport.emergencyContactName}} - {{selectedReport.emergencyContactPhone}}</div>
-          </div>
+
+
+        <div class="p-field p-col-12 report-field">
+          <label>Contato de emergência:</label>
+          <div>{{ selectedReport.emergencyContactName }} - {{ selectedReport.emergencyContactPhone }}</div>
         </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
+
+        <div>
+          <div class="p-field p-col-12 report-field">
             <label>Observações:</label>
-            <div>{{selectedReport.observations}}</div>
+            <div>{{ selectedReport.observations }}</div>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ import {ReportsService} from "../../../../services/reports/reports.service";
 @Component({
   selector: 'app-report-table',
   templateUrl: './report-table.component.html',
-  styleUrls: []
+  styleUrls: ['report-table.scss']
 })
 export class ReportTableComponent {
   @Input() reports: Array<GetReportResponse> = [];
