@@ -90,14 +90,18 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   }
   getIntegrationLink():void{
     console.log("gerou link")
-    const url = `http://localhost:53246/?token=${this.token}&pacientId=${this.pacientId}`;
+    const url = `http://localhost:51216/?token=${this.token}&pacientId=${this.pacientId}`;
     this.clipboardService.copyFromContent(url)
     this.toastMessage.InfoMessage('Link para anamnese copiado com sucesso!')
   }
   handleSubmitReportAction(): void {
     if (this.reportAction?.event?.action === this.editReportAction) this.handleSubmitEditReport()
     if (this.reportAction?.event?.action === this.addReportAction) this.handleSubmitAddReport()
+  }
 
+  sendIntengrationWhatsApp(): void{
+    // this.pacientService.getPacientById(this.pacientId).pipe()
+    console.log('mandou')
   }
 
 

@@ -42,24 +42,30 @@ export class PacientService {
     )
   }
 
-  getPacientById(pacientId: number, pacientForm: FormGroup): Observable<GetPacientsResponse> {
+  getPacientById(pacientId: number): Observable<GetPacientsResponse> {
     return this.http.get<GetPacientsResponse>(
       `${this.API_URL}/api/Pacient/get-pacient/${pacientId}`
-    ).pipe(
-      tap((pacientData: GetPacientsResponse) => {
-        pacientForm.setValue({
-          username: pacientData.username,
-          email: pacientData.email,
-          address: pacientData.address,
-          uf: pacientData.uf,
-          phone: pacientData.phone,
-          birth: pacientData.birth,
-          gender: pacientData.gender,
-          profession: pacientData.profession
-        });
-      })
     );
   }
+
+  // getPacientById(pacientId: number, pacientForm: FormGroup): Observable<GetPacientsResponse> {
+  //   return this.http.get<GetPacientsResponse>(
+  //     `${this.API_URL}/api/Pacient/get-pacient/${pacientId}`
+  //   ).pipe(
+  //     tap((pacientData: GetPacientsResponse) => {
+  //       pacientForm.setValue({
+  //         username: pacientData.username,
+  //         email: pacientData.email,
+  //         address: pacientData.address,
+  //         uf: pacientData.uf,
+  //         phone: pacientData.phone,
+  //         birth: pacientData.birth,
+  //         gender: pacientData.gender,
+  //         profession: pacientData.profession
+  //       });
+  //     })
+  //   );
+  // }
 
   createPacient(requestData : AddPacientRequest): Observable<Array<GetPacientsResponse>> {
       console.log('Request:', requestData)
