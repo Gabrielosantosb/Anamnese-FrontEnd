@@ -177,7 +177,7 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       this.pacientAction?.event?.id
     ) {
     const requestEditPacient = this.pacientForm.value as EditPacientRequest;
-      console.log(requestEditPacient)
+    requestEditPacient.pacient_id =  this.pacientAction?.event?.id
       this.pacientService
         .editPacient(requestEditPacient)
         .pipe(takeUntil(this.destroy$))
