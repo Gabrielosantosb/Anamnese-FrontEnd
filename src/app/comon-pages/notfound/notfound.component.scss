@@ -1,0 +1,28 @@
+
+.dvBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+
+}
+
+.logo {
+  width: 600px;
+  height: auto;
+}
+
+.dvInfos {
+  text-align: center;
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px; /* Espaço entre o título e o texto */
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5; /* Espaço entre as linhas */
+}
