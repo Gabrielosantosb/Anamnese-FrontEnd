@@ -19,7 +19,6 @@ import {SharedModule} from "./shared/shared.module";
 import {ProgressBarModule} from "primeng/progressbar";
 import {ChartModule} from "primeng/chart";
 import { ReportDetailModalComponent } from './modal/report-detail-modal/report-detail-modal.component';
-import { NotfoundComponent } from './comon-pages/notfound/notfound.component';
 
 
 @NgModule({

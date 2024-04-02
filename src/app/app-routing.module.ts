@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./modules/home/home.component";
-import {DashboardHomeComponent} from "./modules/dashboard/page/dashboard-home/dashboard-home.component";
 import {AuthGuardService} from "./guards/auth-guard.service";
 import {NotfoundComponent} from "./comon-pages/notfound/notfound.component";
-
 const routes: Routes = [
   {
     path : "",
     redirectTo:"dashboard",
     pathMatch:"full"
-    // path : "",
-    // component: HomeComponent,
   },
   {
     path : "home",

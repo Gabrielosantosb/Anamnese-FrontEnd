@@ -1,25 +1,18 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject, take, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import {PacientService} from "../../../../services/pacients/pacients.service";
-import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
+import { FormBuilder, Validators} from "@angular/forms";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
-import {SaleProductRequest} from "../../../../../models/interfaces/reports/request/SaleProductRequest";
 import {ProgressBarModule} from "primeng/progressbar";
-import {PacientsEvent} from "../../../../../models/interfaces/enums/pacients/PacientEvent";
-import {UF} from "../../../../../models/interfaces/enums/UF/uf";
-import {EditPacientAction} from "../../../../../models/interfaces/pacients/event/editPacient";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {ReportsService} from "../../../../services/reports/reports.service";
 import {ReportEvent} from "../../../../../models/interfaces/enums/products/ProductEvent.js";
 import {EditReportAction} from "../../../../../models/interfaces/reports/event/EditReportAction";
-import _default from "chart.js/dist/plugins/plugin.tooltip";
-import numbers = _default.defaults.animations.numbers;
 import {
   GetReportResponse,
   ReportRequest
 } from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
-import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../../../environments/environments";
 import {ClipboardService} from "ngx-clipboard";
@@ -49,14 +42,12 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     diabetes: [false],
     familyHistoryCardiovascularIssues: [false],
     familyHistoryDiabetes: [false],
-    physicalActivity: ['teste', Validators.required],
+    physicalActivity: ['', Validators.required],
     smoker: [false],
-    // alcoholConsumption: [0, Validators.min(0)],
-    alcoholConsumption: [0, [Validators.min(0), Validators.max(5)]], // Definindo min e max
-
-    emergencyContactName: ['teste', Validators.required],
-    emergencyContactPhone: ['teste', Validators.required],
-    observations: ['teste']
+    alcoholConsumption: [0, [Validators.min(0), Validators.max(5)]],
+    emergencyContactName: ['', Validators.required],
+    emergencyContactPhone: ['', Validators.required],
+    observations: ['']
   })
   private token = this.cookie.get(this.USER_AUTH)
 
@@ -115,7 +106,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           this.toastMessage.ErrorMessage('Erro ao enviar o link via WhatsApp');
         }
       });
-    console.log('Mensagem enviada via WhatsApp');
   }
   handleSubmitEditReport(): void {
     if (this.reportId <= 0) {
