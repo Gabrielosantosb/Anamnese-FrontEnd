@@ -94,63 +94,61 @@
   <p-confirmDialog></p-confirmDialog>
 
 
-  <p-dialog header="Detalhes do Relatório" [(visible)]="displayModal" [modal]="true" [responsive]="true"
-            [style]="{width: '50vw'}">
+  <p-dialog [(visible)]="displayModal" [modal]="true" [responsive]="true" [style]="{width: '60vw'}">
     <div *ngIf="selectedReport" class="p-fluid">
-      <h1 style="text-align: center; font-size: 16px">Ficha de: <span style="display: inline-block; margin-right: 20px;">{{ selectedReport.pacientName }}</span> Data criada: <span style="display: inline-block;">{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</span></h1>
-      <hr style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px;">
+      <div style="text-align: center;">
+        <h1 class="modal-title">Detalhes da ficha</h1>
+        <p class="modal-content">Nome: <span style="font-weight: bold;">{{ selectedReport.pacientName }}</span></p>
+        <p class="modal-content">Data e Hora de Criação: <span style="font-weight: bold;">{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</span></p>
+      </div>
+      <hr class="modal-hr">
 
-      <div>
-        <div class="p-field p-col-12 report-field">
+      <div style="margin-top: 20px;">
+        <div class="report-field">
           <label>Histórico Médico:</label>
           <div>{{ selectedReport.medicalHistory }}</div>
         </div>
 
-        <div class="p-field p-col-12 report-field">
+        <div class="report-field">
           <label>Medicações Atuais:</label>
           <div>{{ selectedReport.currentMedications }}</div>
         </div>
 
-        <div class="p-field p-col-12 report-field">
+        <div class="report-field">
           <label>Problemas Cardiovasculares:</label>
-          <div>{{ selectedReport.cardiovascularIssues ? 'Sim' : 'Não'}}</div>
+          <div>{{ selectedReport.cardiovascularIssues ? 'Sim' : 'Não' }}</div>
         </div>
 
-        <div class="p-field p-col-12 report-field">
+        <div class="report-field">
           <label>Diabetes:</label>
           <div>{{ selectedReport.diabetes ? 'Sim' : 'Não' }}</div>
         </div>
-        <div class="p-field p-col-12 report-field">
+
+        <div class="report-field">
           <label>Diabetes Familiar:</label>
-          <div>{{ selectedReport.familyHistoryCardiovascularIssues? 'Sim' : 'Não' }}</div>
+          <div>{{ selectedReport.familyHistoryCardiovascularIssues ? 'Sim' : 'Não' }}</div>
         </div>
 
-        <div class="p-field p-col-12 report-field">
+        <div class="report-field">
           <label>Atividade Física:</label>
           <div>{{ selectedReport.physicalActivity }}</div>
         </div>
 
-
-        <div class="p-field p-col-12 report-field">
+        <div class="report-field">
           <label>Fumante:</label>
-          <div>{{ selectedReport.smoker ? 'Sim' : 'Não'}}</div>
+          <div>{{ selectedReport.smoker ? 'Sim' : 'Não' }}</div>
         </div>
 
-
-        <div class="p-field p-col-12 report-field">
+        <div class="report-field">
           <label>Contato de emergência:</label>
           <div>{{ selectedReport.emergencyContactName }} - {{ selectedReport.emergencyContactPhone }}</div>
         </div>
 
-        <div>
-          <div class="p-field p-col-12 report-field">
-            <label>Observações:</label>
-            <div>{{ selectedReport.observations }}</div>
-          </div>
+        <div class="report-field">
+          <label>Observações:</label>
+          <div>{{ selectedReport.observations }}</div>
         </div>
       </div>
     </div>
   </p-dialog>
-
-
 </div>
