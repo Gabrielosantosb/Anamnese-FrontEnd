@@ -81,7 +81,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   }
   getIntegrationLink():void{
     console.log("gerou link")
-    const url = `http://localhost:51216/?token=${this.token}&pacientId=${this.pacientId}`;
+    const url = `http://localhost:4200/?token=${this.token}&pacientId=${this.pacientId}`;
     this.clipboardService.copyFromContent(url)
     this.toastMessage.InfoMessage('Link para anamnese copiado com sucesso!')
   }
@@ -95,7 +95,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (pacientData: any) => {
-          const url = `http://localhost:51216/?token=${this.token}&pacientId=${this.pacientId}`;
+          const url = `http://localhost:4200/?token=${this.token}&pacientId=${this.pacientId}`;
           const message = `Olá *${pacientData.username}*, aqui está o link para a anamnese:\n${url}`;
           const encodedMessage = encodeURIComponent(message);
           const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(pacientData.phone)}&text=${encodedMessage}`;

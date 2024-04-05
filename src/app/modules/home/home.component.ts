@@ -20,6 +20,7 @@ import {ProgressBarModule} from "primeng/progressbar";
   providers: [ToastMessage]
 })
 export class HomeComponent implements OnDestroy {
+  logoUrl?= "../../../assets/img/doctor-home.svg";
   loginCard = true;
   errorMessage = "";
   private destroy$ = new Subject<void>();
