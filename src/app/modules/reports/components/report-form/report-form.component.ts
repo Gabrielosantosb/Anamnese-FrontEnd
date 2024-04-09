@@ -80,7 +80,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   }
   getIntegrationLink():void{
-    console.log("gerou link")
     const url = `http://localhost:4200/?token=${this.token}&pacientId=${this.pacientId}`;
     this.clipboardService.copyFromContent(url)
     this.toastMessage.InfoMessage('Link para anamnese copiado com sucesso!')
