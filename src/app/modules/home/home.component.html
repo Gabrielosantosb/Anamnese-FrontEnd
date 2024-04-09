@@ -23,9 +23,15 @@
               <label class="block text-900 text-xl font-medium mb-2">Email</label>
               <input type="email" placeholder="email@email.com" pInputText class="w-full md:w-30rem mb-5"
                      style="padding:1rem" formControlName="email">
-              <label class="block text-900 font-medium text-xl mb-2">Senha</label>
-              <input type="password" placeholder="Sua senha" pInputText class="w-full md:w-30rem mb-5"
-                     style="padding:1rem" formControlName="password">
+              <div class="p-inputgroup">
+                    <span class="p-float-label">
+                    <input type="{{ showPassword ? 'text' : 'password' }}" pInputText  formControlName="password" placeholder="Senha">
+                </span>
+                <button pButton type="button" icon="{{ showPassword ? 'pi pi-eye-slash' : 'pi pi-eye' }}" class="p-button-outlined p-button-sm" (click)="toggleShowPassword()" tabindex="-1"></button>
+              </div>
+              <!--              <label class="block text-900 font-medium text-xl mb-2">Senha</label>-->
+              <!--              <input type="password" placeholder="Sua senha" pInputText class="w-full md:w-30rem mb-5"-->
+              <!--                     style="padding:1rem" formControlName="password">-->
               <span
                 class="flex justify-content-center align-content-center text-align-center mt-3 text-red-600">{{ errorMessage }}</span>
               <div class="card flex justify-content-center mt-3">
@@ -63,9 +69,12 @@
               <label class="block text-900 text-xl font-medium mb-2">E-mail</label>
               <input type="email" placeholder="email@email.com" pInputText class="w-full md:w-30rem mb-5"
                      style="padding:1rem" formControlName="email">
-              <label class="block text-900 font-medium text-xl mb-2">Senha</label>
-              <input type="password" placeholder="Sua senha" pInputText class="w-full md:w-30rem mb-5"
-                     style="padding:1rem" formControlName="password">
+              <div class="p-inputgroup">
+                    <span class="p-float-label">
+                    <input type="{{ showPassword ? 'text' : 'password' }}" pInputText  formControlName="password" placeholder="Senha">
+                </span>
+                <button pButton type="button" icon="{{ showPassword ? 'pi pi-eye-slash' : 'pi pi-eye' }}" class="p-button-outlined p-button-sm" (click)="toggleShowPassword()" tabindex="-1"></button>
+              </div>
               <span
                 class="flex justify-content-center align-content-center text-align-center mt-3 text-red-600">{{ errorMessage }}</span>
               <div class="card flex justify-content-center mt-3">

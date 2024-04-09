@@ -26,6 +26,7 @@ export class HomeComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
   isLoading = false
   loadingMode: ProgressBarModule = 'indeterminate';
+  showPassword: boolean = false;
 
   loginForm = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
@@ -107,6 +108,10 @@ export class HomeComponent implements OnDestroy {
     } else {
       this.errorMessage = "Por favor, corrija os campos destacados.";
     }
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 
   ngOnDestroy(): void {
