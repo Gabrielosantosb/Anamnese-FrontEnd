@@ -6,7 +6,7 @@ import {Observable, tap} from "rxjs";
 import {
   AddPacientRequest,
   EditPacientRequest,
-  GetPacientsResponse,
+  GetPacientsResponse, SendMedicalSpecialityRequest,
 
 } from "../../../models/interfaces/pacients/get-pacient-service.service";
 import {FormGroup} from "@angular/forms";
@@ -48,24 +48,13 @@ export class PacientService {
     );
   }
 
-  // getPacientById(pacientId: number, pacientForm: FormGroup): Observable<GetPacientsResponse> {
-  //   return this.http.get<GetPacientsResponse>(
-  //     `${this.API_URL}/api/Pacient/get-pacient/${pacientId}`
-  //   ).pipe(
-  //     tap((pacientData: GetPacientsResponse) => {
-  //       pacientForm.setValue({
-  //         username: pacientData.username,
-  //         email: pacientData.email,
-  //         address: pacientData.address,
-  //         uf: pacientData.uf,
-  //         phone: pacientData.phone,
-  //         birth: pacientData.birth,
-  //         gender: pacientData.gender,
-  //         profession: pacientData.profession
-  //       });
-  //     })
-  //   );
-  // }
+  sendMedicalSpeciality(pacientId: number, medicalSpeciality: string): Observable<SendMedicalSpecialityRequest> {
+    return this.http.post<SendMedicalSpecialityRequest>(
+      `${this.API_URL}/api/Pacient/pacient-medical-speciality/${pacientId}`,
+      medicalSpeciality,
+      this.httpOptions
+    );
+  }
 
   createPacient(requestData : AddPacientRequest): Observable<Array<GetPacientsResponse>> {
       console.log('Request:', requestData)

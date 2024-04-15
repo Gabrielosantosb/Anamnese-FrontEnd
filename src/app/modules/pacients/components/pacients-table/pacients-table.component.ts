@@ -31,19 +31,28 @@ export class PacientsTableComponent {
   displayModal: boolean = false;
   showProfissionalPacients = false
   showOtherField: boolean = false;
+  pacientId : number = 0;
 
   constructor(private pacientService: PacientService) {
   }
 
 
-  encaminharPaciente() {
-    console.log('Paciente encaminhado para:', this.selectedProfissional);
-
+  sendMedicalSpeciality() {
+    this.pacientService.sendMedicalSpeciality(2, this.selectedProfissional).subscribe({
+      next: (response) => {
+        console.log(response)
+        this.showProfissionalPacients = false
+      },
+      error: (error) => {
+        console.error('Erro ao obter os pacientes do usuário:', error);
+      }
+    });
     this.hideModal();
   }
   showModal(pacientId : number) {
     this.displayModal = true;
-    console.log('ID AQUI', pacientId)
+    this.pacientId = pacientId
+
   }
 
   hideModal() {
