@@ -49,9 +49,10 @@ export class PacientService {
   }
 
   sendMedicalSpeciality(pacientId: number, medicalSpeciality: string): Observable<SendMedicalSpecialityRequest> {
+    const body = { medicalSpeciality };
     return this.http.post<SendMedicalSpecialityRequest>(
       `${this.API_URL}/api/Pacient/pacient-medical-speciality/${pacientId}`,
-      medicalSpeciality,
+      body,
       this.httpOptions
     );
   }

@@ -10,6 +10,7 @@ import {GetReportResponse} from "../../../../../models/interfaces/reports/respon
 import {SelectItem} from "primeng/api";
 import {UF} from "../../../../../models/interfaces/enums/UF/uf";
 import {MedicalSpecialty} from "../../../../../models/interfaces/enums/medicalSpeciality/medicalSpeciality";
+import {ToastMessage} from "../../../../services/toast-message/toast-message";
 
 @Component({
   selector: 'app-pacients-table',
@@ -33,21 +34,25 @@ export class PacientsTableComponent {
   showOtherField: boolean = false;
   pacientId : number = 0;
 
-  constructor(private pacientService: PacientService) {
+  constructor(private pacientService: PacientService, private toastMessage: ToastMessage) {
   }
 
 
   sendMedicalSpeciality() {
-    this.pacientService.sendMedicalSpeciality(2, this.selectedProfissional).subscribe({
+    this.pacientService.sendMedicalSpeciality(this.pacientId, this.selectedProfissional).subscribe({
       next: (response) => {
-        console.log(response)
-        this.showProfissionalPacients = false
+        console.log('aqui response', response)
+        this.toastMessage.SuccessMessage(`Paciente encaminhado para ${this.selectedProfissional}`)
+        this.handleShowAllPacients()
       },
       error: (error) => {
         console.error('Erro ao obter os pacientes do usuário:', error);
+        this.toastMessage.ErrorMessage("Erro ao encaminhar paciente")
+
       }
     });
-    this.hideModal();
+    this.handleShowAllPacients()
+    // this.hideModal();
   }
   showModal(pacientId : number) {
     this.displayModal = true;
