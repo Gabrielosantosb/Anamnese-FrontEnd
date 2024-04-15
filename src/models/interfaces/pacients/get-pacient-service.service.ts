@@ -9,6 +9,7 @@ export interface GetPacientsResponse {
   gender: string;
   profession: string;
   doctorId: number;
+  medicalSpeciality: string;
   report?: {
     reportId: number;
     reportDateTime: string;
@@ -50,5 +51,9 @@ export interface AddPacientRequest{
   birth: string,
   gender: string,
   profession: string
-  medicalSpeciality: string
+  // medicalSpeciality: string
+}
+
+export interface SendMedicalSpecialityRequest{
+  medicalSpeciality: string;
 }

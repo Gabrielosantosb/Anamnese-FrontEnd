@@ -24,7 +24,6 @@
       <hr style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px;">
 
 
-
       <p-table
         [value]="pacients"
         [(selection)]="pacientSelected"
@@ -37,89 +36,113 @@
         dataKey="id"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} pacientes"
       >
-          <ng-template pTemplate="header">
-            <tr>
-              <th pSortableColumn="username">
-                <div class='flex justify-content-between align-items-center'>
-                  <div class="flex justify-content-between align-items-center">
-                    Nome do paciente
-                  </div>
-                  <div class='justify-content-between align-items-center'>
-                    <p-sortIcon field='username'></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field='username'
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]='false'
-                      [showAddButton]="false"
-                      [showOperator]="false"
-                    ></p-columnFilter>
-                  </div>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="username">
+              <div class='flex justify-content-between align-items-center'>
+                <div class="flex justify-content-between align-items-center">
+                  Nome do paciente
                 </div>
-              </th>
-              <th>
-                <div class="flex justify-content-center" style="margin-bottom: 20px">
-                  <p-button
-                    styleClass="p-button-outlined"
-                    icon='pi pi-plus'
-                    class="p-button-outlined "
-                    pTooltip="Adicionar Paciente"
-                    tooltipPosition="top"
-                    label='Adicionar'
-                    (click)="handlePacientEvent(addPacientAction)"
-                  ></p-button>
+                <div class='justify-content-between align-items-center'>
+                  <p-sortIcon field='username'></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field='username'
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]='false'
+                    [showAddButton]="false"
+                    [showOperator]="false"
+                  ></p-columnFilter>
                 </div>
-              </th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-pacient>
-            <tr>
-              <td>{{ pacient?.username }}</td>
-              <td>
-                <div class='flex justify-content-center gap-3 align-content-center align-items-center'
-                     style="margin-bottom: 10px">
-                  <button
-                    pButton
-                    pRipple
-                    pTooltip='Editar Paciente'
-                    tooltipPosition="top"
-                    icon='pi pi-pencil'
-                    class="p-button-outlined p-button-primary"
-                    (click)="handlePacientEvent(editPacientAction, pacient?.pacientId, pacient?.username)"
-                  ></button>
-                  <button
-                    pButton
-                    pRipple
-                    pTooltip='Excluir Paciente'
-                    tooltipPosition="top"
-                    icon='pi pi-trash'
-                    class="p-button-outlined p-button-danger"
-                    (click)="handleDeletePacientEvent(pacient?.pacientId, pacient?.username)"
-                  ></button>
-                  <div *ngIf="!pacient?.report">
-                    <button
+              </div>
+            </th>
 
-                      pButton
-                      pRipple
-                      pTooltip='Adicionar ficha'
-                      tooltipPosition="top"
-                      icon='pi pi-plus'
-                      class="p-button-outlined p-button-warning"
-                      (click)="handleReportEvent(addReportAction, pacient?.pacientId, pacient?.username)"
-                    ></button>
-                  </div>
-                  <div *ngIf="pacient?.report">
-                    <button
-                      pButton
-                      pRipple
-                      pTooltip='Editar ficha'
-                      tooltipPosition="top"
-                      icon='pi pi-book'
-                      class="p-button-outlined p-button-warning"
-                      (click)="handleReportEvent(editReportAction, pacient?.pacientId, pacient?.username)"
-                    ></button>
-                  </div>
+            <th pSortableColumn="medicalSpecialty">
+              <div class='flex justify-content-between align-items-center'>
+                <div class="flex justify-content-between align-items-center">
+                  Encaminhado para
+                </div>
+                <div class='justify-content-between align-items-center'>
+                  <p-sortIcon field='medicalSpecialty'></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field='medicalSpecialty'
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]='false'
+                    [showAddButton]="false"
+                    [showOperator]="false"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+            <th>
+              <div class="flex justify-content-center" style="margin-bottom: 20px">
+                <p-button
+                  styleClass="p-button-outlined"
+                  icon='pi pi-plus'
+                  class="p-button-outlined "
+                  pTooltip="Adicionar Paciente"
+                  tooltipPosition="top"
+                  label='Adicionar'
+                  (click)="handlePacientEvent(addPacientAction)"
+                ></p-button>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pacient>
+          <tr>
+            <td>{{ pacient?.username }}</td>
+            <td>{{ pacient?.medicalSpecialty ? pacient.medicalSpecialty : '-' }}</td>
+
+            <td>
+              <div class='flex justify-content-center gap-3 align-content-center align-items-center'
+                   style="margin-bottom: 10px">
+                <button
+                  pButton
+                  pRipple
+                  pTooltip='Editar Paciente'
+                  tooltipPosition="top"
+                  icon='pi pi-pencil'
+                  class="p-button-outlined p-button-primary"
+                  (click)="handlePacientEvent(editPacientAction, pacient?.pacientId, pacient?.username)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  pTooltip='Excluir Paciente'
+                  tooltipPosition="top"
+                  icon='pi pi-trash'
+                  class="p-button-outlined p-button-danger"
+                  (click)="handleDeletePacientEvent(pacient?.pacientId, pacient?.username)"
+                ></button>
+                <div *ngIf="!pacient?.report">
+                  <button
+
+                    pButton
+                    pRipple
+                    pTooltip='Adicionar ficha'
+                    tooltipPosition="top"
+                    icon='pi pi-plus'
+                    class="p-button-outlined p-button-warning"
+                    (click)="handleReportEvent(addReportAction, pacient?.pacientId, pacient?.username)"
+                  ></button>
+                </div>
+                <div *ngIf="pacient?.report">
+                  <button
+                    pButton
+                    pRipple
+                    pTooltip='Editar ficha'
+                    tooltipPosition="top"
+                    icon='pi pi-book'
+                    class="p-button-outlined p-button-warning"
+                    (click)="handleReportEvent(editReportAction, pacient?.pacientId, pacient?.username)"
+                  ></button>
+                </div>
+                <div *ngIf="!pacient?.medicalSpecialty">
                   <button
                     pButton
                     pRipple
@@ -130,16 +153,30 @@
                     (click)="showModal()"
                   ></button>
                 </div>
-              </td>
-            </tr>
-          </ng-template>
+
+                <div *ngIf="pacient?.medicalSpecialty">
+                  <button
+                    pButton
+                    pRipple
+                    pTooltip='Paciente já encaminhado'
+                    tooltipPosition="top"
+                    icon='pi pi-thumbs-up'
+                    class="p-button-outlined p-button-success"
+                    (click)="showModal()"
+                  ></button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
       </p-table>
 
       <p-dialog header="Encaminhar para" [(visible)]="displayModal" [modal]="true" [responsive]="true"
                 [style]="{ 'width': '500px', 'height': '300px' }">
         <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
           <p-dropdown formControlName="medicalSpeciality" [options]="medicalSpecialtys" [showClear]="true"
-                      [style]="{ 'width':'100%', 'height': '40px' }" placeholder="Para onde deseja encaminhar?"></p-dropdown>
+                      [style]="{ 'width':'100%', 'height': '40px' }"
+                      placeholder="Para onde deseja encaminhar?"></p-dropdown>
           <button pButton type="button" label="Confirmar" (click)="encaminharPaciente()"
                   style="margin-top: 20px;"></button>
         </div>

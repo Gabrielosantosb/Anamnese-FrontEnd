@@ -30,9 +30,6 @@ export class ToolbarNavigationComponent {
     this.toastMessage.SuccessMessage('Link para anamnese copiado com sucesso!')
     // this.messageService.info('Link para anamnese copiado com sucesso!')
   }
-  navigateAnamneseForm():void{
-    this.confirmationModal.confirmNavigatePacientForm('Link para preencher Anamnese')
-  }
   logout(): void {
     console.log('clicou')
     this.confirmationModal.confirmLogout("Tem certeza que deseja sair?")
