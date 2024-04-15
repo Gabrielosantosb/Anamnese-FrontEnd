@@ -38,10 +38,12 @@ export class PacientsTableComponent {
 
   encaminharPaciente() {
     console.log('Paciente encaminhado para:', this.selectedProfissional);
+
     this.hideModal();
   }
-  showModal() {
+  showModal(pacientId : number) {
     this.displayModal = true;
+    console.log('ID AQUI', pacientId)
   }
 
   hideModal() {

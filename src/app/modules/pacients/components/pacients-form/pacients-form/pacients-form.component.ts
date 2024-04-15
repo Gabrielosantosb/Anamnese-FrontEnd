@@ -124,19 +124,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  // loadPacientData(pacientId: number): void {
-  //   this.pacientService.getPacientById(pacientId, this.pacientForm)
-  //     .pipe(takeUntil(this.destroy$))
-  //     .subscribe({
-  //       next: (pacientData: GetPacientsResponse) => {
-  //         console.log('Dados do paciente carregados:', pacientData);
-  //         this.showReportForm = true;
-  //       },
-  //       error: (error) => {
-  //         console.error('Erro ao carregar dados do paciente:', error);
-  //       }
-  //     });
-  // }
 
   handleSubmitPacientAction(): void {
     if (this.pacientAction?.event?.action === this.addPacientAction) this.handleSubmitAddPacient();
