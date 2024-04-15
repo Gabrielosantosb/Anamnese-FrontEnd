@@ -30,6 +30,8 @@ export class PacientsTableComponent {
   selectedProfissional: any;
   displayModal: boolean = false;
   showProfissionalPacients = false
+  showOtherField: boolean = false;
+
   profissionais: SelectItem[] = [
     { label: 'Cardiologista', value: 'cardiologista' },
     { label: 'Clínico Geral', value: 'clinico_geral' },
@@ -44,7 +46,6 @@ export class PacientsTableComponent {
     console.log('Paciente encaminhado para:', this.selectedProfissional);
     this.hideModal();
   }
-
   showModal() {
     this.displayModal = true;
   }
@@ -95,5 +96,13 @@ export class PacientsTableComponent {
         console.error('Erro ao obter os pacientes do usuário:', error);
       }
     });
+  }
+  onDropdownChange(event: any) {
+    const selectedSpeciality = event.value;
+    if (selectedSpeciality === 'Outra') {
+      this.showOtherField = true;
+    } else {
+      this.showOtherField = false;
+    }
   }
 }
