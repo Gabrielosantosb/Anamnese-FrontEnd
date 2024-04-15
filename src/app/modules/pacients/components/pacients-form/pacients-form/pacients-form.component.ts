@@ -14,7 +14,7 @@ import {
 } from "../../../../../../models/interfaces/pacients/get-pacient-service.service";
 import {UF} from "../../../../../../models/interfaces/enums/UF/uf";
 import {EditReportAction} from "../../../../../../models/interfaces/reports/event/EditReportAction";
-import {ReportEvent} from "../../../../../../models/interfaces/enums/products/ProductEvent.js";
+import {ReportEvent} from "../../../../../../models/interfaces/enums/report/ReportEvent.js";
 
 @Component({
   selector: 'app-pacients-form',

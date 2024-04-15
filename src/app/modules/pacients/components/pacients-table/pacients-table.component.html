@@ -120,11 +120,30 @@
                       (click)="handleReportEvent(editReportAction, pacient?.pacientId, pacient?.username)"
                     ></button>
                   </div>
+                  <button
+                    pButton
+                    pRipple
+                    pTooltip='Encaminhar para'
+                    tooltipPosition="top"
+                    icon='pi pi-reply'
+                    class="p-button-outlined p-button-success"
+                    (click)="showModal()"
+                  ></button>
                 </div>
               </td>
             </tr>
           </ng-template>
       </p-table>
+
+      <p-dialog header="Encaminhar para" [(visible)]="displayModal" [modal]="true" [responsive]="true"
+                [style]="{ 'width': '500px', 'height': '300px' }">
+        <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+          <p-dropdown formControlName="medicalSpeciality" [options]="medicalSpecialtys" [showClear]="true"
+                      [style]="{ 'width':'100%', 'height': '40px' }" placeholder="Para onde deseja encaminhar?"></p-dropdown>
+          <button pButton type="button" label="Confirmar" (click)="encaminharPaciente()"
+                  style="margin-top: 20px;"></button>
+        </div>
+      </p-dialog>
 
       <ng-template #noPacients>
         <div class="text-center">Nenhum paciente encontrado.</div>

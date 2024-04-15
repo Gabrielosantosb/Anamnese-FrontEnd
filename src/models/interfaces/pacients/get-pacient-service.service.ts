@@ -50,4 +50,5 @@ export interface AddPacientRequest{
   birth: string,
   gender: string,
   profession: string
+  medicalSpeciality: string
 }

@@ -23,6 +23,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {TooltipModule} from "primeng/tooltip";
 import {ProgressBarModule} from "primeng/progressbar";
 import {CheckboxModule} from "primeng/checkbox";
+import {DialogModule} from "primeng/dialog";
 
 
 
@@ -53,7 +54,8 @@ import {CheckboxModule} from "primeng/checkbox";
         InputTextModule,
         TooltipModule,
         ProgressBarModule,
-        CheckboxModule
+        CheckboxModule,
+        DialogModule
     ],
   providers : [DialogService, ConfirmationService]
 })
