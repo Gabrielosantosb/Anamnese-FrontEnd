@@ -32,12 +32,6 @@ export class PacientsTableComponent {
   showProfissionalPacients = false
   showOtherField: boolean = false;
 
-  profissionais: SelectItem[] = [
-    { label: 'Cardiologista', value: 'cardiologista' },
-    { label: 'Clínico Geral', value: 'clinico_geral' },
-    // Adicione mais opções conforme necessário
-  ];
-
   constructor(private pacientService: PacientService) {
   }
 
@@ -99,10 +93,6 @@ export class PacientsTableComponent {
   }
   onDropdownChange(event: any) {
     const selectedSpeciality = event.value;
-    if (selectedSpeciality === 'Outra') {
-      this.showOtherField = true;
-    } else {
-      this.showOtherField = false;
-    }
+    this.showOtherField = selectedSpeciality === 'Outra';
   }
 }

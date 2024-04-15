@@ -174,11 +174,11 @@
       <p-dialog header="Encaminhar para" [(visible)]="displayModal" [modal]="true" [responsive]="true"
                 [style]="{ 'width': '30%', 'height': '50%', 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'space-between' }">
         <p-dropdown [(ngModel)]="selectedProfissional" [options]="medicalSpecialtys" [showClear]="true"
-                    [style]="{ 'width':'100%', 'height': '50px' }" placeholder="Para onde deseja encaminhar?">
+                    [style]="{ 'width':'100%', 'height': '50px' }" placeholder="Para onde deseja encaminhar?" (onChange)="onDropdownChange($event)">
         </p-dropdown>
 
         <ng-container *ngIf="showOtherField">
-          <input pInputText type="text" formControlName="otherSpeciality" placeholder="Outro"
+          <input pInputText type="text" [(ngModel)]="selectedProfissional" placeholder="Outro"
                  style="margin-top: 10px; width: 100%;">
         </ng-container>
 
@@ -187,6 +187,7 @@
           </button>
         </div>
       </p-dialog>
+
 
       <ng-template #noPacients>
         <div class="text-center">Nenhum paciente encontrado.</div>
