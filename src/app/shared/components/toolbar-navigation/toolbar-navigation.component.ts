@@ -16,6 +16,7 @@ import {environments} from "../../../../environments/environments";
 export class ToolbarNavigationComponent {
   private readonly USER_AUTH = environments.COOKIES_VALUE.user_auth
   private token = this.cookie.get(this.USER_AUTH)
+  logoUrl?= "../../../assets/img/healthProfissional.svg";
   constructor(private confirmationModal: ConfirmationModal,
               private cookie : CookieService,
               private clipboardService: ClipboardService,
