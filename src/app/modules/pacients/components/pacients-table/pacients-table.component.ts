@@ -11,6 +11,7 @@ import {SelectItem} from "primeng/api";
 import {UF} from "../../../../../models/interfaces/enums/UF/uf";
 import {MedicalSpecialty} from "../../../../../models/interfaces/enums/medicalSpeciality/medicalSpeciality";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
+import {ReferralService} from "../../../../services/referral/referral.service";
 
 @Component({
   selector: 'app-pacients-table',
@@ -32,29 +33,29 @@ export class PacientsTableComponent {
   displayModal: boolean = false;
   showProfissionalPacients = false
   showOtherField: boolean = false;
-  pacientId : number = 0;
+  pacientId: number = 0;
 
-  constructor(private pacientService: PacientService, private toastMessage: ToastMessage) {
+  constructor(private pacientService: PacientService, private toastMessage: ToastMessage, private referralService: ReferralService) {
   }
 
 
   sendMedicalSpeciality() {
-    this.pacientService.sendMedicalSpeciality(this.pacientId, this.selectedProfissional).subscribe({
+    this.referralService.sendMedicalSpeciality(this.pacientId, this.selectedProfissional).subscribe({
       next: (response) => {
-        console.log('aqui response', response)
+        console.log("aqui a response", response)
+        this.handleShowAllPacients();
         this.toastMessage.SuccessMessage(`Paciente encaminhado para ${this.selectedProfissional}`)
-        this.handleShowAllPacients()
+        this.hideModal()
       },
-      error: (error) => {
-        console.error('Erro ao obter os pacientes do usuário:', error);
+      error: (err) => {
+        console.error('Erro ao obter os pacientes do usuário:', err);
         this.toastMessage.ErrorMessage("Erro ao encaminhar paciente")
-
       }
-    });
+    })
     this.handleShowAllPacients()
-    // this.hideModal();
   }
-  showModal(pacientId : number) {
+
+  showModal(pacientId: number) {
     this.displayModal = true;
     this.pacientId = pacientId
 
@@ -71,16 +72,15 @@ export class PacientsTableComponent {
   }
 
   handleReportEvent(action: string, id?: number, pacientName?: string): void {
-    if (action && action !== '')
-    {
+    if (action && action !== '') {
       this.reportEvent.emit({action, id, pacientName});
 
     }
   }
+
   handlePacientEvent(action: string, id?: number, pacientName?: string): void {
     if (action && action !== '') this.pacientEvent.emit({action, id, pacientName});
   }
-
 
 
   handleShowAllPacients(): void {
@@ -95,10 +95,11 @@ export class PacientsTableComponent {
       }
     });
   }
+
   handleProfissionalPacients(): void {
     console.log('bateu no profissionalPacients')
 
-      this.pacientService.getProfissionalPacients().subscribe({
+    this.pacientService.getProfissionalPacients().subscribe({
       next: (profissionalPacientsData) => {
         this.pacients = profissionalPacientsData;
       },
@@ -107,6 +108,7 @@ export class PacientsTableComponent {
       }
     });
   }
+
   onDropdownChange(event: any) {
     const selectedSpeciality = event.value;
     this.showOtherField = selectedSpeciality === 'Outra';

@@ -10,6 +10,13 @@ export interface GetPacientsResponse {
   profession: string;
   doctorId: number;
   medicalSpeciality: string;
+  referrals ?:{
+    id: number;
+    pacientId: number,
+    pacientName: string;
+    medicalSpeciality: string;
+    referralDate: string;
+  }
   report?: {
     reportId: number;
     reportDateTime: string;
