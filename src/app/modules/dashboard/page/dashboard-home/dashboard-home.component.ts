@@ -182,7 +182,6 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     const specialityLabels = Object.keys(this.countSpeciality);
     const specialityValues: number[] = Object.values(this.countSpeciality);
 
-    // Definindo uma matriz de cores
     const colors = [
       '#6610f2', '#28a745', '#fd7e14',
       '#FF5733', '#FFBD33', '#FFC933',
