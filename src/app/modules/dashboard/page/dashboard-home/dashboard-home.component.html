@@ -3,7 +3,7 @@
 <div class="grid" style="display: flex; justify-content: space-around;">
   <div class="col-12">
     <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
-      <p-chart type="bar" [data]="chartData" [options]="chartOptions" height="700"></p-chart>
+      <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" height="700"></p-chart>
     </p-card>
   </div>
 
@@ -36,13 +36,13 @@
 
 <!--Por especialidade medica-->
 
+
 <div class="grid" style="display: flex; justify-content: space-around;">
   <div class="col-12">
-    <p-card header="Pacientes encaminhados" styleClass="shadow-3 m-5 text-indigo-800">
-<!--      <p-chart type="bar" [data]="chartData" [options]="chartOptions" height="700"></p-chart>-->
-      <p-chart type="doughnut" [data]="chartData" [options]="chartOptions" height="700"></p-chart>
-
+    <p-card header="Pacientes encaminhados por especialidade" styleClass="shadow-3 m-5 text-indigo-800">
+      <p-chart type="doughnut" [data]="donutChartData" [options]="donutChartOptions" height="300"></p-chart>
     </p-card>
   </div>
 </div>
+
 

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ChartData, ChartOptions } from 'chart.js';
-import { PacientService } from '../../../../services/pacients/pacients.service';
-import { GetPacientsResponse } from '../../../../../models/interfaces/pacients/get-pacient-service.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {ChartData, ChartOptions} from 'chart.js';
+import {PacientService} from '../../../../services/pacients/pacients.service';
+import {GetPacientsResponse} from '../../../../../models/interfaces/pacients/get-pacient-service.service';
 import {ReportsService} from "../../../../services/reports/reports.service";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
@@ -18,22 +18,23 @@ import {ReferralService} from "../../../../services/referral/referral.service";
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  public chartData!: ChartData;
-  public chartOptions!: ChartOptions;
+  public barChartData!: ChartData;
+  public barChartOptions!: ChartOptions;
+  public donutChartData !: ChartData;
+  public donutChartOptions!: ChartOptions;
   public allPacients!: number;
   public allReports !: number;
   public countSpeciality !: {}
-  public allProfissionalPacients !:number;
+  public allProfissionalPacients !: number;
+
 
   constructor(
     private pacientService: PacientService,
-    private reportService : ReportsService,
+    private reportService: ReportsService,
     private messageService: MessageService,
-    private referralService : ReferralService,
-    private toastMessage: ToastMessage,
-    private confirmationModal: ConfirmationModal,
-    private router: Router
-  ) {}
+    private referralService: ReferralService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAllPacients();
@@ -107,25 +108,23 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       );
   }
 
-  private getSpecialysCount(): void{
-  this.referralService.countSpeciality().pipe(takeUntil(this.destroy$)).subscribe(
-    (response) =>{
-      this.countSpeciality = response
-      this.setProductsChartConfig()
-      console.log('AQUI, ', this.countSpeciality)
-    },
-    (error) =>{
-      console.log(error)
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erro',
-        detail: 'Erro ao buscar o total de especialidades',
-        life: 2000
-      })
-    }
-
-  )
-
+  private getSpecialysCount(): void {
+    this.referralService.countSpeciality().pipe(takeUntil(this.destroy$)).subscribe(
+      (response) => {
+        this.countSpeciality = response
+        this.setDonutChartConfig()
+        console.log('AQUI, ', this.countSpeciality)
+      },
+      (error) => {
+        console.log(error)
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Erro ao buscar o total de especialidades',
+          life: 2000
+        })
+      }
+    )
   }
 
   private setProductsChartConfig(): void {
@@ -135,8 +134,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       '--text-color-secondary'
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.chartData = {
+    this.barChartData = {
       labels: ['Resultados totais'],
       datasets: [
         {
@@ -163,7 +161,47 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
       ]
     };
-    this.chartOptions = {
+    this.barChartOptions = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      plugins: {legend: {labels: {color: textColor}}},
+      scales: {
+        x: this.createAxisConfig(textColorSecondary, surfaceBorder),
+        y: this.createAxisConfig(textColorSecondary, surfaceBorder)
+      }
+    };
+  }
+
+  private setDonutChartConfig(): void {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue(
+      '--text-color-secondary'
+    );
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    const specialityLabels = Object.keys(this.countSpeciality);
+    const specialityValues: number[] = Object.values(this.countSpeciality);
+
+    // Definindo uma matriz de cores
+    const colors = [
+      '#6610f2', '#28a745', '#fd7e14',
+      '#FF5733', '#FFBD33', '#FFC933',
+      '#FFD933', '#DFFF33', '#8DFF33',
+    ];
+
+
+    this.donutChartData = {
+      labels: specialityLabels,
+      datasets: [
+        {
+          label: 'Quantidade por especialidade',
+          backgroundColor: colors,
+          hoverBackgroundColor: colors,
+          data: specialityValues
+        },
+      ]
+    };
+    this.donutChartOptions = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
       plugins: { legend: { labels: { color: textColor } } },
@@ -174,8 +212,12 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     };
   }
 
+  private generateRandomColor(): string {
+    return '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
+  }
+
   private createAxisConfig(tickColor: string, gridColor: string) {
-    return { ticks: { color: tickColor, font: { weight: 500 } }, grid: { color: gridColor } };
+    return {ticks: {color: tickColor, font: {weight: 500}}, grid: {color: gridColor}};
   }
 
   ngOnDestroy(): void {
