@@ -193,7 +193,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       labels: specialityLabels,
       datasets: [
         {
-          label: 'Quantidade por especialidade',
+          label: 'Quantidade de encaminhados',
           backgroundColor: colors,
           hoverBackgroundColor: colors,
           data: specialityValues
