@@ -9,6 +9,7 @@ import {ReportsService} from "../../../../services/reports/reports.service";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {Router} from "@angular/router";
+import {ReferralService} from "../../../../services/referral/referral.service";
 
 @Component({
   selector: 'app-dashboard-home',
@@ -21,12 +22,14 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   public chartOptions!: ChartOptions;
   public allPacients!: number;
   public allReports !: number;
+  public countSpeciality !: {}
   public allProfissionalPacients !:number;
 
   constructor(
     private pacientService: PacientService,
     private reportService : ReportsService,
     private messageService: MessageService,
+    private referralService : ReferralService,
     private toastMessage: ToastMessage,
     private confirmationModal: ConfirmationModal,
     private router: Router
@@ -36,6 +39,8 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     this.getAllPacients();
     this.getProfissionalPacients()
     this.getAllReport()
+    this.getSpecialysCount()
+
   }
 
   private getAllPacients(): void {
@@ -58,6 +63,8 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         }
       );
   }
+
+
   private getProfissionalPacients(): void {
     this.pacientService
       .countProfissionalPacients()
@@ -98,6 +105,27 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
           });
         }
       );
+  }
+
+  private getSpecialysCount(): void{
+  this.referralService.countSpeciality().pipe(takeUntil(this.destroy$)).subscribe(
+    (response) =>{
+      this.countSpeciality = response
+      this.setProductsChartConfig()
+      console.log('AQUI, ', this.countSpeciality)
+    },
+    (error) =>{
+      console.log(error)
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Erro ao buscar o total de especialidades',
+        life: 2000
+      })
+    }
+
+  )
+
   }
 
   private setProductsChartConfig(): void {
