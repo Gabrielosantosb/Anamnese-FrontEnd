@@ -29,7 +29,7 @@
 
 <!-- Gráficos -->
 <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-  <div class="chart-container" >
+  <div class="chart-container">
     <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
       <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" height="400"></p-chart>
     </p-card>
@@ -43,15 +43,20 @@
 </div>
 
 
-
 <!--Informacoes do usuario-->
 <div style="display: flex;justify-content: center;align-content: center">
   <div style="width: 80%;">
-    <p-card header="Informações do usuário" [style]="{ 'text-align': 'center' }">
+    <p-card *ngIf="userInfo" header="Informações do usuário" [style]="{ 'text-align': 'center' }">
       <p style="text-align: center; font-size: 1.5em;">
-        Informações do usuário aqui
+        <strong><span style="font-weight: bold;">Usuário:</span></strong> {{ userInfo?.username }} <span class="pi pi-user"></span>
+      </p>
+
+      <p style="text-align: center; font-size: 1.5em;">
+        <strong><span style="font-weight: bold;">E-mail:</span></strong> {{ userInfo?.email }} <span class="pi pi-envelope"></span>
+      </p>
+      <p style="text-align: center; font-size: 1.5em;">
+        <strong><span style="font-weight: bold;">Especialidade:</span></strong> {{ userInfo?.specialty }} <span class="pi pi-briefcase"></span>
       </p>
     </p-card>
   </div>
 </div>
-

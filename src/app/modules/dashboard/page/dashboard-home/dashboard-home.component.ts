@@ -4,14 +4,11 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ChartData, ChartOptions} from 'chart.js';
 import {PacientService} from '../../../../services/pacients/pacients.service';
-import {GetPacientsResponse} from '../../../../../models/interfaces/pacients/get-pacient-service.service';
 import {ReportsService} from "../../../../services/reports/reports.service";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
-import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
-import {Router} from "@angular/router";
 import {ReferralService} from "../../../../services/referral/referral.service";
 import {UserService} from "../../../../services/user/user.service";
-import {SignUpUserRequest} from "../../../../../models/interfaces/user/SignUpUserRequest";
+import {GetUserInfo} from "../../../../../models/interfaces/user/GetUserInfo";
 
 @Component({
   selector: 'app-dashboard-home',
@@ -27,7 +24,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   public allPacients!: number;
   public allReports !: number;
   public countSpeciality !: {}
-  public userInfo !: SignUpUserRequest
+  public userInfo !: GetUserInfo
   public allProfissionalPacients !: number;
 
 
