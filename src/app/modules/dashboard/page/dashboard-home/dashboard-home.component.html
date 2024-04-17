@@ -1,27 +1,5 @@
 <app-toolbar-navigation></app-toolbar-navigation>
 
-<div class="grid" style="display: flex; justify-content: space-around;">
-  <div class="col-12">
-    <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
-      <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" height="700"></p-chart>
-    </p-card>
-  </div>
-
-
-</div>
-
-<!--Por especialidade medica-->
-
-
-<div class="grid" style="display: flex; justify-content: space-around;">
-  <div class="col-12">
-    <p-card header="Pacientes encaminhados por especialidade" styleClass="shadow-3 m-5 text-indigo-800">
-      <p-chart type="doughnut" [data]="donutChartData" [options]="donutChartOptions" height="400"></p-chart>
-    </p-card>
-  </div>
-</div>
-
-
 <!-- Totais -->
 <div style="display: flex; justify-content: space-around; margin-top: 20px;">
   <div style="width: 330px;">
@@ -45,6 +23,21 @@
       <p style="text-align: center; font-size: 1.5em;">
         {{ allReports }}
       </p>
+    </p-card>
+  </div>
+</div>
+
+<!-- Gráficos -->
+<div style="display: flex; justify-content: space-around;">
+  <div style="width: 50%;">
+    <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
+      <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" height="400"></p-chart>
+    </p-card>
+  </div>
+
+  <div style="width: 50%;">
+    <p-card header="Pacientes encaminhados por especialidade" styleClass="shadow-3 m-5 text-indigo-800">
+      <p-chart type="doughnut" [data]="donutChartData" [options]="donutChartOptions" height="400"></p-chart>
     </p-card>
   </div>
 </div>
