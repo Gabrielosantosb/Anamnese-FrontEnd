@@ -1,15 +1,15 @@
 <div class='grid'>
   <div class='col-12'>
-    <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Pacientes">
-      <div class="flex flex-row justify-content-around " style="margin-bottom: 10px;">
-        <p-button
-          styleClass="p-button-outlined"
-          class="p-button-outlined "
-          pTooltip="Todas as fichas"
-          tooltipPosition="top"
-          label='Todas as fichas'
-          (click)="handleShowAllReports()"
-        ></p-button>
+    <p-card class="shadow-3 m-5 text-indigo-800" styleClass="text-center" header="Fichas">
+    <div class="flex flex-row justify-content-around " style="margin-bottom: 10px;">
+        <!--        <p-button-->
+        <!--          styleClass="p-button-outlined"-->
+        <!--          class="p-button-outlined "-->
+        <!--          pTooltip="Todas as fichas"-->
+        <!--          tooltipPosition="top"-->
+        <!--          label='Todas as fichas'-->
+        <!--          (click)="handleShowAllReports()"-->
+        <!--        ></p-button>-->
         <!--        <p-button-->
         <!--          styleClass="p-button-outlined"-->
         <!--          class="p-button-outlined "-->
@@ -99,7 +99,8 @@
       <div style="text-align: center;">
         <h1 class="modal-title">Detalhes da ficha</h1>
         <p class="modal-content">Nome: <span style="font-weight: bold;">{{ selectedReport.pacientName }}</span></p>
-        <p class="modal-content">Data e Hora de Criação: <span style="font-weight: bold;">{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</span></p>
+        <p class="modal-content">Data e Hora de Criação: <span
+          style="font-weight: bold;">{{ selectedReport.reportDateTime | date: 'dd/MM/yyyy HH:mm' }}</span></p>
       </div>
       <hr class="modal-hr">
 
@@ -146,7 +147,7 @@
 
         <div class="report-field">
           <label>Observações:</label>
-          <div>{{ selectedReport.observations ? selectedReport.observations : "Nenhuma"}}</div>
+          <div>{{ selectedReport.observations ? selectedReport.observations : "Nenhuma" }}</div>
         </div>
       </div>
     </div>
