@@ -48,14 +48,14 @@
   <div style="width: 80%;">
     <p-card *ngIf="userInfo" header="Informações do usuário" [style]="{ 'text-align': 'center' }">
       <p style="text-align: center; font-size: 1.5em;">
-        <strong><span style="font-weight: bold;">Usuário:</span></strong> {{ userInfo?.username }} <span class="pi pi-user"></span>
+        <span class="pi pi-user" style="margin-right: 10px"></span>  <strong><span style="font-weight: bold;">Usuário:</span></strong> {{ userInfo?.username }}
       </p>
 
       <p style="text-align: center; font-size: 1.5em;">
-        <strong><span style="font-weight: bold;">E-mail:</span></strong> {{ userInfo?.email }} <span class="pi pi-envelope"></span>
+        <span class="pi pi-envelope" style="margin-right: 10px"></span><strong><span style="font-weight: bold;">E-mail:</span></strong> {{ userInfo?.email }}
       </p>
       <p style="text-align: center; font-size: 1.5em;">
-        <strong><span style="font-weight: bold;">Especialidade:</span></strong> {{ userInfo?.specialty }} <span class="pi pi-briefcase"></span>
+        <span class="pi pi-briefcase" style="margin-right: 10px"></span> <strong> <span style="font-weight: bold;">Especialidade:</span></strong> {{ userInfo?.specialty }}
       </p>
     </p-card>
   </div>
