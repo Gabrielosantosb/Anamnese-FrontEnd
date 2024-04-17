@@ -2,7 +2,7 @@
 
 <!-- Totais -->
 <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-  <div style="width: 330px;">
+  <div class="card-container">
     <p-card header="Total de pacientes" [style]="{ 'text-align': 'center' }">
       <p style="text-align: center; font-size: 1.5em;">
         {{ allPacients }}
@@ -10,7 +10,7 @@
     </p-card>
   </div>
 
-  <div style="width: 330px;">
+  <div class="card-container">
     <p-card header="Seus pacientes" [style]="{ 'text-align': 'center' }">
       <p style="text-align: center; font-size: 1.5em;">
         {{ allProfissionalPacients }}
@@ -18,7 +18,7 @@
     </p-card>
   </div>
 
-  <div style="width: 330px;">
+  <div class="card-container">
     <p-card header="Total de fichas" [style]="{ 'text-align': 'center' }">
       <p style="text-align: center; font-size: 1.5em;">
         {{ allReports }}
@@ -28,19 +28,21 @@
 </div>
 
 <!-- Gráficos -->
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-  <div style="width: 100%; max-width: 900px;">
+<div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+  <div class="chart-container" >
     <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
       <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" height="400"></p-chart>
     </p-card>
   </div>
 
-  <div style="width: 100%; max-width: 900px;">
+  <div class="chart-container">
     <p-card header="Pacientes encaminhados por especialidade" styleClass="shadow-3 m-5 text-indigo-800">
       <p-chart type="doughnut" [data]="donutChartData" [options]="donutChartOptions" height="400"></p-chart>
     </p-card>
   </div>
 </div>
+
+
 
 <!--Informacoes do usuario-->
 <div style="display: flex;justify-content: center;align-content: center">

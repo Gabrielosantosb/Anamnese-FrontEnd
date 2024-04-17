@@ -15,7 +15,7 @@ import {UserService} from "../../../../services/user/user.service";
 @Component({
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
-  styleUrls: []
+  styleUrls: ['dashboard-home.scss']
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
