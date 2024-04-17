@@ -28,14 +28,14 @@
 </div>
 
 <!-- Gráficos -->
-<div style="display: flex; justify-content: space-around;">
-  <div style="width: 50%;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+  <div style="width: 100%; max-width: 700px;">
     <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
       <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" height="400"></p-chart>
     </p-card>
   </div>
 
-  <div style="width: 50%;">
+  <div style="width: 100%; max-width: 700px;">
     <p-card header="Pacientes encaminhados por especialidade" styleClass="shadow-3 m-5 text-indigo-800">
       <p-chart type="doughnut" [data]="donutChartData" [options]="donutChartOptions" height="400"></p-chart>
     </p-card>
