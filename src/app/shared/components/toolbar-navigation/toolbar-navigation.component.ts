@@ -24,13 +24,6 @@ export class ToolbarNavigationComponent {
               private messageService: NzMessageService) {
   }
 
-  getIntegrationLink():void{
-    console.log("gerou link")
-    const url = `http://localhost:53246/?token=${this.token}`;
-    this.clipboardService.copyFromContent(url)
-    this.toastMessage.SuccessMessage('Link para anamnese copiado com sucesso!')
-    // this.messageService.info('Link para anamnese copiado com sucesso!')
-  }
   logout(): void {
     console.log('clicou')
     this.confirmationModal.confirmLogout("Tem certeza que deseja sair?")

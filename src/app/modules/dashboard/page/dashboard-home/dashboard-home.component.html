@@ -29,15 +29,27 @@
 
 <!-- Gráficos -->
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-  <div style="width: 100%; max-width: 700px;">
+  <div style="width: 100%; max-width: 900px;">
     <p-card header="Resultados totais" styleClass="shadow-3 m-5 text-indigo-800">
       <p-chart type="bar" [data]="barChartData" [options]="barChartOptions" height="400"></p-chart>
     </p-card>
   </div>
 
-  <div style="width: 100%; max-width: 700px;">
+  <div style="width: 100%; max-width: 900px;">
     <p-card header="Pacientes encaminhados por especialidade" styleClass="shadow-3 m-5 text-indigo-800">
       <p-chart type="doughnut" [data]="donutChartData" [options]="donutChartOptions" height="400"></p-chart>
     </p-card>
   </div>
 </div>
+
+<!--Informacoes do usuario-->
+<div style="display: flex;justify-content: center;align-content: center">
+  <div style="width: 80%;">
+    <p-card header="Informações do usuário" [style]="{ 'text-align': 'center' }">
+      <p style="text-align: center; font-size: 1.5em;">
+        Informações do usuário aqui
+      </p>
+    </p-card>
+  </div>
+</div>
+

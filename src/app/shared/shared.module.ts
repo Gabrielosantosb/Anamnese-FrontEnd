@@ -17,6 +17,7 @@ import { ShortenPipe } from './pipes/shorten/shorten.pipe';
 import {SidebarModule} from "primeng/sidebar";
 import {CheckboxModule} from "primeng/checkbox";
 import {FileUploadModule} from "primeng/fileupload";
+import {TooltipModule} from "primeng/tooltip";
 @NgModule({
   declarations: [
     ToolbarNavigationComponent,
@@ -31,6 +32,7 @@ import {FileUploadModule} from "primeng/fileupload";
 
     // PrimeNg
     ToolbarModule,
+    TooltipModule,
     CardModule,
     ButtonModule,
     ConfirmDialogModule,

@@ -16,6 +16,9 @@ export class UserService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
 
+  getProfissionalId(){
+
+  }
   isLoggedIn():boolean{
     // Se o usuario possui um token ou cookie
     const token = this.cookieService.get('USER_INFO');

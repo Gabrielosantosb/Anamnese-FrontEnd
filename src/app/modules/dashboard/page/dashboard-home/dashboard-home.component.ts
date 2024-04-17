@@ -10,6 +10,7 @@ import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {Router} from "@angular/router";
 import {ReferralService} from "../../../../services/referral/referral.service";
+import {UserService} from "../../../../services/user/user.service";
 
 @Component({
   selector: 'app-dashboard-home',
@@ -31,6 +32,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   constructor(
     private pacientService: PacientService,
     private reportService: ReportsService,
+    private userService: UserService,
     private messageService: MessageService,
     private referralService: ReferralService,
   ) {
@@ -44,6 +46,10 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
   }
 
+
+  private getUserInfo(): void{
+
+  }
   private getAllPacients(): void {
     this.pacientService
       .countAllPacients()
