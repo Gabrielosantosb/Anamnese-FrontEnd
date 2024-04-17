@@ -36,6 +36,7 @@ export class HomeComponent implements OnDestroy {
   signUpForm = this.formBuilder.group({
     username: ["", Validators.required],
     email: ["", [Validators.required, Validators.email]],
+    specialty: ["", Validators.required],
     password: ["", [Validators.required, Validators.minLength(6)]]
   });
   private readonly USER_AUTH = environments.COOKIES_VALUE.user_auth;

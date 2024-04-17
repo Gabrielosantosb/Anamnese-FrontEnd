@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environments} from "../../../environments/environments";
 import {SignUpUserRequest} from "../../../models/interfaces/user/SignUpUserRequest";
 import {Observable} from "rxjs";
@@ -13,19 +13,32 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class UserService {
   private API_URL = environments.API_URL
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
-
-
-  getProfissionalId(){
-
+  private token = this.cookieService.get("USER_INFO")
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.token}`
+    })
   }
-  isLoggedIn():boolean{
+
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+  }
+
+
+  isLoggedIn(): boolean {
     // Se o usuario possui um token ou cookie
     const token = this.cookieService.get('USER_INFO');
     return token ? true : false;
   }
-  signupUser (requestData: SignUpUserRequest): Observable<SignUpUserResponse>
-  {
+
+  getProfissionalInfo() {
+    return this.http.get(
+      `${this.API_URL}/api/Profissional/get-profissional-by-token`,
+            this.httpOptions
+    )
+  }
+
+  signupUser(requestData: SignUpUserRequest): Observable<SignUpUserResponse> {
     console.log('aqui', requestData)
     return this.http.post<SignUpUserResponse>(
       `${this.API_URL}/api/Profissional/create-profissional`,
@@ -33,7 +46,7 @@ export class UserService {
     )
   }
 
-  authUser(requestData: AuthRequest): Observable<AuthResponse>{
+  authUser(requestData: AuthRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
       `${this.API_URL}/api/Profissional/login`,
       requestData

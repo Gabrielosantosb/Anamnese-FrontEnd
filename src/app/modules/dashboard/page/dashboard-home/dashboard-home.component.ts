@@ -11,6 +11,7 @@ import {ConfirmationModal} from "../../../../services/confirmation/confirmation-
 import {Router} from "@angular/router";
 import {ReferralService} from "../../../../services/referral/referral.service";
 import {UserService} from "../../../../services/user/user.service";
+import {SignUpUserRequest} from "../../../../../models/interfaces/user/SignUpUserRequest";
 
 @Component({
   selector: 'app-dashboard-home',
@@ -26,6 +27,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   public allPacients!: number;
   public allReports !: number;
   public countSpeciality !: {}
+  public userInfo !: SignUpUserRequest
   public allProfissionalPacients !: number;
 
 
@@ -43,12 +45,27 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     this.getProfissionalPacients()
     this.getAllReport()
     this.getSpecialysCount()
+    this.getUserInfo()
 
   }
 
 
-  private getUserInfo(): void{
-
+  private getUserInfo(): void {
+    this.userService.getProfissionalInfo().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(
+      (response: any) => {
+        if (response) {
+          this.userInfo = response;
+          console.log('Aqui a response', this.userInfo);
+        } else {
+          console.error('Resposta vazia ao obter informações do usuário');
+        }
+      },
+      error => {
+        console.error('Erro ao obter informações do usuário:', error);
+      }
+    );
   }
   private getAllPacients(): void {
     this.pacientService
@@ -209,7 +226,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     this.donutChartOptions = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
-      plugins: { legend: { labels: { color: textColor } } },
+      plugins: {legend: {labels: {color: textColor}}},
       scales: {
         x: this.createAxisConfig(textColorSecondary, surfaceBorder),
         y: this.createAxisConfig(textColorSecondary, surfaceBorder)
