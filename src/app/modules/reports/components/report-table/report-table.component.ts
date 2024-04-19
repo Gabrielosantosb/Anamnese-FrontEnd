@@ -43,7 +43,7 @@ export class ReportTableComponent {
     if (action && action !== '') this.reportEvent.emit({action, id})
   }
 
-  openModal(report: GetReportResponse) {
+  openReportDetails(report: GetReportResponse) {
     this.selectedReport = report;
     this.displayModal = true;
   }

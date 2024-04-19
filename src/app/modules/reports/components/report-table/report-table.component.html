@@ -2,21 +2,6 @@
   <div class='col-12'>
     <p-card class="shadow-3 m-5 text-indigo-800" styleClass="text-center" header="Fichas">
     <div class="flex flex-row justify-content-around " style="margin-bottom: 10px;">
-        <!--        <p-button-->
-        <!--          styleClass="p-button-outlined"-->
-        <!--          class="p-button-outlined "-->
-        <!--          pTooltip="Todas as fichas"-->
-        <!--          tooltipPosition="top"-->
-        <!--          label='Todas as fichas'-->
-        <!--          (click)="handleShowAllReports()"-->
-        <!--        ></p-button>-->
-        <!--        <p-button-->
-        <!--          styleClass="p-button-outlined"-->
-        <!--          class="p-button-outlined "-->
-        <!--          pTooltip="Meus pacientes"-->
-        <!--          tooltipPosition="top"-->
-        <!--          label='Minhas fichas'-->
-        <!--        ></p-button>-->
       </div>
       <hr style="border: 1px solid #ccc; width: 100%; margin-bottom: 20px;">
       <p-table
@@ -79,7 +64,7 @@
                   tooltipPosition="top"
                   icon='pi pi-eye'
                   class="p-button-outlined p-button-info"
-                  (click)="openModal(report)"
+                  (click)="openReportDetails(report)"
                 ></button>
               </div>
             </td>

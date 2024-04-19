@@ -19,7 +19,7 @@ import {DialogModule} from "primeng/dialog";
 import {ConfirmationService} from "primeng/api";
 import { ReportsHomeComponent } from './page/reports-home/reports-home.component';
 import {RouterModule} from "@angular/router";
-import {PRODUCTS_ROUTES} from "./reports.routing";
+import {REPORTS_ROUTES} from "./reports.routing";
 import { ReportTableComponent } from './components/report-table/report-table.component';
 import {RippleModule} from "primeng/ripple";
 import {SharedModule} from "../../shared/shared.module";
@@ -36,7 +36,7 @@ import {SharedModule} from "../../shared/shared.module";
         ReactiveFormsModule,
         SharedModule,
         HttpClientModule,
-        RouterModule.forChild(PRODUCTS_ROUTES),
+        RouterModule.forChild(REPORTS_ROUTES),
         // PrimeNG
         CardModule,
         ButtonModule,
