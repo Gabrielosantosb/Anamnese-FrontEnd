@@ -206,6 +206,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       '#6610f2', '#28a745', '#fd7e14',
       '#FF5733', '#FFBD33', '#FFC933',
       '#FFD933', '#DFFF33', '#8DFF33',
+      '#a7c548', '#7f8d2d', '#4f6240'
     ];
 
 
