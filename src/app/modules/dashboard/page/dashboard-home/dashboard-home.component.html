@@ -55,7 +55,10 @@
         <span class="pi pi-envelope" style="margin-right: 10px"></span><strong><span style="font-weight: bold;">E-mail:</span></strong> {{ userInfo?.email }}
       </p>
       <p style="text-align: center; font-size: 1.5em;">
-        <span class="pi pi-briefcase" style="margin-right: 10px"></span> <strong> <span style="font-weight: bold;">Especialidade:</span></strong> {{ userInfo?.specialty }}
+        <span class="pi pi-briefcase" style="margin-right: 10px"></span>
+        <strong><span style="font-weight: bold;">Especialidade:</span></strong>
+        {{ userInfo?.specialty ? userInfo.specialty : 'Especialidade não informada' }}
+
       </p>
     </p-card>
   </div>
