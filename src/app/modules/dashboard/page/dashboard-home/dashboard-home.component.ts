@@ -9,6 +9,7 @@ import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ReferralService} from "../../../../services/referral/referral.service";
 import {UserService} from "../../../../services/user/user.service";
 import {GetUserInfo} from "../../../../../models/interfaces/user/GetUserInfo";
+import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 
 @Component({
   selector: 'app-dashboard-home',
@@ -34,6 +35,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private messageService: MessageService,
     private referralService: ReferralService,
+    private confirmationModal: ConfirmationModal
   ) {
   }
 
@@ -234,6 +236,9 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
   private generateRandomColor(): string {
     return '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
+  }
+  public desativateAccount(){
+    this.confirmationModal.confirmDelete("Tem certeza que deseja desativar sua conta?", ()=>alert('Conta desativada'))
   }
 
   private createAxisConfig(tickColor: string, gridColor: string) {

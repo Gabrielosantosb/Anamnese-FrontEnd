@@ -50,7 +50,7 @@ import {DialogModule} from "primeng/dialog";
         SharedModule,
         ChartModule,
     ],
-  providers:[CookieService, ConfirmationService, DialogService]
-  // providers:[ConfirmationService, DialogService,ConfirmationModal]
+  // providers:[CookieService, ConfirmationService, DialogService]
+  providers:[ConfirmationService, DialogService,ConfirmationModal]
 })
 export class DashboardModule { }
