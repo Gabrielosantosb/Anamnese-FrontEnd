@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -35,19 +35,23 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private messageService: MessageService,
     private referralService: ReferralService,
-    private confirmationModal: ConfirmationModal
+    private confirmationModal: ConfirmationModal,
+    private cdr : ChangeDetectorRef
   ) {
   }
 
   ngOnInit(): void {
+    this.detectChanges()
     this.getAllPacients();
     this.getProfissionalPacients()
     this.getAllReport()
     this.getSpecialysCount()
     this.getUserInfo()
-
   }
 
+  private detectChanges(): void {
+    this.cdr.detectChanges();
+  }
 
   private getUserInfo(): void {
     this.userService.getProfissionalInfo().pipe(
@@ -56,6 +60,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       (response: any) => {
         if (response) {
           this.userInfo = response;
+          this.detectChanges()
           console.log('Aqui a response', this.userInfo);
         } else {
           console.error('Resposta vazia ao obter informações do usuário');
@@ -74,6 +79,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         (response: number) => {
           this.allPacients = response;
           this.setProductsChartConfig();
+          this.detectChanges()
         },
         (error: Error) => {
           console.error(error);
@@ -96,6 +102,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         (response: number) => {
           this.allProfissionalPacients = response;
           this.setProductsChartConfig();
+          this.detectChanges()
         },
         (error: Error) => {
           console.error(error);
@@ -117,6 +124,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         (response: number) => {
           this.allReports = response;
           this.setProductsChartConfig();
+          this.detectChanges()
         },
         (error: Error) => {
           console.error(error);
@@ -135,6 +143,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       (response) => {
         this.countSpeciality = response
         this.setDonutChartConfig()
+        this.detectChanges()
         console.log('AQUI, ', this.countSpeciality)
       },
       (error) => {
