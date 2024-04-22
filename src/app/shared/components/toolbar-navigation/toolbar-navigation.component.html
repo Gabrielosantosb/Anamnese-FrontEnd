@@ -1,29 +1,35 @@
 <div class="layout-topbar">
   <button #menubutton class="p-link layout-menu-button layout-topbar-button" routerLink="/dashboard">
-    <img class="logo" [src]="logoUrl" alt="Doctors" style="width: 150px; height: 100px;" />
+    <img class="logo" [src]="logoUrl" alt="Doctors" style="width: 150px; height: 100px;"/>
   </button>
   <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button">
     <i class="pi pi-ellipsis-v"></i>
   </button>
 
   <div #topbarmenu class="layout-topbar-menu">
-    <button class="p-link layout-topbar-button" routerLink="/dashboard" pTooltip = "Tela incial" tooltipPosition="bottom">
+    <button class="p-link layout-topbar-button" routerLink="/dashboard" pTooltip="Tela incial" tooltipPosition="bottom">
       <i class="pi pi-home"></i>
       <span>Dashboard</span>
     </button>
 
     <div #topbarmenu class="layout-topbar-menu">
-      <button class="p-link layout-topbar-button" routerLink="/report"  pTooltip = "Fichas" tooltipPosition="bottom">
+      <button class="p-link layout-topbar-button" routerLink="/report" pTooltip="Fichas" tooltipPosition="bottom">
         <i class="pi pi-calendar"></i>
         <span>Prontuarios</span>
       </button>
 
-      <button class="p-link layout-topbar-button" routerLink="/pacients"  pTooltip = "Pacientes" tooltipPosition="bottom">
+      <button class="p-link layout-topbar-button" routerLink="/pacients" pTooltip="Pacientes" tooltipPosition="bottom">
         <i class="pi pi-user"></i>
         <span>Pacientes</span>
       </button>
 
-      <button class="p-link layout-topbar-button" (click)="logout()"  pTooltip = "Sair" tooltipPosition="bottom">
+      <button class="p-link layout-topbar-button" routerLink="/dashboard" pTooltip="Informações" tooltipPosition="bottom">
+        <i class="pi pi-id-card"></i>
+        <span>Suas informações</span>
+      </button>
+
+
+      <button class="p-link layout-topbar-button" (click)="logout()" pTooltip="Sair" tooltipPosition="bottom">
         <i class="pi pi-sign-out"></i>
         <span>Sair</span>
       </button>
