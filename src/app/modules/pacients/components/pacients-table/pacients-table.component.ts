@@ -12,6 +12,7 @@ import {UF} from "../../../../../models/interfaces/enums/UF/uf";
 import {MedicalSpecialty} from "../../../../../models/interfaces/enums/medicalSpeciality/medicalSpeciality";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ReferralService} from "../../../../services/referral/referral.service";
+import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-pacients-table',
@@ -34,6 +35,7 @@ export class PacientsTableComponent implements  OnInit{
   showProfissionalPacients = false
   showOtherField: boolean = false;
   pacientId: number = 0;
+
 
   constructor(private pacientService: PacientService, private toastMessage: ToastMessage, private referralService: ReferralService) {
   }
@@ -117,4 +119,6 @@ export class PacientsTableComponent implements  OnInit{
     const selectedSpeciality = event.value;
     this.showOtherField = selectedSpeciality === 'Outra';
   }
+
+  protected readonly style = style;
 }
