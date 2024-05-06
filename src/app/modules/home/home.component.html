@@ -66,10 +66,22 @@
               <input type="email" placeholder="email@email.com" pInputText class="w-full md:w-30rem mb-5"
                      style="padding:1rem" formControlName="email">
 
-              <label class="block text-900 text-xl font-medium mb-2">Especialidade</label>
-              <input type="text" placeholder="Dermatologista" pInputText class="w-full md:w-30rem mb-5"
-                     style="padding:1rem" formControlName="specialty">
 
+              <label class="block text-900 text-xl font-medium mb-2">Especialidade</label>
+              <select formControlName="speciality" class="p-dropdown w-full md:w-30rem mb-5" style="padding: 1rem;">
+                <option value="Cardiologia">Cardiologia</option>
+                <option value="Clínico Geral">Clínico Geral</option>
+                <option value="Dermatologia">Dermatologia</option>
+                <option value="Endocrinologia">Endocrinologia</option>
+                <option value="Gastroenterologia">Gastroenterologia</option>
+                <option value="Neurologia">Neurologia</option>
+                <option value="Oftalmologia">Oftalmologia</option>
+                <option value="Ortopedia">Ortopedia</option>
+                <option value="Pediatria">Pediatria</option>
+                <option value="Psiquiatria">Psiquiatria</option>
+                <option value="Radiologia">Radiologia</option>
+                <option value="Urologia">Urologia</option>
+              </select>
               <label class="block text-900 text-xl font-medium mb-2">Senha</label>
               <div class="p-inputgroup">
                     <span class="p-float-label">

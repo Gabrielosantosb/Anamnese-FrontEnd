@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {environments} from "../../../environments/environments";
 import {ToastMessage} from "../../services/toast-message/toast-message";
 import {ProgressBarModule} from "primeng/progressbar";
+import {MedicalSpecialty} from "../../../models/interfaces/enums/medicalSpeciality/medicalSpeciality";
 
 
 
@@ -27,6 +28,7 @@ export class HomeComponent implements OnDestroy {
   isLoading = false
   loadingMode: ProgressBarModule = 'indeterminate';
   showPassword: boolean = false;
+  public medicalSpecialtys = Object.values(MedicalSpecialty)
 
   loginForm = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
@@ -36,7 +38,7 @@ export class HomeComponent implements OnDestroy {
   signUpForm = this.formBuilder.group({
     username: ["", Validators.required],
     email: ["", [Validators.required, Validators.email]],
-    specialty: ["", Validators.required],
+    speciality: ["", Validators.required],
     password: ["", [Validators.required, Validators.minLength(6)]]
   });
   private readonly USER_AUTH = environments.COOKIES_VALUE.user_auth;
