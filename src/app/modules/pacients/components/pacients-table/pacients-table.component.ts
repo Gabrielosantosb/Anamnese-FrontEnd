@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GetPacientsResponse} from "../../../../../models/interfaces/pacients/get-pacient-service.service";
 import {EditPacientAction} from "../../../../../models/interfaces/pacients/event/editPacient";
 import {PacientsEvent} from "../../../../../models/interfaces/enums/pacients/PacientEvent";
@@ -18,7 +18,7 @@ import {ReferralService} from "../../../../services/referral/referral.service";
   templateUrl: './pacients-table.component.html',
   styleUrls: ['./pacients-table.component.scss']
 })
-export class PacientsTableComponent {
+export class PacientsTableComponent implements  OnInit{
   @Input() public pacients: Array<GetPacientsResponse> = [];
   @Output() public pacientEvent = new EventEmitter<EditPacientAction>();
   @Output() public deletePacientEvent = new EventEmitter<DeletePacient>();
@@ -37,6 +37,10 @@ export class PacientsTableComponent {
 
   constructor(private pacientService: PacientService, private toastMessage: ToastMessage, private referralService: ReferralService) {
   }
+
+  ngOnInit(): void {
+        console.log("AQUI OS PACIENTES:", this.pacients);
+    }
 
 
   sendMedicalSpeciality() {
