@@ -45,7 +45,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     this.getAllPacients();
     this.getProfissionalPacients()
     this.getAllReport()
-    this.getSpecialysCount()
+    // this.getSpecialysCount()
     this.getUserInfo()
   }
 

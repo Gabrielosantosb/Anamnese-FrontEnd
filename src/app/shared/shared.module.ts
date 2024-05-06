@@ -18,11 +18,13 @@ import {SidebarModule} from "primeng/sidebar";
 import {CheckboxModule} from "primeng/checkbox";
 import {FileUploadModule} from "primeng/fileupload";
 import {TooltipModule} from "primeng/tooltip";
+import {UserComponent} from "../modules/user/user.component";
 @NgModule({
   declarations: [
     ToolbarNavigationComponent,
     ReportFormComponent,
     ShortenPipe,
+    UserComponent
   ],
   imports: [
     CommonModule,

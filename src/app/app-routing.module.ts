@@ -3,6 +3,7 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./modules/home/home.component";
 import {AuthGuardService} from "./guards/auth-guard.service";
 import {NotfoundComponent} from "./comon-pages/notfound/notfound.component";
+import {UserComponent} from "./modules/user/user.component";
 const routes: Routes = [
   {
     path : "",
@@ -13,6 +14,11 @@ const routes: Routes = [
     path : "home",
     component: HomeComponent,
   },
+  {
+    path : "user",
+    component: UserComponent,
+  },
+
   {
     path : "dashboard",
     loadChildren: ()=> import('./modules/dashboard/dashboard.module')
@@ -25,6 +31,12 @@ const routes: Routes = [
       .then((m)=> m.ReportsModule),
     canActivate:[AuthGuardService]
   },
+  // {
+  //   path : "user",
+  //   loadChildren: ()=> import('./modules/user/user.module')
+  //     .then((m)=> m.UserModule),
+  //   canActivate:[AuthGuardService]
+  // },
   {
     path : "pacients",
     loadChildren: ()=> import('./modules/pacients/pacients.module')
