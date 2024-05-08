@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environments} from "../../../environments/environments";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
+import {AppointmentRequest} from "../../../models/interfaces/appointment/appointmentRequest";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +19,21 @@ export class AppointmentService {
   }
 
   constructor(private http: HttpClient, private cookie: CookieService) {
+  }
+
+  // scheduleAppointment(requestData: AppointmentRequest): Observable<AppointmentRequest>{
+  scheduleAppointment(profissionalId: number, pacientId: number,appointmentDate: string, appointmentTime: string ): Observable<AppointmentRequest> {
+    const requestData: AppointmentRequest = {
+      profissionalId: profissionalId,
+      pacientId: pacientId,
+      appointmentDate: appointmentDate,
+      appointmentTime: appointmentTime
+    };
+    console.log('RequestAppointment', requestData)
+    return this.http.post<AppointmentRequest>(
+      `${this.API_URL}/api/Appointment/schedule-appointment`,
+      requestData,
+      this.httpOptions
+    )
   }
 }
