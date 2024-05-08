@@ -25,6 +25,7 @@ export class PacientsTableComponent implements OnInit {
   @Output() public reportEvent = new EventEmitter<EditReportAction>();
   public medicalSpecialtys = Object.values(MedicalSpecialty);
   public selectProfissional: GetUserInfo[] = [];
+  public selectProfissionalUsername: string = '';
   public showAppointmentForm: boolean = false;
   public pacientSelected!: GetPacientsResponse;
   public addPacientAction = PacientsEvent.ADD_PACIENT_ACTION;
@@ -46,22 +47,26 @@ export class PacientsTableComponent implements OnInit {
   ngOnInit(): void {
     console.log("AQUI OS PACIENTES:", this.pacients);
   }
+  public usernamesArray: string[] = [];
 
   getProfissionalBySpeciality(speciality: string) {
     this.profissionalAvailableService.getProfissionalsBySpeciality(speciality).subscribe({
       next: (response) => {
         console.log('Response profissionalAvailableService', response);
         this.selectProfissional = response;
-        this.showAppointmentForm = true
+
+        // Atualiza o array de nomes de usuário
+        this.usernamesArray = this.selectProfissional.map(profissional => profissional.username);
+
+        this.showAppointmentForm = true;
       },
       error: (err) => {
         console.log("Erro ao buscar profissional com a especialidade");
         this.toastMessage.InfoMessage(`Não existe nenhum profissional com a especialidade ${speciality}`);
-        this.showAppointmentForm = false
+        this.showAppointmentForm = false;
       }
     });
   }
-
   sendMedicalSpeciality() {
     this.referralService.sendMedicalSpeciality(this.pacientId, this.selectedProfissional).subscribe({
       next: (response) => {

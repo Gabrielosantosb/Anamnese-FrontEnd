@@ -182,11 +182,11 @@
           </p-dropdown>
 
           <div style="margin-bottom: 20px;margin-top: 20px;" *ngIf="showAppointmentForm">
-            <p-dropdown [(ngModel)]="selectedProfissional" [options]="selectProfissional" [showClear]="true"
+            <p-dropdown [(ngModel)]="selectedProfissional" [options]="usernamesArray" [showClear]="true"
                         [style]="{ 'width': '100%', 'height': '50px' }"
-                        placeholder="Qual profissional deseja?" >
+                        placeholder="Qual profissional deseja?">
               <ng-template let-profissional pTemplate="item">
-                {{ profissional.username }}
+                {{ profissional }}
               </ng-template>
             </p-dropdown>
 
@@ -202,7 +202,7 @@
             </div>
 
             <div style="display: flex; justify-content: center; margin-top: 20px;">
-              <button pButton type="button" label="Confirmar" (click)="sendMedicalSpeciality()"></button>
+              <button pButton type="button" label="Confirmar"></button>
             </div>
           </div>
         </div>
