@@ -1,7 +1,7 @@
 <div class='grid'>
   <div class='col-12'>
     <p-card styleClass="shadow-3 m-3 text-indigo-800">
-      <div class="flex flex-row justify-content-around " >
+      <div class="flex flex-row justify-content-around ">
 
         <p-button
           styleClass="p-button-outlined"
@@ -173,39 +173,38 @@
 
 
       <p-dialog header="Encaminhar para" [(visible)]="displayModal" [modal]="true" [responsive]="true"
-                [style]="{ 'width': '50%', 'height': '65%', 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'space-between' }">
+                [style]="{ 'width': '70%', 'height': '65%', 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'space-between' }">
         <div style="margin-bottom: 20px;">
-          <p-dropdown [(ngModel)]="selectedProfissional" [options]="medicalSpecialtys" [showClear]="true"
-                      [style]="{ 'width':'100%', 'height': '50px' }" placeholder="Para onde deseja encaminhar?"
-                      (onChange)="onDropdownChange($event)">
-          </p-dropdown>
-          <p-dropdown [(ngModel)]="selectedProfissional" [options]="[
-            { label: 'Médico 1', value: 'medico1' },
-            { label: 'Médico 2', value: 'medico2' }
-        ]" [showClear]="true"
-                      [style]="{ 'width':'100%', 'height': '50px', 'margin-top': '10px'  }" placeholder="Qual profissional deseja?"
+          <p-dropdown [options]="medicalSpecialtys"
+                      [style]="{ 'width': '100%', 'height': '50px' }"
+                      placeholder="Especialidade que deseja encaminhar?"
                       (onChange)="onDropdownChange($event)">
           </p-dropdown>
 
-          <ng-container *ngIf="showOtherField">
-            <input pInputText type="text" [(ngModel)]="selectedProfissional" placeholder="Outro"
-                   style="margin-top: 10px; width: 100%;">
-          </ng-container>
-        </div>
+          <div style="margin-bottom: 20px;margin-top: 20px;" *ngIf="showAppointmentForm">
+            <p-dropdown [(ngModel)]="selectedProfissional" [options]="selectProfissional" [showClear]="true"
+                        [style]="{ 'width': '100%', 'height': '50px' }"
+                        placeholder="Qual profissional deseja?" >
+              <ng-template let-profissional pTemplate="item">
+                {{ profissional.username }}
+              </ng-template>
+            </p-dropdown>
 
-        <div style="margin-bottom: 20px;">
-          <label>Data:</label>
-          <p-calendar [hourFormat]="'24'" [showIcon]="true" placeholder="Selecione a data"></p-calendar>
-        </div>
+            <div style="margin-bottom: 20px; margin-top: 20px">
+              <label>Data:</label>
+              <p-calendar [hourFormat]="'24'" [showIcon]="true" placeholder="Selecione a data"></p-calendar>
+            </div>
 
-        <div>
-          <label>Hora:</label>
-          <p-calendar [showTime]="true" [hourFormat]="'24'" [showIcon]="true" [timeOnly]="true" [showSeconds]="true"
-                      placeholder="Selecione a hora"></p-calendar>
-        </div>
+            <div>
+              <label>Hora:</label>
+              <p-calendar [showTime]="true" [hourFormat]="'24'" [showIcon]="true" [timeOnly]="true" [showSeconds]="true"
+                          placeholder="Selecione a hora"></p-calendar>
+            </div>
 
-        <div style="display: flex; justify-content: center; margin-top: 20px;">
-          <button pButton type="button" label="Confirmar" (click)="sendMedicalSpeciality()"></button>
+            <div style="display: flex; justify-content: center; margin-top: 20px;">
+              <button pButton type="button" label="Confirmar" (click)="sendMedicalSpeciality()"></button>
+            </div>
+          </div>
         </div>
       </p-dialog>
 
