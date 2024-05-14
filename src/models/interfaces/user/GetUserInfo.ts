@@ -2,6 +2,6 @@ export interface GetUserInfo {
   id: number,
   username: string,
   email: string,
-  specialty: string;
+  speciality: string;
   password: string
 }
