@@ -72,6 +72,7 @@ export class PacientsTableComponent implements OnInit {
       }
     });
   }
+
   appointmentForm = this.formBuilder.group({
     data: ["", [Validators.required]],
     hora: ["", Validators.required]
@@ -89,11 +90,11 @@ export class PacientsTableComponent implements OnInit {
       "2024-05-10",
       "17:00:00"
     ).subscribe({
-      next:(response) =>{
+      next: (response) => {
         console.log("Response Appointment", response)
         this.toastMessage.SuccessMessage("Paciente encaminhado com sucesso!")
       },
-      error:(err) =>{
+      error: (err) => {
         this.toastMessage.ErrorMessage("Falha ao encaminhar com sucesso!")
       }
     });
@@ -151,10 +152,23 @@ export class PacientsTableComponent implements OnInit {
     });
   }
 
+  getProfissionalDisponibilidades(profissionalId: number) {
+    if (profissionalId < 0 || profissionalId == null) {
+      return
+    }
+    this.profissionalAvailableService.getProfissionalAvailable(profissionalId)
+      .subscribe({
+        next: (response) =>{
+          console.log("Aqui a disponibilidade", response)
+        },
+        error: (error) =>{
+          console.log(error)
+        }
+      })
+  }
+
   onSpecialityDropdownChange(event: any) {
     const selectedSpeciality = event.value;
-    this.showOtherField = selectedSpeciality === 'Outra';
-
     // Chamar a função para obter os profissionais com base na especialidade selecionada
     this.getProfissionalBySpeciality(selectedSpeciality);
   }
@@ -162,9 +176,10 @@ export class PacientsTableComponent implements OnInit {
   onProfissionalDropdownChange(event: any) {
     console.log('O evento chegando aqui', event)
     if (event && event.value) {
-    //   this.selectedProfissional = event.value.profissionalId;
-    this.selectedProfissionalId = event.value.profissionalId;
-    console.log(this.selectedProfissionalId)
+      //   this.selectedProfissional = event.value.profissionalId;
+      this.selectedProfissionalId = event.value.profissionalId;
+      this.getProfissionalDisponibilidades(this.selectedProfissionalId)
+      console.log(this.selectedProfissionalId)
     }
   }
 
