@@ -46,31 +46,13 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     this.getProfissionalPacients()
     this.getAllReport()
     // this.getSpecialysCount()
-    this.getUserInfo()
   }
 
   private detectChanges(): void {
     this.cdr.detectChanges();
   }
 
-  private getUserInfo(): void {
-    this.userService.getProfissionalInfo().pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(
-      (response: any) => {
-        if (response) {
-          this.userInfo = response;
-          this.detectChanges()
-          console.log('Aqui a response', this.userInfo);
-        } else {
-          console.error('Resposta vazia ao obter informações do usuário');
-        }
-      },
-      error => {
-        console.error('Erro ao obter informações do usuário:', error);
-      }
-    );
-  }
+
   private getAllPacients(): void {
     this.pacientService
       .countAllPacients()

@@ -26,6 +26,7 @@ import {DropdownModule} from "primeng/dropdown";
   declarations: [
     AppComponent,
     HomeComponent,
+
     ReportDetailModalComponent,
   ],
     imports: [
