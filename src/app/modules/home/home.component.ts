@@ -28,7 +28,6 @@ export class HomeComponent implements OnDestroy {
   isLoading = false
   loadingMode: ProgressBarModule = 'indeterminate';
   showPassword: boolean = false;
-  public medicalSpecialtys = Object.values(MedicalSpecialty)
 
   loginForm = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email]],

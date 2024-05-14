@@ -13,6 +13,7 @@ import {style} from "@angular/animations";
 import {ProfissionalAvailableService} from "../../../../services/profissionalAvailable/profissional-available.service";
 import {GetUserInfo} from "../../../../../models/interfaces/user/GetUserInfo";
 import {AppointmentService} from "../../../../services/appointment/appointments.service";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-pacients-table',
@@ -42,9 +43,9 @@ export class PacientsTableComponent implements OnInit {
 
   constructor(private pacientService: PacientService,
               private toastMessage: ToastMessage,
-              private referralService: ReferralService,
               private profissionalAvailableService: ProfissionalAvailableService,
-              private appointmentService: AppointmentService
+              private appointmentService: AppointmentService,
+              private formBuilder: FormBuilder
   ) {
   }
 
@@ -71,29 +72,31 @@ export class PacientsTableComponent implements OnInit {
       }
     });
   }
+  appointmentForm = this.formBuilder.group({
+    data: ["", [Validators.required]],
+    hora: ["", Validators.required]
+  });
 
   sendScheduleAppointment() {
     if (this.selectedProfissionalId < 1) {
       this.toastMessage.ErrorMessage("Selecione um profissional.");
       return;
     }
-    // const profissionalId = this.selectedProfissional[0].id;
-    // console.log('Profissional selecionado: ', this.selectedProfissional)
-    // console.log('Id do profissional selecionado:', profissionalId);
-    // this.appointmentService.scheduleAppointment(
-    //   profissionalId,
-    //   this.pacientId,
-    //   "2024-05-10",
-    //   "17:00:00"
-    // ).subscribe({
-    //   next:(response) =>{
-    //     console.log("Response Appointment", response)
-    //     this.toastMessage.SuccessMessage("Paciente encaminhado com sucesso!")
-    //   },
-    //   error:(err) =>{
-    //     this.toastMessage.ErrorMessage("Falha ao encaminhar com sucesso!")
-    //   }
-    // });
+    const profissionalId = this.selectedProfissionalId;
+    this.appointmentService.scheduleAppointment(
+      profissionalId,
+      this.pacientId,
+      "2024-05-10",
+      "17:00:00"
+    ).subscribe({
+      next:(response) =>{
+        console.log("Response Appointment", response)
+        this.toastMessage.SuccessMessage("Paciente encaminhado com sucesso!")
+      },
+      error:(err) =>{
+        this.toastMessage.ErrorMessage("Falha ao encaminhar com sucesso!")
+      }
+    });
   }
 
   showModal(pacientId: number) {
@@ -115,7 +118,6 @@ export class PacientsTableComponent implements OnInit {
   handleReportEvent(action: string, id?: number, pacientName?: string): void {
     if (action && action !== '') {
       this.reportEvent.emit({action, id, pacientName});
-
     }
   }
 

@@ -186,24 +186,28 @@
                         [style]="{ 'width': '100%', 'height': '50px' }" optionLabel="username"
                         (onChange)="onProfissionalDropdownChange($event)" placeholder="Qual profissional deseja?">
               <ng-template let-profissional pTemplate="item">
-                {{profissional.username}}
+                  {{ profissional.username }}
               </ng-template>
             </p-dropdown>
+            <form [formGroup]="appointmentForm" (ngSubmit)="sendScheduleAppointment()">
 
-            <div style="margin-bottom: 20px; margin-top: 20px">
-              <label>Data:</label>
-              <p-calendar [hourFormat]="'24'" [showIcon]="true" placeholder="Selecione a data"></p-calendar>
-            </div>
+              <div style="margin-bottom: 20px; margin-top: 20px">
+                <label>Data:</label>
+                <p-calendar [hourFormat]="'24'" [showIcon]="true" placeholder="Selecione a data"
+                            formControlName="data"></p-calendar>
+              </div>
 
-            <div>
-              <label>Hora:</label>
-              <p-calendar [showTime]="true" [hourFormat]="'24'" [showIcon]="true" [timeOnly]="true" [showSeconds]="true"
-                          placeholder="Selecione a hora"></p-calendar>
-            </div>
+              <div>
+                <label>Hora:</label>
+                <p-calendar [showTime]="true" [hourFormat]="'24'" [showIcon]="true" [timeOnly]="true"
+                            [showSeconds]="true"
+                            placeholder="Selecione a hora" formControlName="hora"></p-calendar>
+              </div>
 
-            <div style="display: flex; justify-content: center; margin-top: 20px;">
-              <button pButton type="button" label="Confirmar"></button>
-            </div>
+              <div style="display: flex; justify-content: center; margin-top: 20px;">
+                <button pButton type="submit" label="Confirmar" [disabled]="!appointmentForm.valid"></button>
+              </div>
+            </form>
           </div>
         </div>
       </p-dialog>
