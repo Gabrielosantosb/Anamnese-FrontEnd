@@ -171,7 +171,6 @@
         </ng-template>
       </p-table>
 
-
       <p-dialog header="Encaminhar para" [(visible)]="displayModal" [modal]="true" [responsive]="true"
                 [style]="{ 'width': '70%', 'height': '65%', 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'space-between' }">
         <div style="margin-bottom: 20px;">
@@ -186,11 +185,25 @@
                         [style]="{ 'width': '100%', 'height': '50px' }" optionLabel="username"
                         (onChange)="onProfissionalDropdownChange($event)" placeholder="Qual profissional deseja?">
               <ng-template let-profissional pTemplate="item">
-                  {{ profissional.username }}
+                {{ profissional.username }}
               </ng-template>
             </p-dropdown>
-            <form [formGroup]="appointmentForm" (ngSubmit)="sendScheduleAppointment()">
 
+            <div *ngIf="isProfissionalSelected">
+              <div *ngIf="disponibilidades.length > 0" style="margin-top: 20px;">
+                <h3>Disponibilidade do Profissional:</h3>
+                <ul>
+                  <li *ngFor="let disponibilidade of disponibilidades">
+                    Dia: {{ disponibilidade.dayOfWeek }} - De: {{ disponibilidade.startTime }} Até: {{ disponibilidade.endTime }}
+                  </li>
+                </ul>
+              </div>
+              <div *ngIf="disponibilidades.length === 0" style="margin-top: 20px;">
+                <h3>O profissional não tem nenhuma disponibilidade</h3>
+              </div>
+            </div>
+
+            <form [formGroup]="appointmentForm" (ngSubmit)="sendScheduleAppointment()">
               <div style="margin-bottom: 20px; margin-top: 20px">
                 <label>Data:</label>
                 <p-calendar [hourFormat]="'24'" [showIcon]="true" placeholder="Selecione a data"
@@ -211,7 +224,6 @@
           </div>
         </div>
       </p-dialog>
-
       <ng-template #noPacients>
         <div class="text-center">Nenhum paciente encontrado.</div>
       </ng-template>

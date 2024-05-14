@@ -14,6 +14,9 @@ import {ProfissionalAvailableService} from "../../../../services/profissionalAva
 import {GetUserInfo} from "../../../../../models/interfaces/user/GetUserInfo";
 import {AppointmentService} from "../../../../services/appointment/appointments.service";
 import {FormBuilder, Validators} from "@angular/forms";
+import {
+  ProfissionalAvailableResponse
+} from "../../../../../models/interfaces/profissional/profissionalAvailableResponse";
 
 @Component({
   selector: 'app-pacients-table',
@@ -35,6 +38,8 @@ export class PacientsTableComponent implements OnInit {
   public specialityProfissional: GetUserInfo[] = [];
   selectedProfissional?: GetUserInfo;
   selectedProfissionalId: number = 0;
+  isProfissionalSelected: boolean = false;
+
 
   displayModal: boolean = false;
   showProfissionalPacients = false;
@@ -152,14 +157,17 @@ export class PacientsTableComponent implements OnInit {
     });
   }
 
+  disponibilidades: ProfissionalAvailableResponse[] = [];
+
   getProfissionalDisponibilidades(profissionalId: number) {
     if (profissionalId < 0 || profissionalId == null) {
       return
     }
     this.profissionalAvailableService.getProfissionalAvailable(profissionalId)
       .subscribe({
-        next: (response) =>{
-          console.log("Aqui a disponibilidade", response)
+        next: (response:ProfissionalAvailableResponse[]) =>{
+          this.disponibilidades = response
+          console.log("Aqui a disponibilidade", this.disponibilidades)
         },
         error: (error) =>{
           console.log(error)
@@ -167,20 +175,22 @@ export class PacientsTableComponent implements OnInit {
       })
   }
 
+  onProfissionalDropdownChange(event: any) {
+    console.log('O evento chegando aqui', event);
+    if (event && event.value) {
+      this.selectedProfissionalId = event.value.profissionalId;
+      this.isProfissionalSelected = true;
+      this.getProfissionalDisponibilidades(this.selectedProfissionalId);
+      console.log(this.selectedProfissionalId);
+    } else {
+      this.isProfissionalSelected = false;
+    }
+  }
   onSpecialityDropdownChange(event: any) {
     const selectedSpeciality = event.value;
     // Chamar a função para obter os profissionais com base na especialidade selecionada
     this.getProfissionalBySpeciality(selectedSpeciality);
   }
 
-  onProfissionalDropdownChange(event: any) {
-    console.log('O evento chegando aqui', event)
-    if (event && event.value) {
-      //   this.selectedProfissional = event.value.profissionalId;
-      this.selectedProfissionalId = event.value.profissionalId;
-      this.getProfissionalDisponibilidades(this.selectedProfissionalId)
-      console.log(this.selectedProfissionalId)
-    }
-  }
 
 }
