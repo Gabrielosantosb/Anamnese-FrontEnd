@@ -105,7 +105,7 @@ export class PacientsTableComponent implements OnInit {
       profissionalId,
       this.pacientId,
       data,
-      horaFormatada // Passa a hora formatada aqui
+      horaFormatada 
     ).subscribe({
       next: (response) => {
         console.log("Response Appointment", response);

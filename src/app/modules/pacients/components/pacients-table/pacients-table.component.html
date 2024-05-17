@@ -96,8 +96,7 @@
         <ng-template pTemplate="body" let-pacient>
           <tr>
             <td>{{ pacient?.username }}</td>
-            <td> -</td>
-
+            <td>{{ pacient?.medicalSpeciality ? pacient?.medicalSpeciality : '-' }}</td>
             <td>
               <div class='flex justify-content-center gap-3 align-content-center align-items-center'
                    style="margin-bottom: 10px">
