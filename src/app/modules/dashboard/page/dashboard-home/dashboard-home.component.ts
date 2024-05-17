@@ -5,10 +5,8 @@ import {takeUntil} from 'rxjs/operators';
 import {ChartData, ChartOptions} from 'chart.js';
 import {PacientService} from '../../../../services/pacients/pacients.service';
 import {ReportsService} from "../../../../services/reports/reports.service";
-import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ReferralService} from "../../../../services/referral/referral.service";
 import {UserService} from "../../../../services/user/user.service";
-import {GetUserInfo} from "../../../../../models/interfaces/user/GetUserInfo";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 
 @Component({
@@ -25,8 +23,9 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   public allPacients!: number;
   public allReports !: number;
   public countSpeciality !: {}
-  public userInfo !: GetUserInfo
   public allProfissionalPacients !: number;
+
+
 
 
   constructor(
@@ -45,7 +44,8 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     this.getAllPacients();
     this.getProfissionalPacients()
     this.getAllReport()
-    // this.getSpecialysCount()
+    this.getSpecialysCount()
+
   }
 
   private detectChanges(): void {
@@ -60,7 +60,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: number) => {
           this.allPacients = response;
-          this.setProductsChartConfig();
+          this.setResultsChartConfig();
           this.detectChanges()
         },
         (error: Error) => {
@@ -83,7 +83,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: number) => {
           this.allProfissionalPacients = response;
-          this.setProductsChartConfig();
+          this.setResultsChartConfig();
           this.detectChanges()
         },
         (error: Error) => {
@@ -105,7 +105,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: number) => {
           this.allReports = response;
-          this.setProductsChartConfig();
+          this.setResultsChartConfig();
           this.detectChanges()
         },
         (error: Error) => {
@@ -121,12 +121,11 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   }
 
   private getSpecialysCount(): void {
-    this.referralService.countSpeciality().pipe(takeUntil(this.destroy$)).subscribe(
+    this.pacientService.countSpeciality().pipe(takeUntil(this.destroy$)).subscribe(
       (response) => {
         this.countSpeciality = response
         this.setDonutChartConfig()
         this.detectChanges()
-        console.log('AQUI, ', this.countSpeciality)
       },
       (error) => {
         console.log(error)
@@ -140,7 +139,7 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     )
   }
 
-  private setProductsChartConfig(): void {
+  private setResultsChartConfig(): void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue(
@@ -188,13 +187,16 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   private setDonutChartConfig(): void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue(
-      '--text-color-secondary'
-    );
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
     const specialityLabels = Object.keys(this.countSpeciality);
     const specialityValues: number[] = Object.values(this.countSpeciality);
 
+    const labelsWithFallback = specialityLabels.map(label => label || 'Não encaminhado');
+
+
+    // Cores para os segmentos do gráfico
     const colors = [
       '#6610f2', '#28a745', '#fd7e14',
       '#FF5733', '#FFBD33', '#FFC933',
@@ -202,9 +204,9 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
       '#a7c548', '#7f8d2d', '#4f6240'
     ];
 
-
+    // Configuração do gráfico de rosquinha
     this.donutChartData = {
-      labels: specialityLabels,
+      labels: labelsWithFallback,
       datasets: [
         {
           label: 'Quantidade de encaminhados',
@@ -214,6 +216,8 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         },
       ]
     };
+
+    // Configurações do gráfico
     this.donutChartOptions = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
@@ -223,13 +227,6 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         y: this.createAxisConfig(textColorSecondary, surfaceBorder)
       }
     };
-  }
-
-  private generateRandomColor(): string {
-    return '#' + (Math.random().toString(16) + '000000').substring(2, 8).toUpperCase();
-  }
-  public desativateAccount(){
-    this.confirmationModal.confirmDelete("Tem certeza que deseja desativar sua conta?", ()=>alert('Conta desativada'))
   }
 
   private createAxisConfig(tickColor: string, gridColor: string) {

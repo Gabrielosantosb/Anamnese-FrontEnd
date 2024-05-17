@@ -2,14 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
-import {Observable, tap} from "rxjs";
+import {Observable} from "rxjs";
 import {
   AddPacientRequest,
   EditPacientRequest,
   GetPacientsResponse, SendMedicalSpecialityRequest,
-
 } from "../../../models/interfaces/pacients/get-pacient-service.service";
-import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +39,7 @@ export class PacientService {
       this.httpOptions
     )
   }
+
 
   getPacientById(pacientId: number): Observable<GetPacientsResponse> {
     return this.http.get<GetPacientsResponse>(
@@ -91,5 +90,9 @@ export class PacientService {
   {
     return this.http.get<number>(`${this.API_URL}/api/Pacient/count-profissional`,
       this.httpOptions)
+  }
+
+  countSpeciality(){
+    return this.http.get(`${this.API_URL}/api/Pacient/count-pacient-by-specialty`)
   }
 }
