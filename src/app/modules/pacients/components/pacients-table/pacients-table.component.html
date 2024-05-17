@@ -211,13 +211,12 @@
                 <form [formGroup]="appointmentForm" (ngSubmit)="sendScheduleAppointment()">
                   <div style="margin-bottom: 20px; margin-top: 20px">
                     <label>Data:</label>
-                    <p-calendar [hourFormat]="'24'" [showIcon]="true" placeholder="Selecione a data"
-                                formControlName="data"></p-calendar>
+                    <input type="date" pInputText placeholder="Data de nascimento" formControlName="data"/>
                   </div>
 
                   <div>
                     <label>Hora:</label>
-                    <p-calendar [showTime]="true" [hourFormat]="'24'" [showIcon]="true" [timeOnly]="true"
+                    <p-calendar [showTime]="true"  [showIcon]="true" [timeOnly]="true"
                                 [showSeconds]="true"
                                 placeholder="Selecione a hora" formControlName="hora"></p-calendar>
                   </div>

@@ -88,19 +88,31 @@ export class PacientsTableComponent implements OnInit {
       this.toastMessage.ErrorMessage("Selecione um profissional.");
       return;
     }
+    const data = this.appointmentForm.value.data as string;
+    const hora = this.appointmentForm.value.hora;
+    let horaFormatada: string;
+
+    if (hora !== null && hora !== undefined) {
+      horaFormatada = new Date(hora).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      console.log('Hora:', horaFormatada);
+    } else {
+      console.error('Hora não está definida.');
+      return;
+    }
+
     const profissionalId = this.selectedProfissionalId;
     this.appointmentService.scheduleAppointment(
       profissionalId,
       this.pacientId,
-      "2024-05-10",
-      "17:00:00"
+      data,
+      horaFormatada // Passa a hora formatada aqui
     ).subscribe({
       next: (response) => {
-        console.log("Response Appointment", response)
-        this.toastMessage.SuccessMessage("Paciente encaminhado com sucesso!")
+        console.log("Response Appointment", response);
+        this.toastMessage.SuccessMessage("Paciente encaminhado com sucesso!");
       },
       error: (err) => {
-        this.toastMessage.ErrorMessage("Falha ao encaminhar com sucesso!")
+        this.toastMessage.ErrorMessage("Falha ao encaminhar com sucesso!");
       }
     });
   }
