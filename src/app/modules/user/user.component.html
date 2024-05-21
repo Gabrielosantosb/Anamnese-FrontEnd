@@ -23,11 +23,11 @@
 <p-confirmDialog></p-confirmDialog>
   <div class='calendar-main'>
     <full-calendar [options]="calendarOptions">
-    <ng-template #eventContent let-arg>
-      <b>{{arg.timeText}}</b>
-      <i>{{arg.event.title}}</i>
-    </ng-template>
-  </full-calendar>
+      <ng-template #eventContent let-arg>
+        <b>{{arg.timeText}}</b>
+        <i>{{arg.event.title}}</i>
+      </ng-template>
+    </full-calendar>
   </div>
 
 

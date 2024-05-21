@@ -20,9 +20,7 @@ export class UserComponent implements OnInit, OnDestroy{
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
     weekends: false,
-    events: [
-      { title: 'Meeting', start: new Date() }
-    ],
+    events: [],
     locales: allLocales,
     locale: 'Pt-Br'
   };
@@ -68,12 +66,21 @@ export class UserComponent implements OnInit, OnDestroy{
       .subscribe(
         (response: AppointmentResponse[]) => {
           this.appointmentInfo = response;
+          this.updateCalendarEvents()
           console.log('resposta dos appointments', response);
         },
         (error) => {
           console.error('Erro ao obter appointments', error);
         }
       );
+  }
+  private updateCalendarEvents(): void {
+    this.calendarOptions.events = this.appointmentInfo.map(appointment => ({
+      title: appointment.pacientName,
+      start: appointment.appointmentDateTime,
+
+      id: appointment.appointmentId.toString()
+    }));
   }
 
   ngOnDestroy(): void {
