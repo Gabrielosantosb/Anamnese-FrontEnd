@@ -11,6 +11,8 @@ import {AppointmentResponse} from "../../../models/interfaces/appointment/appoin
 import {ProfissionalAvailableResponse} from "../../../models/interfaces/profissional/profissionalAvailableResponse";
 import {ProfissionalAvailableService} from "../../services/profissionalAvailable/profissional-available.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Toast} from "primeng/toast";
+import {ToastMessage} from "../../services/toast-message/toast-message";
 
 
 @Component({
@@ -35,15 +37,16 @@ export class UserComponent implements OnInit, OnDestroy{
   displayModal = false
 
   disponibilityForm = this.formBuilder.group({
-    dayOfWeek: ["", Validators.required],
-    startTime: ["", Validators.required],
-    endTime: ["", Validators.required]
+    dayOfWeek: ["Friday", Validators.required],
+    startTime: ["10:00:00", Validators.required],
+    endTime: ["18:00:00", Validators.required]
   },{ validators: this.timeDifferenceValidator });
   constructor(
     private userService: UserService,
     private appointmentService: AppointmentService,
     private profissionalAvailableService: ProfissionalAvailableService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastMessage: ToastMessage
   ) {
   }
 
@@ -102,6 +105,30 @@ export class UserComponent implements OnInit, OnDestroy{
           console.error('Erro ao obter appointments', error);
         }
       );
+  }
+  public sendProfissionalAvailability(){
+    console.log(this.disponibilityForm.value)
+    const startTime = this.disponibilityForm.value.startTime;
+    const endTime = this.disponibilityForm.value.endTime;
+    const dayOfWeek = this.disponibilityForm.value.dayOfWeek;
+    const startTimeFormatted = new Date(startTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    const endTimeFormatted= new Date(endTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+
+    this.profissionalAvailableService.sendProfissionalAvailable(this.profissionalId, dayOfWeek, startTimeFormatted, endTimeFormatted )
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next:(response: ProfissionalAvailableResponse) =>{
+            this.toastMessage.SuccessMessage("Disponibilidade criado com sucesso")
+            this.disponibilityForm.reset()
+            this.displayModal = false;
+
+        },
+        error: (err) =>{
+          console.log(err)
+          this.disponibilityForm.reset()
+          this.toastMessage.ErrorMessage("Erro ao criar disponibilidade")
+        }
+      })
   }
 
   private updateCalendarEvents(): void {

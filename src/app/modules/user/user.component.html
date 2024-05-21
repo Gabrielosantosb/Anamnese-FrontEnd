@@ -26,17 +26,16 @@
   </div>
 
 </div>
-<p-confirmDialog></p-confirmDialog>
-  <div class='calendar-main'>
-    <full-calendar [options]="calendarOptions">
-      <ng-template #eventContent let-arg>
-        <b>{{arg.timeText}}</b>
-        <i>{{arg.event.title}}</i>
-      </ng-template>
-    </full-calendar>
-  </div>
+<div class='calendar-main'>
+  <full-calendar [options]="calendarOptions">
+    <ng-template #eventContent let-arg>
+      <b>{{ arg.timeText }}</b>
+      <i>{{ arg.event.title }}</i>
+    </ng-template>
+  </full-calendar>
+</div>
 
-<p-dialog  header="Definir disponibilidade" [(visible)]="displayModal" [modal]="true" [responsive]="true">
+<p-dialog header="Definir disponibilidade" [(visible)]="displayModal" [modal]="true" [responsive]="true">
   <div>
     <div *ngIf="disponibilidades.length > 0" style="margin-top: 20px;">
       <p-table [value]="disponibilidades" [paginator]="true" [rows]="5" [responsive]="true">
@@ -61,18 +60,18 @@
       <h1>Você ainda não possui nenhuma disponibilidade registrada!</h1>
     </div>
 
-    <form [formGroup]="disponibilityForm">
-      <div style="margin-bottom: 20px; margin-top: 20px">
-        <label>Dia da semana:</label>
-        <select pInputText formControlName="dayOfWeek">
-          <option value="Monday">Segunda-feira</option>
-          <option value="Tuesday">Terça-feira</option>
-          <option value="Wednesday">Quarta-feira</option>
-          <option value="Thursday">Quinta-feira</option>
-          <option value="Friday">Sexta-feira</option>
-          <option value="Saturday">Sábado</option>
-        </select>
-      </div>
+    <form [formGroup]="disponibilityForm" (ngSubmit)="sendProfissionalAvailability()">
+    <div style="margin-bottom: 20px; margin-top: 20px">
+      <label>Dia da semana:</label>
+      <select pInputText formControlName="dayOfWeek">
+        <option value="Monday">Segunda-feira</option>
+        <option value="Tuesday">Terça-feira</option>
+        <option value="Wednesday">Quarta-feira</option>
+        <option value="Thursday">Quinta-feira</option>
+        <option value="Friday">Sexta-feira</option>
+        <option value="Saturday">Sábado</option>
+      </select>
+    </div>
 
       <div>
         <label>Hora de início:</label>
@@ -95,3 +94,4 @@
 </p-dialog>
 
 
+<p-confirmDialog></p-confirmDialog>
