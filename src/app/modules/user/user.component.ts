@@ -8,6 +8,9 @@ import {CalendarOptions} from "@fullcalendar/core";
 import allLocales from "@fullcalendar/core/locales-all";
 import {AppointmentService} from "../../services/appointment/appointments.service";
 import {AppointmentResponse} from "../../../models/interfaces/appointment/appointmentResponse";
+import {ProfissionalAvailableResponse} from "../../../models/interfaces/profissional/profissionalAvailableResponse";
+import {ProfissionalAvailableService} from "../../services/profissionalAvailable/profissional-available.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -28,10 +31,19 @@ export class UserComponent implements OnInit, OnDestroy{
   public userInfo !: GetUserInfo
   public appointmentInfo: AppointmentResponse[] = [];
   private profissionalId: number = 0
+  disponibilidades: ProfissionalAvailableResponse[] = [];
+  displayModal = false
 
+  disponibilityForm = this.formBuilder.group({
+    dayOfWeek: ["", Validators.required],
+    startTime: ["", Validators.required],
+    endTime: ["", Validators.required]
+  },{ validators: this.timeDifferenceValidator });
   constructor(
     private userService: UserService,
     private appointmentService: AppointmentService,
+    private profissionalAvailableService: ProfissionalAvailableService,
+    private formBuilder: FormBuilder
   ) {
   }
 
@@ -59,6 +71,23 @@ export class UserComponent implements OnInit, OnDestroy{
     );
   }
 
+  getProfissionalDisponibilidades(profissionalId: number) {
+    if (profissionalId < 0 || profissionalId == null) {
+      return
+    }
+    this.profissionalAvailableService.getProfissionalAvailable(profissionalId)
+      .subscribe({
+        next: (response:ProfissionalAvailableResponse[]) =>{
+          this.disponibilidades = response
+          console.log("Aqui a disponibilidade", this.disponibilidades)
+        },
+        error: (error) =>{
+          console.log(error)
+        }
+      })
+  }
+
+
   public getProfissionalAppointments(): void {
     const profissionalId = this.profissionalId;
     this.appointmentService.getProfissionalAppointment(profissionalId)
@@ -74,6 +103,7 @@ export class UserComponent implements OnInit, OnDestroy{
         }
       );
   }
+
   private updateCalendarEvents(): void {
     this.calendarOptions.events = this.appointmentInfo.map(appointment => ({
       title: appointment.pacientName,
@@ -82,6 +112,26 @@ export class UserComponent implements OnInit, OnDestroy{
       id: appointment.appointmentId.toString()
     }));
   }
+  timeDifferenceValidator(formGroup: FormGroup): { [key: string]: any } | null {
+    const startTime = formGroup.get('startTime')?.value;
+    const endTime = formGroup.get('endTime')?.value;
+
+    if (!startTime || !endTime) {
+      return null;
+    }
+
+    const start = new Date(`1970-01-01T${startTime}`);
+    const end = new Date(`1970-01-01T${endTime}`);
+
+    const diff = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+
+    return diff > 8 ? { maxEightHours: true } : null;
+  }
+  showModal() {
+    this.displayModal = true;
+    this.getProfissionalDisponibilidades(this.profissionalId)
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next();
