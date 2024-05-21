@@ -19,6 +19,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {FileUploadModule} from "primeng/fileupload";
 import {TooltipModule} from "primeng/tooltip";
 import {UserComponent} from "../modules/user/user.component";
+import {FullCalendarModule} from "@fullcalendar/angular";
 @NgModule({
   declarations: [
     ToolbarNavigationComponent,
@@ -26,25 +27,26 @@ import {UserComponent} from "../modules/user/user.component";
     ShortenPipe,
     UserComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
 
-    // PrimeNg
-    ToolbarModule,
-    TooltipModule,
-    CardModule,
-    ButtonModule,
-    ConfirmDialogModule,
-    InputTextModule,
-    DropdownModule,
-    InputTextareaModule,
-    SidebarModule,
-    CheckboxModule,
-    FileUploadModule
-  ],
+        // PrimeNg
+        ToolbarModule,
+        TooltipModule,
+        CardModule,
+        ButtonModule,
+        ConfirmDialogModule,
+        InputTextModule,
+        DropdownModule,
+        InputTextareaModule,
+        SidebarModule,
+        CheckboxModule,
+        FileUploadModule,
+        FullCalendarModule
+    ],
   exports: [
     ToolbarNavigationComponent,
     ShortenPipe,

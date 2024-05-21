@@ -20,6 +20,7 @@ import {ProgressBarModule} from "primeng/progressbar";
 import {ChartModule} from "primeng/chart";
 import { ReportDetailModalComponent } from './modal/report-detail-modal/report-detail-modal.component';
 import {DropdownModule} from "primeng/dropdown";
+import {FullCalendarModule} from "@fullcalendar/angular";
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {DropdownModule} from "primeng/dropdown";
         SharedModule,
         ProgressBarModule,
         ChartModule,
-        DropdownModule
+        DropdownModule,
+        FullCalendarModule
 
     ],
   providers: [CookieService, MessageService,ConfirmationService, ToastMessage],

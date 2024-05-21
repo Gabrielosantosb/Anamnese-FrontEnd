@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {AppointmentRequest} from "../../../models/interfaces/appointment/appointmentRequest";
 import {Observable} from "rxjs";
+import {AppointmentResponse} from "../../../models/interfaces/appointment/appointmentResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,15 @@ export class AppointmentService {
   }
 
   // scheduleAppointment(requestData: AppointmentRequest): Observable<AppointmentRequest>{
+
+  getProfissionalAppointment(profissionalId: number): Observable<AppointmentResponse[]> {
+    console.log('Aqui o Id do profissional', profissionalId);
+    return this.http.get<AppointmentResponse[]>(
+      `${this.API_URL}/api/Appointment/profissional-appointments/${profissionalId}`,
+      this.httpOptions
+    );
+  }
+
   scheduleAppointment(profissionalId: number, pacientId: number,appointmentDate: string, appointmentTime: string ): Observable<AppointmentRequest> {
     const requestData: AppointmentRequest = {
       profissionalId: profissionalId,
