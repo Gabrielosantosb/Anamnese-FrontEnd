@@ -210,7 +210,7 @@
                 <form [formGroup]="appointmentForm" (ngSubmit)="sendScheduleAppointment()">
                   <div style="margin-bottom: 20px; margin-top: 20px">
                     <label>Data:</label>
-                    <input type="date" pInputText placeholder="Data de nascimento" formControlName="data"/>
+                    <input type="date" pInputText formControlName="data"  [min]="minDate"/>
                   </div>
 
                   <div>

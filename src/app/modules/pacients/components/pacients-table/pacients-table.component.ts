@@ -39,6 +39,8 @@ export class PacientsTableComponent implements OnInit {
   selectedProfissional?: GetUserInfo;
   selectedProfissionalId: number = 0;
   isProfissionalSelected: boolean = false;
+  minDate: string = '';
+
 
 
   displayModal: boolean = false;
@@ -52,6 +54,8 @@ export class PacientsTableComponent implements OnInit {
               private appointmentService: AppointmentService,
               private formBuilder: FormBuilder
   ) {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
@@ -105,7 +109,7 @@ export class PacientsTableComponent implements OnInit {
       profissionalId,
       this.pacientId,
       data,
-      horaFormatada 
+      horaFormatada
     ).subscribe({
       next: (response) => {
         console.log("Response Appointment", response);
