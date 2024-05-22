@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../environments/environments";
-import {map, Observable, tap} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {
   GetReportResponse, ReportRequest
 } from "../../../models/interfaces/reports/response/GetAllProductsResponse";
-import {DeleteProductResponse} from "../../../models/interfaces/reports/response/DeleteProductResponse";
 import {FormGroup} from "@angular/forms";
 
 @Injectable({

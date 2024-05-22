@@ -1,12 +1,11 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {
-  GetAllProductsResponse,
   GetReportResponse
 } from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {
   DeleteReportAction
-} from "../../../../../models/interfaces/reports/event/DeleteProductAction";
+} from "../../../../../models/interfaces/reports/event/DeleteReportAction";
 import {ReportsService} from "../../../../services/reports/reports.service";
 
 

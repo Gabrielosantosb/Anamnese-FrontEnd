@@ -1,19 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {ReportsService} from "../../../../services/reports/reports.service";
-import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
-import {Router} from "@angular/router";
 import {
-  GetAllProductsResponse,
   GetReportResponse
 } from "../../../../../models/interfaces/reports/response/GetAllProductsResponse";
-import {ConfirmationService} from "primeng/api";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ReportFormComponent} from "../../components/report-form/report-form.component";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
-import {DeleteReportAction} from "../../../../../models/interfaces/reports/event/DeleteProductAction";
+import {DeleteReportAction} from "../../../../../models/interfaces/reports/event/DeleteReportAction";
 
 
 @Component({
@@ -61,24 +57,6 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
       })
   }
 
-  getAPIProductsDatas() {
-    // this.reportService
-    //   .getAllProducts()
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe({
-    //     next: (response) => {
-    //       if (response.length > 0) {
-    //         this.productsDatas = response;
-    //         this.productsDtService.setProductsDatas(response);
-    //       }
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       this.toastMessage.ErrorMessage("Erro ao buscar produtos")
-    //       this.router.navigate(['/dashboard']);
-    //     },
-    //   });
-  }
 
   handleReportAction(event: EventAction): void {
     if (event) {
