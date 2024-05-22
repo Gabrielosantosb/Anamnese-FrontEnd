@@ -28,13 +28,15 @@
   </div>
 
 </div>
-<div class='calendar-main'>
-  <full-calendar [options]="calendarOptions">
-    <ng-template #eventContent let-arg>
-      <b>{{ arg.timeText }}</b>
-      <i>{{ arg.event.title }}</i>
-    </ng-template>
-  </full-calendar>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="width: 80%; height: 10%;">
+    <full-calendar [options]="calendarOptions">
+      <ng-template #eventContent let-arg>
+        <b><strong>{{ arg.timeText }}</strong> -  </b>
+        <i> {{ arg.event.title }}</i>
+      </ng-template>
+    </full-calendar>
+  </div>
 </div>
 
 <p-dialog header="Definir disponibilidade" [(visible)]="displayModal" [modal]="true" [responsive]="true">
