@@ -16,6 +16,8 @@ import {
 import {CookieService} from "ngx-cookie-service";
 import {environments} from "../../../../../environments/environments";
 import {ClipboardService} from "ngx-clipboard";
+import {AnnotationService} from "../../../../services/annotation/annotation.service";
+import {AnnotationResponse} from "../../../../../models/interfaces/annotation/annotationResponse";
 
 @Component({
   selector: 'app-report-form',
@@ -31,9 +33,11 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   public addReportAction = ReportEvent.ADD_REPORT_EVENT;
   public editReportAction = ReportEvent.EDIT_REPORT_EVENT;
   public reportAction !: { event: EditReportAction }
+  integrationUrl = 'https://annotation-pacient-form.vercel.app';
   private readonly USER_AUTH = environments.COOKIES_VALUE.user_auth
   reportId = 0;
   pacientId = 0
+  pacientAnnotation !: AnnotationResponse
   public reportForm = this.formBuilder.group({
 
     medicalHistory: ['', Validators.required],
@@ -58,7 +62,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private pacientService: PacientService,
     private reportService: ReportsService,
-    private confirmationModal: ConfirmationModal,
+    private annotationService: AnnotationService,
     private toastMessage: ToastMessage,
     private cookie: CookieService,
     private clipboardService: ClipboardService,
@@ -70,17 +74,19 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     if(this.reportAction.event.id  && this.reportAction.event.action == this.addReportAction)
     {
       this.pacientId = this.reportAction.event.id
+      this.getPacientAnnotation()
     }
 
     if(this.reportAction.event.action == this.editReportAction && this.reportAction.event.id)
     {
       this.loadReportData(this.reportAction.event.id)
+      this.getPacientAnnotation()
 
     }
 
   }
   getIntegrationLink():void{
-    const url = `http://localhost:4200/?token=${this.token}&pacientId=${this.pacientId}`;
+    const url = `${this.integrationUrl}/?token=${this.token}&pacientId=${this.pacientId}`;
     this.clipboardService.copyFromContent(url)
     this.toastMessage.InfoMessage('Link para anamnese copiado com sucesso!')
   }
@@ -94,7 +100,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (pacientData: any) => {
-          const url = `http://localhost:4200/?token=${this.token}&pacientId=${this.pacientId}`;
+          const url = `${this.integrationUrl}/?token=${this.token}&pacientId=${this.pacientId}`;
           const message = `Olá *${pacientData.username}*, aqui está o link para a anamnese:\n${url}`;
           const encodedMessage = encodeURIComponent(message);
           const whatsappLink = `https://api.whatsapp.com/send?phone=${encodeURIComponent(pacientData.phone)}&text=${encodedMessage}`;
@@ -105,6 +111,18 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           this.toastMessage.ErrorMessage('Erro ao enviar o link via WhatsApp');
         }
       });
+  }
+
+
+  getPacientAnnotation(){
+    this.annotationService.getPacientAnnotation(this.pacientId).
+    pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next:(response: AnnotationResponse) =>{
+            this.pacientAnnotation = response
+          console.log('Aqui a anotattion: ', this.pacientAnnotation)
+        }
+      })
   }
   handleSubmitEditReport(): void {
     if (this.reportId <= 0) {
