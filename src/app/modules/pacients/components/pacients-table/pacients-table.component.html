@@ -142,15 +142,20 @@
                   ></button>
                 </div>
                 <div *ngIf="!pacient?.referrals || pacient.referrals.length === 0">
-                  <button
-                    pButton
-                    pRipple
-                    pTooltip='Encaminhar para'
+                  <div
+                    pTooltip="{{ pacient?.report ? 'Encaminhar para' : 'Adicione uma ficha para encaminhar' }}"
                     tooltipPosition="top"
-                    icon='pi pi-reply'
-                    class="p-button-outlined p-button-success"
-                    (click)="showModal(pacient?.pacientId)"
-                  ></button>
+                  >
+                    <button
+                      pButton
+                      pRipple
+                      icon="pi pi-reply"
+                      class="p-button-outlined p-button-success"
+                      (click)="showModal(pacient?.pacientId)"
+                      [disabled]="!pacient?.report"
+                    ></button>
+                  </div>
+
                 </div>
 
                 <div *ngIf="pacient?.referrals && pacient.referrals.length > 0">
