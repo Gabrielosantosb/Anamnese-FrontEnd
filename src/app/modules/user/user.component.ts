@@ -24,7 +24,7 @@ export class UserComponent implements OnInit, OnDestroy{
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
-    weekends: false,
+    weekends: true,
     events: [],
     locales: allLocales,
     locale: 'Pt-Br'
