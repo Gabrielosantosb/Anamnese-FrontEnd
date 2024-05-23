@@ -25,6 +25,8 @@ import {
 })
 export class PacientsTableComponent implements OnInit {
   @Input() public pacients: Array<GetPacientsResponse> = [];
+
+
   @Output() public pacientEvent = new EventEmitter<EditPacientAction>();
   @Output() public deletePacientEvent = new EventEmitter<DeletePacient>();
   @Output() public reportEvent = new EventEmitter<EditReportAction>();
@@ -40,12 +42,10 @@ export class PacientsTableComponent implements OnInit {
   selectedProfissionalId: number = 0;
   isProfissionalSelected: boolean = false;
   minDate: string = '';
-
-
-
-  displayModal: boolean = false;
+  displayModal: boolean = false
+  disponibilidades: ProfissionalAvailableResponse[] = [];
   showProfissionalPacients = false;
-  showOtherField: boolean = false;
+  public usernamesArray: string[] = [];
   pacientId: number = 0;
 
   constructor(private pacientService: PacientService,
@@ -62,7 +62,7 @@ export class PacientsTableComponent implements OnInit {
     console.log("AQUI OS PACIENTES:", this.pacients);
   }
 
-  public usernamesArray: string[] = [];
+
 
   getProfissionalBySpeciality(speciality: string) {
     this.profissionalAvailableService.getProfissionalsBySpeciality(speciality).subscribe({
@@ -103,7 +103,6 @@ export class PacientsTableComponent implements OnInit {
       console.error('Hora não está definida.');
       return;
     }
-
     const profissionalId = this.selectedProfissionalId;
     this.appointmentService.scheduleAppointment(
       profissionalId,
@@ -127,9 +126,6 @@ export class PacientsTableComponent implements OnInit {
 
   }
 
-  hideModal() {
-    this.displayModal = false;
-  }
 
   handleDeletePacientEvent(pacient_id: number, pacientName: string): void {
     if (pacient_id !== null && pacientName !== '') {
@@ -147,11 +143,14 @@ export class PacientsTableComponent implements OnInit {
     if (action && action !== '') this.pacientEvent.emit({action, id, pacientName});
   }
 
+
+  @Output() public isProfissionalPacient = new EventEmitter<boolean>();
   handleShowAllPacients(): void {
     this.pacientService.getAllPacients().subscribe({
       next: (allPacientsData) => {
         console.log(allPacientsData);
         this.showProfissionalPacients = false;
+        this.isProfissionalPacient.emit(false)
         this.pacients = allPacientsData;
       },
       error: (error) => {
@@ -165,6 +164,7 @@ export class PacientsTableComponent implements OnInit {
 
     this.pacientService.getProfissionalPacients().subscribe({
       next: (profissionalPacientsData) => {
+        this.isProfissionalPacient.emit(true)
         this.pacients = profissionalPacientsData;
       },
       error: (error) => {
@@ -173,7 +173,7 @@ export class PacientsTableComponent implements OnInit {
     });
   }
 
-  disponibilidades: ProfissionalAvailableResponse[] = [];
+
 
   getProfissionalDisponibilidades(profissionalId: number) {
     if (profissionalId < 0 || profissionalId == null) {

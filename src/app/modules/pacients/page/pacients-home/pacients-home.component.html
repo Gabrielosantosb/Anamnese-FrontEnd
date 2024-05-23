@@ -3,8 +3,10 @@
 <p-progressBar *ngIf="isLoading" mode="{{loadingMode}}"></p-progressBar>
 
 
+
 <app-pacients-table
   [pacients]="pacientsData"
+  (isProfissionalPacient)="handleIsProfissionalPacientChange($event)"
   (deletePacientEvent)="handleDeletePacientAction($event)"
   (pacientEvent)="handlePacientAction($event)"
   (reportEvent)="handleReportAction($event)"

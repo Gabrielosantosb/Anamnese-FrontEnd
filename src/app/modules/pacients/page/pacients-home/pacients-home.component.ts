@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PacientService} from "../../../../services/pacients/pacients.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {Subject, takeUntil} from "rxjs";
@@ -20,6 +20,8 @@ import {ReportFormComponent} from "../../../reports/components/report-form/repor
   providers: [ToastMessage, ConfirmationModal]
 })
 export class PacientsHomeComponent implements OnInit, OnDestroy {
+  @Input() isProfissionalPacients = false;
+
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
   isLoading = false
@@ -40,7 +42,9 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
     this.getAllPacients();
   }
 
-
+  handleIsProfissionalPacientChange(isProfissional: boolean): void {
+    this.isProfissionalPacients = isProfissional;
+  }
   getAllPacients() {
     this.isLoading = true
     this.pacientSerivce
@@ -60,6 +64,19 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
           this.router.navigate(['/dashboard']);
         },
       });
+  }
+
+  getProfissionalPacients(): void {
+    console.log('bateu no profissionalPacients');
+
+    this.pacientSerivce.getProfissionalPacients().subscribe({
+      next: (response) => {
+        this.pacientsData = response;
+      },
+      error: (error) => {
+        console.error('Erro ao obter os pacientes do usuário:', error);
+      }
+    });
   }
   handleDeletePacientAction(event: DeletePacient): void {
     if (event.pacientName != null) {
@@ -110,7 +127,14 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
       });
 
       this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
-        next: () => this.getAllPacients(),
+        next: () => {
+          console.log("São pacientes do profissional?", this.isProfissionalPacients)
+          if(this.isProfissionalPacients) this.getProfissionalPacients()
+          else{
+
+          this.getAllPacients()
+          }
+        },
       });
     }
   }
@@ -127,9 +151,14 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
         },
       });
 
+        console.log("Fechou no profissionalPacients?", this.isProfissionalPacients)
       this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
-        next: () => this.getAllPacients(),
-      });
+        next: () =>{
+          this.isProfissionalPacients ? this.getProfissionalPacients() : this.getAllPacients();
+
+        }
+      }
+      );
     }
   }
 
