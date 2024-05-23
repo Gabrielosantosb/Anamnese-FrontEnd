@@ -8,7 +8,6 @@ import {Router} from "@angular/router";
 import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {EventAction} from "../../../../../models/interfaces/reports/event/EventAction";
 import {PacientsFormComponent} from "../../components/pacients-form/pacients-form/pacients-form.component";
-import {ReportsDataTransferService} from "../../../../shared/reports/reports-data-transfer.service";
 import {DeletePacient} from "../../../../../models/interfaces/pacients/event/deletePacient";
 import {ProgressBarModule} from "primeng/progressbar";
 import {ReportFormComponent} from "../../../reports/components/report-form/report-form.component";
@@ -21,13 +20,11 @@ import {ReportFormComponent} from "../../../reports/components/report-form/repor
 })
 export class PacientsHomeComponent implements OnInit, OnDestroy {
   @Input() isProfissionalPacients = false;
-
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
   isLoading = false
   loadingMode: ProgressBarModule = 'indeterminate';
   public pacientsData: Array<GetPacientsResponse> = [];
-  public productsData = []
 
   constructor(
     private pacientSerivce: PacientService,
@@ -67,8 +64,6 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
   }
 
   getProfissionalPacients(): void {
-    console.log('bateu no profissionalPacients');
-
     this.pacientSerivce.getProfissionalPacients().subscribe({
       next: (response) => {
         this.pacientsData = response;
@@ -156,7 +151,6 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
       );
     }
   }
-
 
   ngOnDestroy(): void {
     this.destroy$.next();
