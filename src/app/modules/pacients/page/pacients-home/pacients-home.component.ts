@@ -100,7 +100,7 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
           },
           error: (err: string) => {
             console.log(err);
-            this.getAllPacients();
+            this.isProfissionalPacients ? this.getProfissionalPacients() : this.getAllPacients();
             this.toastMessage.ErrorMessage('Erro ao remover paciente !')
           },
         });
@@ -128,12 +128,7 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
 
       this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
         next: () => {
-          console.log("São pacientes do profissional?", this.isProfissionalPacients)
-          if(this.isProfissionalPacients) this.getProfissionalPacients()
-          else{
-
-          this.getAllPacients()
-          }
+          this.isProfissionalPacients ? this.getProfissionalPacients() : this.getAllPacients();
         },
       });
     }
