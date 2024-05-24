@@ -21,7 +21,7 @@ Siga os passos abaixo para instalar as dependências do projeto:
 
 1. **Clone o repositório:**
    ```bash
-   git clone <URL-do-repositório>
+   git clone https://github.com/Gabrielosantosb/Anamnese-FrontEnd.git
    cd <diretório-do-projeto>
    # Utilizando npm
     npm install
