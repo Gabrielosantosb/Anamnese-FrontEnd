@@ -1,28 +1,30 @@
-n# ControleEstoque
+# Projeto Anamnese e Encaminhamento Médico
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+Este projeto é um sistema desenvolvido em Angular 16, utilizando PrimeNG, para gerenciar anamneses e encaminhamentos médicos.
 
-## Development server
+## Tecnologias Utilizadas
+- **Front-end:** Angular 16
+- **Componentes UI:** PrimeNG
+- **Back-end:** .NET 6
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-Para rodar o projeto é necessário rodar a api
+## Requisitos
 
-## Code scaffolding
+Antes de iniciar, certifique-se de ter os seguintes requisitos instalados:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Angular CLI:** Para gerenciar o projeto Angular.
+- **.NET 6 SDK:** Necessário para rodar o back-end.
+- **Back-end em funcionamento:** O back-end deve estar configurado e rodando.
 
-## Build
+## Instalação
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Siga os passos abaixo para instalar as dependências do projeto:
 
-## Running unit tests
+1. **Clone o repositório:**
+   ```bash
+   git clone <URL-do-repositório>
+   cd <diretório-do-projeto>
+   # Utilizando npm
+    npm install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  # Utilizando yarn
+    yarn install
