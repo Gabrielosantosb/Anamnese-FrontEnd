@@ -97,5 +97,16 @@
   </div>
 </p-dialog>
 
+<p-dialog header="Informações dos Pacientes" [(visible)]="displayPatientModal" [modal]="true" [responsive]="true">
+  <div *ngIf="selectedPatients.length > 0">
+    <ul>
+      <li *ngFor="let patient of selectedPatients">
+        <p><strong>Nome do Paciente:</strong> {{ patient.pacientName }}</p>
+        <p><strong>Data da Consulta:</strong> {{ patient.appointmentDateTime | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
 
+        <p>---------------------------------------------------</p>
+      </li>
+    </ul>
+  </div>
+</p-dialog>
 <p-confirmDialog></p-confirmDialog>
