@@ -26,7 +26,7 @@ export class UserComponent implements OnInit, OnDestroy {
     events: [],
     locales: allLocales,
     locale: 'pt-br',
-    eventClick: this.handleEventClick.bind(this) // Vincula o método handleEventClick ao contexto do componente
+    eventClick: this.handleCalendarClick.bind(this)
   };
   private destroy$ = new Subject<void>();
   public userInfo!: GetUserInfo;
@@ -34,8 +34,8 @@ export class UserComponent implements OnInit, OnDestroy {
   public disponibilidades: ProfissionalAvailableResponse[] = [];
   private profissionalId: number = 0
   public displayModal = false;
-  public displayPatientModal = false; // Modal para exibir informações dos pacientes
-  public selectedPatients: AppointmentResponse[] = []; // Informação dos pacientes selecionados
+  public displayPatientModal = false;
+  public selectedPatients: AppointmentResponse[] = [];
 
   disponibilityForm = this.formBuilder.group({
     dayOfWeek: ["Friday", Validators.required],
@@ -160,9 +160,12 @@ export class UserComponent implements OnInit, OnDestroy {
     this.getProfissionalDisponibilidades(this.profissionalId);
   }
 
-  handleEventClick(arg: any) {
+  handleCalendarClick(arg: any) {
     const clickedDate = new Date(arg.event.startStr).toDateString();
-    this.selectedPatients = this.appointmentInfo.filter(app => new Date(app.appointmentDateTime).toDateString() === clickedDate);
+    this.selectedPatients = this.appointmentInfo
+      .filter(app => new Date(app.appointmentDateTime).toDateString() === clickedDate)
+      .sort((a, b) => new Date(a.appointmentDateTime).getTime() - new Date(b.appointmentDateTime).getTime());
+
     if (this.selectedPatients.length > 0) {
       this.displayPatientModal = true;
     }

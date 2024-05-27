@@ -103,9 +103,10 @@
       <li *ngFor="let patient of selectedPatients">
         <p><strong>Nome do Paciente:</strong> {{ patient.pacientName }}</p>
         <p><strong>Data da Consulta:</strong> {{ patient.appointmentDateTime | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
-        <p>---------------------------------------------------</p>
+        <hr class="modal-hr">
       </li>
     </ul>
   </div>
 </p-dialog>
+
 <p-confirmDialog></p-confirmDialog>
