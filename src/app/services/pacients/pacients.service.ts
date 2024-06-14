@@ -57,7 +57,6 @@ export class PacientService {
   }
 
   createPacient(requestData : AddPacientRequest): Observable<Array<GetPacientsResponse>> {
-      console.log('Request:', requestData)
     return this.http.post<Array<GetPacientsResponse>>(
       `${this.API_URL}/api/Pacient/create-pacient`,
       requestData,

@@ -64,7 +64,6 @@ export class UserComponent implements OnInit, OnDestroy {
           this.userInfo = response;
           this.profissionalId = response.profissionalId;
           this.getProfissionalAppointments();
-          console.log('Aqui a response', this.userInfo);
         } else {
           console.error('Resposta vazia ao obter informações do usuário');
         }
@@ -83,7 +82,6 @@ export class UserComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response: ProfissionalAvailableResponse[]) => {
           this.disponibilidades = response;
-          console.log("Aqui a disponibilidade", this.disponibilidades);
         },
         error: (error) => {
           console.log(error);
@@ -99,7 +97,6 @@ export class UserComponent implements OnInit, OnDestroy {
         (response: AppointmentResponse[]) => {
           this.appointmentInfo = response;
           this.updateCalendarEvents();
-          console.log('resposta dos appointments', response);
         },
         (error) => {
           console.error('Erro ao obter appointments', error);
@@ -108,7 +105,6 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   public sendProfissionalAvailability() {
-    console.log(this.disponibilityForm.value);
     const startTime = this.disponibilityForm.value.startTime;
     const endTime = this.disponibilityForm.value.endTime;
     const dayOfWeek = this.disponibilityForm.value.dayOfWeek;

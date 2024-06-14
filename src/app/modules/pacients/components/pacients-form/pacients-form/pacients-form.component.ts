@@ -105,7 +105,6 @@ export class PacientsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (pacientData: GetPacientsResponse) => {
-          console.log('Dados do paciente carregados:', pacientData);
           this.pacientForm.patchValue({
             username: pacientData.username,
             email: pacientData.email,

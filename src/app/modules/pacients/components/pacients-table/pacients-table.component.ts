@@ -23,7 +23,7 @@ import {
   templateUrl: './pacients-table.component.html',
   styleUrls: ['./pacients-table.component.scss']
 })
-export class PacientsTableComponent implements OnInit {
+export class PacientsTableComponent{
   @Input() public pacients: Array<GetPacientsResponse> = [];
 
 
@@ -58,16 +58,12 @@ export class PacientsTableComponent implements OnInit {
     this.minDate = today.toISOString().split('T')[0];
   }
 
-  ngOnInit(): void {
-    console.log("AQUI OS PACIENTES:", this.pacients);
-  }
 
 
 
   getProfissionalBySpeciality(speciality: string) {
     this.profissionalAvailableService.getProfissionalsBySpeciality(speciality).subscribe({
       next: (response) => {
-        console.log('Response profissionalAvailableService', response);
         this.specialityProfissional = response;
         // Atualiza o array de nomes de usuário
         this.usernamesArray = this.specialityProfissional.map(profissional => profissional.username);
@@ -75,7 +71,6 @@ export class PacientsTableComponent implements OnInit {
         this.showAppointmentForm = true;
       },
       error: (err) => {
-        console.log("Erro ao buscar profissional com a especialidade");
         this.toastMessage.InfoMessage(`Não existe nenhum profissional com a especialidade ${speciality}`);
         this.showAppointmentForm = false;
       }
@@ -150,7 +145,6 @@ export class PacientsTableComponent implements OnInit {
   handleShowAllPacients(): void {
     this.pacientService.getAllPacients().subscribe({
       next: (allPacientsData) => {
-        console.log(allPacientsData);
         this.showProfissionalPacients = false;
         this.isProfissionalPacient.emit(false)
         this.pacients = allPacientsData;
@@ -162,8 +156,6 @@ export class PacientsTableComponent implements OnInit {
   }
 
   handleProfissionalPacients(): void {
-    console.log('bateu no profissionalPacients');
-
     this.pacientService.getProfissionalPacients().subscribe({
       next: (profissionalPacientsData) => {
         this.isProfissionalPacient.emit(true)
@@ -185,7 +177,6 @@ export class PacientsTableComponent implements OnInit {
       .subscribe({
         next: (response:ProfissionalAvailableResponse[]) =>{
           this.disponibilidades = response
-          console.log("Aqui a disponibilidade", this.disponibilidades)
         },
         error: (error) =>{
           console.log(error)
@@ -194,12 +185,10 @@ export class PacientsTableComponent implements OnInit {
   }
 
   onProfissionalDropdownChange(event: any) {
-    console.log('O evento chegando aqui', event);
     if (event && event.value) {
       this.selectedProfissionalId = event.value.profissionalId;
       this.isProfissionalSelected = true;
       this.getProfissionalDisponibilidades(this.selectedProfissionalId);
-      console.log(this.selectedProfissionalId);
     } else {
       this.isProfissionalSelected = false;
     }

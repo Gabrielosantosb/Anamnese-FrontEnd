@@ -21,7 +21,7 @@ import {DeleteReportAction} from "../../../../../models/interfaces/reports/event
 export class ReportsHomeComponent implements OnDestroy, OnInit {
   private readonly destroy$: Subject<void> = new Subject();
   private ref!: DynamicDialogRef;
-  public reportData : Array<GetReportResponse> = []
+  public reportData: Array<GetReportResponse> = []
   isLoading = false
 
   constructor(
@@ -37,21 +37,19 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
   }
 
 
-
-  getAllReports(){
+  getAllReports() {
     this.isLoading = true
     this.reportService
       .getAllReports()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (response: GetReportResponse[]) =>{
-          if(response){
+        next: (response: GetReportResponse[]) => {
+          if (response) {
             this.reportData = response
             this.isLoading = false
           }
         },
-        error:(err:Error) =>{
-          console.log(err)
+        error: (err: Error) => {
           this.toastMessage.ErrorMessage("Erro ao buscar fichas")
         }
       })
@@ -68,17 +66,13 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
         maximizable: true,
         data: {
           event: event,
-          // productDatas: this.productsDatas,
         },
       });
-      this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
-        next: () => console.log('aqui'),
-      });
+      this.ref.onClose.pipe(takeUntil(this.destroy$));
     }
   }
 
   handleDeleteReportAction(event: DeleteReportAction): void {
-    console.log('ReportId', event?.reportId);
     if (event) {
       this.confirmationModal.confirmDelete(`Confirma a exclusão da ficha de: ${event?.pacientName}?`, () => {
         this.deleteReport(event?.reportId);
@@ -88,19 +82,18 @@ export class ReportsHomeComponent implements OnDestroy, OnInit {
 
     }
   }
+
   deleteReport(reportId: number) {
-    console.log(reportId)
     if (reportId) {
       this.reportService
         .deleteReport(reportId)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
-              this.getAllReports()
-              this.toastMessage.SuccessMessage('Ficha removida com sucesso!')
+            this.getAllReports()
+            this.toastMessage.SuccessMessage('Ficha removida com sucesso!')
           },
           error: (err) => {
-            console.log(err);
             this.toastMessage.ErrorMessage('Erro ao remover ficha!')
           },
         });

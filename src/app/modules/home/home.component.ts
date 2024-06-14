@@ -62,7 +62,6 @@ export class HomeComponent implements OnDestroy {
         tap(
           (response) => {
             if (response) {
-              console.log('Resposta, ',response)
               this.cookieService.set(this.USER_AUTH, response?.token)
               this.errorMessage = "";
               this.loginForm.reset();
@@ -76,7 +75,6 @@ export class HomeComponent implements OnDestroy {
         error: (err) => {
           this.isLoading = false
           this.toastMessage.ErrorMessage('Erro ao efetuar login')
-          console.log(err);
         }
       });
     } else {
@@ -104,7 +102,6 @@ export class HomeComponent implements OnDestroy {
         error: (err) => {
           this.isLoading = false
           this.toastMessage.ErrorMessage(`Erro ao efetuar cadastro`)
-          console.log(err);
         }
       });
     } else {

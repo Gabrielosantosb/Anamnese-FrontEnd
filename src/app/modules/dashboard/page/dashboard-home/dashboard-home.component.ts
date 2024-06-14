@@ -128,7 +128,6 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
         this.detectChanges()
       },
       (error) => {
-        console.log(error)
         this.messageService.add({
           severity: 'error',
           summary: 'Erro',

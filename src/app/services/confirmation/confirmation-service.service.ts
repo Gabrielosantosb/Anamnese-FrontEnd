@@ -40,9 +40,6 @@ export class ConfirmationModal {
       icon: 'pi pi-exclamation-triangle',
       rejectLabel: 'Não',
       acceptLabel: 'Sim',
-      accept: () => {
-        console.log('Deletou');
-      }
     });
   }
   confirmDelete(message: string, onDelete: () => void): void {

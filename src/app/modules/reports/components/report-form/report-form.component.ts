@@ -131,8 +131,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
       return;
     }
     const requestUpdateForm = this.reportForm.value as ReportRequest;
-    console.log('Editar relatório:', requestUpdateForm);
-
     this.reportService.editReport(this.reportId, requestUpdateForm)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -152,7 +150,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     var pacientId  = this.reportAction?.event?.id
     if (this.reportForm?.value && this.reportForm?.valid && pacientId) {
       const requestCreateForm = this.reportForm.value as  ReportRequest
-      console.log('Adicionar relatório:', requestCreateForm)
       this.reportService.createReport(pacientId, requestCreateForm).pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response) => {
@@ -178,8 +175,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (reportData: GetReportResponse) => {
           this.reportId = reportData.reportId
-          console.log('Dados ficha carregados:', reportData);
-
         },
         error: (error) => {
           console.error('Erro ao  dados da ficha:', error);

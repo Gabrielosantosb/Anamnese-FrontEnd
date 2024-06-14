@@ -22,10 +22,9 @@ export class AppointmentService {
   constructor(private http: HttpClient, private cookie: CookieService) {
   }
 
-  // scheduleAppointment(requestData: AppointmentRequest): Observable<AppointmentRequest>{
+
 
   getProfissionalAppointment(profissionalId: number): Observable<AppointmentResponse[]> {
-    console.log('Aqui o Id do profissional', profissionalId);
     return this.http.get<AppointmentResponse[]>(
       `${this.API_URL}/api/Appointment/profissional-appointments/${profissionalId}`,
       this.httpOptions
@@ -39,7 +38,6 @@ export class AppointmentService {
       appointmentDate: appointmentDate,
       appointmentTime: appointmentTime
     };
-    console.log('RequestAppointment', requestData)
     return this.http.post<AppointmentRequest>(
       `${this.API_URL}/api/Appointment/schedule-appointment`,
       requestData,

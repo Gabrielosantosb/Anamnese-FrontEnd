@@ -105,7 +105,6 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
   }
 
   handleReportAction(event :EventAction): void{
-    console.log('Evento bateu' , event)
     if (event) {
       this.ref = this.dialogService.open(ReportFormComponent, {
         header: event?.action,
@@ -140,8 +139,6 @@ export class PacientsHomeComponent implements OnInit, OnDestroy {
           event: event,
         },
       });
-
-        console.log("Fechou no profissionalPacients?", this.isProfissionalPacients)
       this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
         next: () =>{
           this.isProfissionalPacients ? this.getProfissionalPacients() : this.getAllPacients();
