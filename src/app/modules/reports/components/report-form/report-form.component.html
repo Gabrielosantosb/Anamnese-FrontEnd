@@ -1,6 +1,6 @@
 <div>
   <form [formGroup]="reportForm" (ngSubmit)="handleSubmitReportAction()">
-    <div *ngIf="reportAction.event.action == addReportAction" style="margin-bottom: 15px; text-align: center;">
+    <div style="margin-bottom: 15px; text-align: center;">
       <div style="margin: 5px; display: inline-block;">
         <button class="p-button-outlined p-button-rounded p-button" (click)="getIntegrationLink()">
           <span>Copiar link de anotação</span>

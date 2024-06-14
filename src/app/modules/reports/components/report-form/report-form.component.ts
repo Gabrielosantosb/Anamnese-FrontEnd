@@ -79,8 +79,10 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
     if(this.reportAction.event.action == this.editReportAction && this.reportAction.event.id)
     {
-      this.loadReportData(this.reportAction.event.id)
+      this.pacientId = this.reportAction.event.id
       this.getPacientAnnotation()
+      this.loadReportData(this.reportAction.event.id)
+
 
     }
 
