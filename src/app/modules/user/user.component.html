@@ -67,7 +67,8 @@
     <form [formGroup]="disponibilityForm" (ngSubmit)="sendProfissionalAvailability()">
     <div style="margin-bottom: 20px; margin-top: 20px">
       <label>Dia da semana:</label>
-      <select pInputText formControlName="dayOfWeek">
+      <select pInputText formControlName="dayOfWeek" >
+        <option value="" disabled selected>Selecione o dia</option>
         <option value="Monday">Segunda-feira</option>
         <option value="Tuesday">Terça-feira</option>
         <option value="Wednesday">Quarta-feira</option>
@@ -80,13 +81,13 @@
       <div>
         <label>Hora de início:</label>
         <p-calendar [showTime]="true" [showIcon]="true" [timeOnly]="true"
-                    [showSeconds]="true"
+                    [showSeconds]="false"
                     placeholder="Hora de início" formControlName="startTime"></p-calendar>
       </div>
       <div style="margin-top: 20px">
         <label>Hora de saída:</label>
         <p-calendar [showTime]="true" [showIcon]="true" [timeOnly]="true"
-                    [showSeconds]="true"
+                    [showSeconds]="false"
                     placeholder="Hora de saída" formControlName="endTime"></p-calendar>
       </div>
 

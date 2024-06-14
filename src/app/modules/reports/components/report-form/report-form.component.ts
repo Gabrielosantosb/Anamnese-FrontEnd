@@ -5,7 +5,6 @@ import { FormBuilder, Validators} from "@angular/forms";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {ToastMessage} from "../../../../services/toast-message/toast-message";
 import {ProgressBarModule} from "primeng/progressbar";
-import {ConfirmationModal} from "../../../../services/confirmation/confirmation-service.service";
 import {ReportsService} from "../../../../services/reports/reports.service";
 import {ReportEvent} from "../../../../../models/interfaces/enums/report/ReportEvent.js";
 import {EditReportAction} from "../../../../../models/interfaces/reports/event/EditReportAction";

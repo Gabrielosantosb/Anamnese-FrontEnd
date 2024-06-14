@@ -38,9 +38,9 @@ export class UserComponent implements OnInit, OnDestroy {
   public selectedPatients: AppointmentResponse[] = [];
 
   disponibilityForm = this.formBuilder.group({
-    dayOfWeek: ["Friday", Validators.required],
-    startTime: ["10:00:00", Validators.required],
-    endTime: ["18:00:00", Validators.required]
+    dayOfWeek: ["", Validators.required],
+    startTime: ["", Validators.required],
+    endTime: ["", Validators.required]
   }, { validators: this.timeDifferenceValidator });
 
   constructor(

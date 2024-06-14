@@ -98,7 +98,6 @@ export class PacientsTableComponent implements OnInit {
 
     if (hora !== null && hora !== undefined) {
       horaFormatada = new Date(hora).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-      console.log('Hora:', horaFormatada);
     } else {
       console.error('Hora não está definida.');
       return;
@@ -111,11 +110,14 @@ export class PacientsTableComponent implements OnInit {
       horaFormatada
     ).subscribe({
       next: (response) => {
-        console.log("Response Appointment", response);
+        this.resetFormAndValues();
         this.toastMessage.SuccessMessage("Paciente encaminhado com sucesso!");
+
+
       },
       error: (err) => {
-        this.toastMessage.ErrorMessage("Falha ao encaminhar com sucesso!");
+        this.resetFormAndValues();
+        this.toastMessage.ErrorMessage("Falha ao encaminhar!");
       }
     });
   }
@@ -204,9 +206,18 @@ export class PacientsTableComponent implements OnInit {
   }
   onSpecialityDropdownChange(event: any) {
     const selectedSpeciality = event.value;
-    // Chamar a função para obter os profissionais com base na especialidade selecionada
     this.getProfissionalBySpeciality(selectedSpeciality);
   }
+  onDialogHide() {
+    this.resetFormAndValues();
+  }
+  resetFormAndValues() {
+    this.showAppointmentForm = false;
+    this.isProfissionalSelected = false;
+    this.disponibilidades = [];
+    this.appointmentForm.reset();
+  }
+
 
 
 }
